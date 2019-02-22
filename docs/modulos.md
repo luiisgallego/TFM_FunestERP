@@ -1,3 +1,5 @@
+## Funciones a desarrollar 
+
 La idea central del proyecto consiste en desarrollar diferentes módulos que puedan ser independientes y con funciones individuales claramente definidas. Como primera aproximación podemos definir los siguientes:
 
 ### Gestión de defunciones.

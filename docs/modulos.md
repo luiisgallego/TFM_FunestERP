@@ -2,7 +2,7 @@
 
 La idea central del proyecto consiste en desarrollar diferentes módulos de trabajo que puedan ser independientes y con funciones individuales claramente definidas. Como primera aproximación podemos definir los siguientes:
 
-### Gestión de defunciones.
+### Gestión de defunciones
 
 Primer módulo y punto inicial del proceso funcional del sistema. En él se desarrollarán todos los datos asociados a un difunto en forma de ficha personal, como nombres, fechas, datos concretos, direcciones, etc. Directamente relacionado con dicho difunto encontraríamos los datos del servicio en si, como fecha de defunción o fecha de la misa por mencionar algún dato.
 
@@ -10,7 +10,7 @@ Una idea interesante sería la de incluir desde el primer momento un enlace a lo
 
 Por otro lado, también encontramos al acceder al módulo en primera instancia el listado completo almacenado de defunciones, y en segunda instancia, los datos completos de cada uno cuando lo seleccionemos. Claro está que las opciones de edición y borrado serán cómodamente accesibles.
 
-### Gestor documental.
+### Gestor documental
 
 En el segundo módulo encontraríamos toda la funcionalidad relacionada con la gestión de documentos. En este apartado concreto ya nos centramos en la inclusión de los datos necesarios para estos documentos concretos, siendo estos los relacionados con los familiares del difunto. Destacar que primero tendremos que hacer una búsqueda por los difuntos para relacionar dichos documentos con su difunto en cuestión.
 

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "express": "^4.16.4",
+    "mocha": "^6.0.2",
     "should": "^13.2.3",
     "supertest": "^3.4.2"
   }

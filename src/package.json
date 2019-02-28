@@ -1,0 +1,16 @@
+{
+  "name": "TFM - FunestERP",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "main": "",
+  "license": "ISC",
+  "keywords": [],
+  "repository": {
+    "url": "https://github.com/luiisgallego/TFM_FunestERP"
+  },
+  "scripts": {},
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

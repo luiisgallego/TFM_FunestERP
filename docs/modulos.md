@@ -32,7 +32,7 @@ Sería interesante que eventos como misas pendientes, o facturas por emitir, por
 
 ### Correo
 
-Relacionado con el anterior, un módulo para la gestión del correo. Siendo así posible el envío de emails, y como cuestión destacable, la posibilidad de obtener la bandeja de entrada desde dentro del mismo sistema. Con esto englobamos toda la idea inicial de poder gestionar la pyme al completo desde el sistema web.
+Relacionado con el anterior, un módulo para la gestión del correo. Siendo así posible el envío de emails, y como cuestión destacable, la posibilidad de obtener la bandeja de entrada desde dentro del mismo sistema. Con esto conseguimos poder gestionar la pyme al completo desde el sistema web.
 
 ### Informes, Alertas y Gráficos
 

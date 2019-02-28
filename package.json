@@ -11,9 +11,13 @@
   },
   "scripts": {
     "start": "npm run servidor",
-    "servidor": "cd src/servidor && node servidor.js"
+    "test": "npm run servidor-test",
+    "servidor": "cd src/servidor && node servidor.js",
+    "servidor-test": "cd src/servidor && mocha --exit"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "should": "^13.2.3",
+    "supertest": "^3.4.2"
   }
 }

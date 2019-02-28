@@ -9,6 +9,10 @@ Repositorio para el TFM del Máster en Ingeniería Informática.
     cd TFM_FunestERP
     npm install
     ~~~~
+- Lanzamos los tests:
+    ~~~
+    npm test
+    ~~~~
 - Lanzamos la aplicación:
     ~~~
     npm start

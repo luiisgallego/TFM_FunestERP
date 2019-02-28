@@ -1,5 +1,5 @@
 {
-  "name": "TFM - FunestERP",
+  "name": "TFM-FunestERP",
   "version": "1.0.0",
   "description": "",
   "author": "",
@@ -9,7 +9,10 @@
   "repository": {
     "url": "https://github.com/luiisgallego/TFM_FunestERP"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "npm run servidor",
+    "servidor": "cd src/servidor && node servidor.js"
+  },
   "dependencies": {
     "express": "^4.16.4"
   }

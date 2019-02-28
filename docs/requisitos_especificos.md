@@ -221,4 +221,4 @@ En nuestro caso utilizaremos el siguiente [documento](https://www.fdi.ucm.es/pro
 
 - RNF. Escalabilidad
     - Características: El sistema soportará cualquier número de peticiones.
-    - Descripción: Si el número de procesos crece, el sistema será capaz de ampliar sus recursos para abastecer todas las peticiones.
+    - Descripción: Si el número de procesos crece, el sistema será capaz de ampliar sus recursos para abastecer todas las peticiones. De esta manera conseguiremos el precio más ajustado posible en función de los recursos utilizados.

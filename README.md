@@ -1,5 +1,7 @@
 # TFM_FunestERP
 
+[![Build Status](https://travis-ci.com/luiisgallego/TFM_FunestERP.svg?branch=master)](https://travis-ci.com/luiisgallego/TFM_FunestERP)
+
 Repositorio para el TFM del Máster en Ingeniería Informática.
 
 ## Instalación

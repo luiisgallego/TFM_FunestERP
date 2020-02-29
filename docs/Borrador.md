@@ -26,12 +26,12 @@ Esto tan solo es una sugerencia inicial ya que aún tengo que analizar para cada
 
 - Front End: React, básicamente porque quiero aprenderlo.
 - Backend:
-	Para el api gateway:creo que las posibilidades son nginx o krakend y tendría que ver cual poder usar.
+	Para el api gateway creo que las posibilidades son nginx o krakend y tendría que ver cual poder usar.
 	Luego cada módulo podría ser implementado en un lenguaje distinto sin problema. Inicialmente tenía la idea de hacer cada api de cada módulo en Nodejs y luego hacer la funcionalidad de cada módulo en el lenguaje que decidiera. Pensaba esto ya que tenía la idea de comunicar cada api con su funcionalidad (modelo) o cualquier otro mediante RabbitMQ. ¿Esto no es posible verdad? Investigando durante estos días he llegado a la conclusion de que eso no es posible, o no es la forma correcta de desarrollar.
 
-	Por tanto supongo que cada módulo (API + Modelo) debe ir en un mismo lenguaje, aunque dos modulos usen lenguajes distintos. Por esta razon ya en el diagrama no he especificado nada sobre RabbitMQ ya que no sabría bien donde usarlo, ¿quizás en la comunicación entre modulos? ¿en la comunicación entre el api gateway y la api de cada módulo? No tengo muy claro como sería lo correcto o si realmente es útil rabbitmq en estos casos. Supongo que la comunicación entre módulos se realiza mediante HTTP haciendo una petición del módulo deseado, quizás sea aqui donde usar rabbit? obtendríamos ventajas o solo complejidad en el desarrollo? Quizás este sea uno de los puntos más importantes ahora mismo donde necesito ayuda / investigación.
+	Por tanto supongo que cada módulo (API + Modelo) debe ir en un mismo lenguaje, aunque dos módulos usen lenguajes distintos. Por esta razón ya en el diagrama no he especificado nada sobre RabbitMQ ya que no sabría bien donde usarlo, ¿quizás en la comunicación entre módulos? ¿en la comunicación entre el api gateway y la api de cada módulo? No tengo muy claro como sería lo correcto o si realmente es útil rabbitmq en estos casos. Supongo que la comunicación entre módulos se realiza mediante HTTP haciendo una petición del módulo deseado, quizás sea aqui donde usar rabbit? obtendríamos ventajas o solo complejidad en el desarrollo? Quizás este sea uno de los puntos más importantes ahora mismo donde necesito ayuda / investigación.
 
-	Quizás el lenguaje elegido para el backend sea Python o Nodejs. El primero basicamente es porque estoy trabajando con el y me gustaría llegar a un mejor nivel, el segundo inicialmente es porque conozco muchas de sus bondades y me gustaría aprenderlo.
+	Quizás el lenguaje elegido para el backend sea Python o Nodejs. El primero básicamente es porque estoy trabajando con él y me gustaría llegar a un mejor nivel, el segundo inicialmente es porque conozco muchas de sus bondades y me gustaría aprenderlo.
 
 ## Despligue
 
@@ -44,21 +44,21 @@ El tiempo estimado para realizar el proyecto debe ser unas 300 horas en principi
 - Mes 1 (Marzo) 80 horas: 
 	- Estructura básica front + back.
 		- Módulo login.			
-	- Documentacion relacionada con los requisitos.
+	- Documentación relacionada con los requisitos.
 
 - Mes 2 (Abril) 80 horas:
 	- Gestor de defunciones.
 	- Provision de los modulos actuales.
 	- Orquestación de los modulos actuales.
 	- Despliegue en servicio Cloud.
-	- Documentacion.
+	- Documentación.
 
 - Mes 3 (Mayo) 80 horas:
 	- Gestor documental.
 	- Agenda.
 	- Informes / Alertas / Gráficos.
 	- Ampliar provisión + orquestación a los nuevos módulos.
-	- Documentacion.
+	- Documentación.
 
 - Mes 4 (Junio) 80 horas:
 	- Gestor contabilidad.

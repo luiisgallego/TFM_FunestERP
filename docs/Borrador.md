@@ -6,7 +6,7 @@ La idea base del proyecto es unificar tanto la construcción de un proyecto para
 
 Para el proyecto vamos a hacer uso de una arquitectura basada en microservicios. Ahora mismo con el siguiente diagrama tan solo intento definir una imagen mental con la que plasmar como concibo la arquitectura.
 
-![arquitectura](borrador_arquitectura.png)
+![arquitectura](imagenes/borrador/borrador_arquitectura.png)
 
 Inicialmente pienso en los siguientes módulos: 
 - Gestión de defunciones: que comprenderá todos los datos asociados al difunto. 

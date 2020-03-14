@@ -10,11 +10,11 @@ Buscando soluciones a los problemas presentados se desarrolló una nueva forma d
 
 Actualmente no existe una definición clara de que son los microservicios, aunque podríamos decir que:
 
-Una arquitectura de microservicios es un enfoque para desarrollar una aplicación software como una serie de pequeños servicios, cada uno ejecutándose de forma autónoma y comunicandose entre sí, por ejemplo, a través de peticiones HTTP a las API de cada microservicio. [X](https://www.javiergarzas.com/2015/06/microservicios.html)
+Una arquitectura de microservicios es un enfoque para desarrollar una aplicación software como una serie de pequeños servicios, cada uno ejecutándose de forma autónoma y comunicandose entre sí, por ejemplo, a través de peticiones HTTP a las API de cada microservicio. [Fuente](https://www.javiergarzas.com/2015/06/microservicios.html)
 
 En las arquitecturas de microservicios, a diferencia del enfoque tradicional, los microservicios son elementos independientes que funcionan en conjunto para llevar a cabo las mismas tareas. En este enfoque, cada elemento o microservicio se encarga de una sola tarea, por tanto, el nivel de detalle, sencillez y capacidad para compartir procesos son elementos fundamentales en su desarrollo.
 
-### Características: [Fuente][https://aws.amazon.com/es/microservices/]
+### Características: [Fuente](https://aws.amazon.com/es/microservices/)
 
 - Autónomos: Cada servicio componente enuna arquitectura de microservicios se puede desarrollar, implementar, operar y escalar sin afectar al funcionamiento de otros servicios. Además estos servicios no tienen, ni deben, compartir código alguno con el resto de servicios. Cualquier comunicación ocurre a través de las APIs.
 

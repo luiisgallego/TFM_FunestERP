@@ -10,11 +10,11 @@ Buscando soluciones a los problemas presentados se desarrolló una nueva forma d
 
 Actualmente no existe una definición clara de que son los microservicios, aunque podríamos decir que:
 
-Una arquitectura de microservicios es un enfoque para desarrollar una aplicación software como una serie de pequeños servicios, cada uno ejecutándose de forma autónoma y comunicandose entre sí, por ejemplo, a través de peticiones HTTP a las API de cada microservicio. [X][https://www.javiergarzas.com/2015/06/microservicios.html]
+Una arquitectura de microservicios es un enfoque para desarrollar una aplicación software como una serie de pequeños servicios, cada uno ejecutándose de forma autónoma y comunicandose entre sí, por ejemplo, a través de peticiones HTTP a las API de cada microservicio. [X](https://www.javiergarzas.com/2015/06/microservicios.html)
 
 En las arquitecturas de microservicios, a diferencia del enfoque tradicional, los microservicios son elementos independientes que funcionan en conjunto para llevar a cabo las mismas tareas. En este enfoque, cada elemento o microservicio se encarga de una sola tarea, por tanto, el nivel de detalle, sencillez y capacidad para compartir procesos son elementos fundamentales en su desarrollo.
 
-### Características: [X][https://aws.amazon.com/es/microservices/]
+### Características: [Fuente][https://aws.amazon.com/es/microservices/]
 
 - Autónomos: Cada servicio componente enuna arquitectura de microservicios se puede desarrollar, implementar, operar y escalar sin afectar al funcionamiento de otros servicios. Además estos servicios no tienen, ni deben, compartir código alguno con el resto de servicios. Cualquier comunicación ocurre a través de las APIs.
 
@@ -32,18 +32,18 @@ En las arquitecturas de microservicios, a diferencia del enfoque tradicional, lo
 
 - Resistencia: La independencia del servicio aumenta la resistencia de una aplicación a los errores. En una arquitectura monolítica, un error puede provocar fallos en toda la aplicación. Con los microservicios, si hay un error en un servicio, las aplicaciones lo manejan degradando la funcionalidad sin bloquear toda la aplicación.
 
-### Ejemplos:
+## Ejemplos:
 
 Algunos diagramas de ejemplo de como sería una arquitectura basada en microservicios pueden ser los siguientes:
 
 ![microservicios_1](imagenes/microservicios/microservicios_1.png)
 ![microservicios_2](imagenes/microservicios/microservicios_2.png)
 
-### Componentes:
+## Componentes:
 
 ![microservicios_3](imagenes/microservicios/microservicios_3.png)
 
-Tomando como base la anterior iamgen, la arquitectura basada en microservicios puede estar formada por los siguientes componentes: [X][https://dzone.com/articles/microservice-architecture-learn-build-and-deploy-a]
+Tomando como base la anterior iamgen, la arquitectura basada en microservicios puede estar formada por los siguientes componentes: [Fuente](https://dzone.com/articles/microservice-architecture-learn-build-and-deploy-a)
 
 - Clients: La arquitectura comienza con diferentes tipos de clientes, siendo estos dispositivos que intentan realizar diferentes usos de la aplicación.
 
@@ -74,7 +74,7 @@ Además de estos componentes podemos encontrar otros dos que pueden aparecer en 
 
 ![microservicios_5](imagenes/microservicios/microservicios_5.png)
 
-## Ventajas y desventajas: [X][https://docs.microsoft.com/es-es/dotnet/architecture/microservices/multi-container-microservice-net-applications/microservice-application-design]
+## Ventajas y desventajas: [Fuente](https://docs.microsoft.com/es-es/dotnet/architecture/microservices/multi-container-microservice-net-applications/microservice-application-design)
 
 ### Ventajas
 
@@ -119,7 +119,7 @@ Es por todos estos puntos por lo que en el siguiente proyecto hemos decidido lan
 
 ## Fuentes:
 
-- [microservices][https://microservices.io/]
+- [microservices](https://microservices.io/)
 
 
 

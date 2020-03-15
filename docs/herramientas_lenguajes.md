@@ -2,7 +2,7 @@
 
 En el presente documento tendrá lugar la proposición de las diferentes herramientas a usar en cada aspecto del desarrollo del proyecto, los criterios que se tendrán en cuenta y la elección final.
 
-## FrontEnd (React?)
+## FrontEnd
 
 Dentro del frontend podemos tomar dos caminos distintos. Desarrollar haciendo uso de HTML+CSS+JavaScript sin más o hacer uso de alguna librería o framework. Esta primera decisión está clara y es que los nuevos framework-librerías que se están usando hoy en día facilitan el trabajo a gran escala respecto al uso de HTML+CSS. Por tanto, nuestra investigación continuará respecto a estos nuevos lenguajes.
 
@@ -38,8 +38,8 @@ No todas las bibliotecas admiten TypeScript. Como Angular lo usa en gran medida,
 
 El número de aspectos a valorar puede llegar a ser especialmente largo, obteniendo ganadores distintos en cada uno de ellos. En definitiva podemos ver que cada lenguaje tiene sus beneficios en ciertos aspectos, pero pensando en actualizarnos y aprender una nueva tecnología, y además aprovechando sus bondades, para la realización de este proyecto haremos uso de React.
 
-[Fuente1](https://codigofacilito.com/articulos/angular-react-vue)
-[Fuente2](https://www.toptal.com/javascript/como-elegir-el-mejor-framework-de-front-end)
+- [Fuente1](https://codigofacilito.com/articulos/angular-react-vue)
+- [Fuente2](https://www.toptal.com/javascript/como-elegir-el-mejor-framework-de-front-end)
 
 ## BackEnd
 

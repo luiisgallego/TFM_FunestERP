@@ -23,4 +23,10 @@ La investigación completa puede verse [aquí](microservicios.md).
 
 ### Herramientas y lenguajes <a name="herramientas_lenguajes"></a>
 
+Punto determinante en el largo camino del desarrollo, elegir bien las diferentes herramientas es crucial para culminar exitosamente el proyecto. Si bien al elegir una arquitectura de microservicios contamos con una ventaja importante, cada módulo puede estar escrito en el lenguaje mas favorable para la función que ocupe dicho módulo.
+
+De esta forma, nos centraremos en exponer y analizar las diferentes opciones que tenemos y estas se irán utilizando conforme sean necesarias. En el aspecto de infraestructura como código e integración continua si será importante decidir desde el primer momento las herramientas a usar.
+
+La investigación completa puede verse [aquí](herramientas_lenguajes.md).
+
 ## Análisis de requisitos <a name="analisis_requisitos"></a>

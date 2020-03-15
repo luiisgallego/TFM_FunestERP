@@ -4,9 +4,9 @@ En el presente documento tendrá lugar la proposición de las diferentes herrami
 
 ## FrontEnd (React?)
 
-Dentro del frontend podemos tomar dos caminos distintos. Desarrollar haciendo uso de HTML+CSS sin más o hacer uso de alguna librería o framework. Esta primera decisión está clara y es que los nuevos framework-librerias que se están usando hoy en día facilitan el trabajo a gran escala respecto al uso de HTML+CSS. Por tanto, nuestra investigación continuará respecto a estos nuevos lenguajes.
+Dentro del frontend podemos tomar dos caminos distintos. Desarrollar haciendo uso de HTML+CSS+JavaScript sin más o hacer uso de alguna librería o framework. Esta primera decisión está clara y es que los nuevos framework-librerías que se están usando hoy en día facilitan el trabajo a gran escala respecto al uso de HTML+CSS. Por tanto, nuestra investigación continuará respecto a estos nuevos lenguajes.
 
-Con el constante nacimiento y crecimiento de librerias y framework basados en JavaScript elegir uno de ellos se puede convertir en una espada de doble filo. Si bien hay mucho espacio para la creatividad y la experimentación, en ocasiones no estamos seguros de cual elegir. Por tanto, vamos a exponer diferentes perspectivas para finalmente elegir una de las opciones (Angular, React y Vue). 
+Con el constante nacimiento y crecimiento de librerías y framework basados en JavaScript elegir uno de ellos se puede convertir en una espada de doble filo. Si bien hay mucho espacio para la creatividad y la experimentación, en ocasiones no estamos seguros de cual elegir. Por tanto, vamos a exponer diferentes perspectivas para finalmente elegir una de las opciones (Angular, React y Vue). 
 
 ### Curva de aprendizaje
 
@@ -26,7 +26,7 @@ Aunque finalmente en este apartado es React quien sale beneficiado por el desarr
 
 En este punto considereamos los términos de expresividad del lenguaje y cómo de fácil es de mantener su código. Esto también tiene mucho que ver con las herramientas de depuración y de como funciona el framework internamente.
 
-En este aspecto Angular sale mermado ya que el inyector de dependencias y el data binding pueden ser dificiles de comprender. En el caso de React, el flujo de información es claro y detectar un posible error es más sencillo.
+En este aspecto Angular sale mermado ya que el inyector de dependencias y el data binding pueden ser difíciles de comprender. En el caso de React, el flujo de información es claro y detectar un posible error es más sencillo.
 
 ### Facilidad de integración (con otras bibliotecas)
 

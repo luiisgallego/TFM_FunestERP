@@ -10,3 +10,5 @@
 - Día 15: 1.30
 	- Doc: documentar introducción git
 	- Doc: documentar investigación frontend
+- Día 16: 2.00
+	- Doc: historias de usuarios

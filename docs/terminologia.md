@@ -1,0 +1,4 @@
+# Terminología
+
+- Servicio:
+- Cliente:

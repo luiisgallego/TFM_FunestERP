@@ -4,10 +4,33 @@ En el presente documento se pretende introducir los diferentes aspectos de docum
 
 ## Índice
 
+
+- [Especificación de requisitos](#especificacion_requisitos)
+	- [Requisitos funcionales](#requisitos_funcionales)
+	- [Requisitos no funcionales](#requisitos_no_funcionales)
+	- [Historias de usuarios](#historias_usuarios)
+- [Terminología](#terminología)
 - [Investigación](#investigacion)
 	- [Arquitectura de microservicios](#microservicios)
 	- [Herramientas y lenguajes](#herramientas_lenguajes)
-- [Análisis de requisitos](#analisis_requisitos)
+
+## Especificación de requisitos <a name="especificacion_requisitos"></a>
+
+### Requisitos funcionales <a name="requisitos_funcionales"></a>
+
+### Requisitos no funcionales <a name="requisitos_no_funcionales"></a>
+
+### Historias de usuarios <a name="historias_usuarios"></a>
+
+Las historias de usuario son especialmente utilizadas en las metodologías de desarrollo ágil ya estas son una forma rápida y sencilla de definir y administrar los requisitos de los usuarios sin tener que elaborar gran cantidad de documentación. Por tanto, una historia de usuario es la representación de un requisito escrito en una o dos frases, utilizando el lenguaje común del usuario.
+
+Las historias de usuario pueden verse [aquí](#historias_de_usuario.md).
+
+## Terminología <a name="especificacion_requisitos"></a>
+
+Durante el desarrollo de la presente documentación, y en general en todo el proyecto que nos ocupa, podemos encontrar diferentes términos que nos provoquen confusión o que no se comprendan completamente dentro del ambito funerario. Por lo tanto, en el siguiente documento se pretende explicar aquellos términos que son usados con frecuencia y que pueden causar malentendidos.
+
+La terminología completa puede verse [aquí](#terminologia.md)
 
 ## Investigación <a name="investigacion"></a>
 
@@ -29,4 +52,5 @@ De esta forma, nos centraremos en exponer y analizar las diferentes opciones que
 
 La investigación completa puede verse [aquí](herramientas_lenguajes.md).
 
-## Análisis de requisitos <a name="analisis_requisitos"></a>
+
+

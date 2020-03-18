@@ -22,7 +22,7 @@ En el presente documento se pretende introducir los diferentes aspectos de docum
 
 ### Historias de usuarios <a name="historias_usuarios"></a>
 
-Las historias de usuario son especialmente utilizadas en las metodologías de desarrollo ágil ya estas son una forma rápida y sencilla de definir y administrar los requisitos de los usuarios sin tener que elaborar gran cantidad de documentación. Por tanto, una historia de usuario es la representación de un requisito escrito en una o dos frases, utilizando el lenguaje común del usuario.
+Las historias de usuario son especialmente utilizadas en las metodologías de desarrollo ágil ya que estas son una forma rápida y sencilla de definir y administrar los requisitos de los usuarios sin tener que elaborar gran cantidad de documentación. Por tanto, una historia de usuario es la representación de un requisito escrito en una o dos frases, utilizando el lenguaje común del usuario.
 
 Las historias de usuario pueden verse [aquí](historias_de_usuario.md).
 

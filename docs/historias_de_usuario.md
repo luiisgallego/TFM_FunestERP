@@ -10,10 +10,10 @@ Esta forma de representar a los requisitos está directamente ligada a los casos
 
 Finalmente están especialmente relacionadas con el desarrollo ágil. Las historias de usuarios están vivas. Cuando se realizan las planificaciones para los sprint son fácilmente desglosables, priorizadas y organizadas en diferentes tareas, listas para ser repartidas a los diferentes equipos. Ideal para metodologías como Scrum.
 
-La estructura que siguen es la siguiente:
-	Yo como <usuario>
-	necesito / deseo / quiero <funcionalidad>
-	para <beneficio de negocio>
+- La estructura que siguen es la siguiente:
+	- Yo como <usuario>
+	- necesito / deseo / quiero <funcionalidad>
+	- para <beneficio de negocio>
 
 ## Listado
 
@@ -222,17 +222,17 @@ HU. 11
 - HU. 21
 	- Usuario: Programador
 	- Funcionalidad: Permitir el uso del lenguaje óptimo en cada momento.
-	- Resultado: Múltiples lenguajes principalmente en el backend.
+	- Resultado: Múltiples lenguajes funcionando entre sí.
 	- Criterios de aceptación:
-		- Arquitectura en la que puedan coexistir múltiples lenguajes.
+		- Sistema en el que puedan coexistir múltiples lenguajes.
 
 - HU. 22
 	- Usuario: Programador
 	- Funcionalidad: Permitir el uso de diferentes protocolos de comunicación.
 	- Resultado: Poder usar tanto un protocolo síncrono como asíncrono.
 	- Criterios de aceptación:
-		- La API Gateway debe permitir ambos protocolos.
-		- La arquitectura debe permitir la comunicación más optima según la petición que se realice.
+		- El sistema debe permitir ambos protocolos.
+		- El sistema debe permitir la comunicación más óptima según la petición que se realice.
 		- En cada caso el lenguaje que reciba la petición debe poder satisfacer la demanda.
 
 - HU. 23
@@ -242,6 +242,7 @@ HU. 11
 	- Criterios de aceptación:
 		- Múltiples usuarios podrán trabajar simultaneamente.
 		- El sistema responderá a las múltiples peticiones sin necesidad de más infraestructura hardware.
+		- La experiencia de usuario no se verá ralentizada cuando múltiples usuarios estén trabajando en el sistema.
 
 - HU. 24
 	- Usuario: Programador
@@ -257,9 +258,10 @@ HU. 11
 	- Funcionalidad: Integración continua.
 	- Resultado: El sistema se testeará y desplegará automáticamente al añadir los cambios a Git.  
 	- Criterios de aceptación:
-		- Integración con Github
+		- Integración con Github.
 		- La herramienta de integración continua lanzará y verificará que los tests se pasan correctamente.
 		- La herramienta desplegará automáticament en el sistema cloud elegido.
+		- El coste de administración será sencillo.
 		- Debe tener un plan gratuito.
 
 - HU. 26

@@ -28,7 +28,7 @@ Las historias de usuario pueden verse [aquí](historias_de_usuario.md).
 
 ## Terminología <a name="especificacion_requisitos"></a>
 
-Durante el desarrollo de la presente documentación, y en general en todo el proyecto que nos ocupa, podemos encontrar diferentes términos que nos provoquen confusión o que no se comprendan completamente dentro del ambito funerario. Por lo tanto, en el siguiente documento se pretende explicar aquellos términos que son usados con frecuencia y que pueden causar malentendidos.
+Durante el desarrollo de la presente documentación, y en general en todo el proyecto que nos ocupa, podemos encontrar diferentes términos que nos provoquen confusión o que no se comprendan completamente dentro del ámbito funerario. Por lo tanto, en el siguiente documento se pretende explicar aquellos términos que son usados con frecuencia y que pueden causar confusión.
 
 La terminología completa puede verse [aquí](terminologia.md)
 

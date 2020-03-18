@@ -11,3 +11,4 @@
 - Diseño adaptable tanto a pc como móvil.
 - El mismo lenguaje debe poder crear código para ambas plataformas.
 - Validación de formularios ?
+- Calendario (google calendar)

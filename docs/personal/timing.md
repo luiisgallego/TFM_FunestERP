@@ -12,3 +12,11 @@
 	- Doc: documentar investigación frontend
 - Día 16: 2.00
 	- Doc: historias de usuarios
+- Día 17: 2.00
+	- Doc: historias de usuarios
+- Día 18: 2.00
+	- Doc: historias de usuarios
+
+### Todo
+
+- Repasar historias de usuarios, principalmente los criterios de aceptación.

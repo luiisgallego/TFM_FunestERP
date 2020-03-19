@@ -16,6 +16,8 @@
 	- Doc: historias de usuarios
 - Día 18: 2.00
 	- Doc: historias de usuarios
+- Día 19: 2.00
+	- Doc: módulos propuestos
 
 ### Todo
 

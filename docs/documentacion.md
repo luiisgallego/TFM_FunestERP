@@ -4,7 +4,8 @@ En el presente documento se pretende introducir los diferentes aspectos de docum
 
 ## Índice
 
-
+- [Módulos propuestos](#modulos)
+- [Metodología de desarrollo](#metodologia_desarrollo) 
 - [Especificación de requisitos](#especificacion_requisitos)
 	- [Requisitos funcionales](#requisitos_funcionales)
 	- [Requisitos no funcionales](#requisitos_no_funcionales)
@@ -13,6 +14,18 @@ En el presente documento se pretende introducir los diferentes aspectos de docum
 - [Investigación](#investigacion)
 	- [Arquitectura de microservicios](#microservicios)
 	- [Herramientas y lenguajes](#herramientas_lenguajes)
+
+## Módulos propuestos <a name="modulos"></a>
+
+Quizás una de las cuestiones más difíciles que se nos presenta en el proyecto que comenzamos es que módulos crear y como hacerlos lo más genéricos posible. Es decir, que distintos clientes puedan usar la misma plataforma y todos tener toda la información disponible. Esta cuestión será recurrente en el desarrollo y debemos tenerla muy presente, para así conseguir hacer la plataforma lo más general posible. 
+
+Mientras tanto, la primera conceptualización de los módulos a crear la podemos encontrar [aquí](modulos.md).
+
+## Metodología de desarrollo <a name="metodologia_desarrollo"></a>
+
+A lo largo del tiempo, la cantidad de metologías de desarrollo ha ido creciendo para paliar deficits que podíamos encontrar tanto en metodologías previas como necesidades de los equipos de desarrollo y de los procesos de negocio. En la actualidad, la necesidad de la entrega rápida y continua de nuevas funcionalidades por parte de las empresas, ha hecho surgir una vertiente de desarrollo ágil bastante interesante en la modalidad de desarrollo actual.
+
+La investigación completa puede verse [aquí](metodologias_desarrollo.md).
 
 ## Especificación de requisitos <a name="especificacion_requisitos"></a>
 
@@ -30,7 +43,7 @@ Las historias de usuario pueden verse [aquí](historias_de_usuario.md).
 
 Durante el desarrollo de la presente documentación, y en general en todo el proyecto que nos ocupa, podemos encontrar diferentes términos que nos provoquen confusión o que no se comprendan completamente dentro del ámbito funerario. Por lo tanto, en el siguiente documento se pretende explicar aquellos términos que son usados con frecuencia y que pueden causar confusión.
 
-La terminología completa puede verse [aquí](terminologia.md)
+La terminología completa puede verse [aquí](terminologia.md).
 
 ## Investigación <a name="investigacion"></a>
 

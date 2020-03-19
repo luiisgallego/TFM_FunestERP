@@ -1,43 +1,59 @@
-## Funciones a desarrollar 
+# Módulos propuestos
 
-La idea central del proyecto consiste en desarrollar diferentes módulos de trabajo que puedan ser independientes y con funciones individuales claramente definidas. Como primera aproximación podemos definir los siguientes:
+La idea central del ERP consiste en desarrollar diferentes módulos de trabajo que puedan ser independientes y con funciones individuales claramente definidas, aunque entre todos se retroalimenten con la información propia de cada módulo. Como primera aproximación podemos definir los siguientes:
 
-### Gestión de defunciones
+## Módulo 1: Gestión de datos
 
-Primer módulo y punto inicial del proceso funcional del sistema. En él se desarrollarán todos los datos asociados a un difunto en forma de ficha personal, como nombres, fechas, datos concretos, direcciones, etc. Directamente relacionado con dicho difunto encontraríamos los datos del servicio en si, como fecha de defunción o fecha de la misa por mencionar algún dato.
+Primer módulo y punto inicial tanto del proceso funcional del sistema como de la información captada relativa al servicio que nos ocupe. En él se añadirán todos los datos asociados a un difunto en forma de ficha personal, como nombres, fechas, datos concretos, direcciones, etc. Directamente relacionado con dicho difunto encontraríamos los datos del servicio en sí. En este caso los datos estarían relacionados con la fecha de defunción o fecha de la misa, lugares de estos, etc.
 
-Una idea interesante sería la de incluir desde el primer momento un enlace a los datos de familiares o del cliente encargado del servicio y de la facturación. Esto será un tema interesante a analizar ya que haría nuestro sistema más dependiente de una empresa en concreto, por lo que dejaría de ser genérico para cualquier otra empresa que decida hacer uso del software. Por lo tanto será necesario estudiar esta idea para que resulte lo más atractiva, funcional y genérica posible.
+También en este módulo es importante poder añadir los datos relativos al cliente o a los familiares ligados al difunto y al servicio. Es interesante dar la posibilidad de añadir estos datos en el momento de crear un nuevo servicio o posteriormente, pudiendo enlazarlos a servicios previamente creados. Estos datos son un punto importante sobre el que pensar principalmente para orientarlo de la forma más genérica y extensible posible. Quizás la cuestión más importante es como nombrar el concepto de 'cliente' y de 'familiares' para que sea lo más adaptable a cada cliente posible. 
 
-Por otro lado, también encontramos al acceder al módulo en primera instancia el listado completo almacenado de defunciones, y en segunda instancia, los datos completos de cada uno cuando lo seleccionemos. Claro está que las opciones de edición y borrado serán cómodamente accesibles.
+Por otro lado, al acceder a dicho módulo tendríamos la posibilidad de añadir un nuevo servicio a la vez que visualizaríamos un listado de los servicios actuales. Al seleccionar un servicio del listado podríamos ver todos sus datos completos. También encontraríamos diferentes secciones relativas a los datos del cliente y de los familiares, con la misma interacción que la anteriormente comentada.
 
-### Gestor documental
+En una ampliación futura se podría añadir información relativa al servicio de tanatorio y de crematorio.
 
-En el segundo módulo encontraríamos toda la funcionalidad relacionada con la gestión de documentos. En este apartado concreto ya nos centramos en la inclusión de los datos necesarios para estos documentos concretos, siendo estos los relacionados con los familiares del difunto. Destacar que primero tendremos que hacer una búsqueda por los difuntos para relacionar dichos documentos con su difunto en cuestión.
+## Módulo 2: Gestor de documentos
 
-Una vez más, tenemos la posibilidad del editado y borrado de los datos, además del visionado de estos. Como cuestión interesante, podremos ver cómo quedaría el documento final listo para su impresión, además de la opción de guardarlo directamente en PDF en nuestro ordenador personal.
+El segundo módulo se centrará en la generación de los distintos documentos que requiera el cliente especialmente ligados a cada servicio concreto. Destacar que este módulo es independiente de la facturación, pues principalmente lo que nos ocupa son documentos como las esquelas o las misas. También podría ser interesante la generación de un documento como por ejemplo justificantes o autorizaciones. Otra idea sería genera un documento con los datos necesarios sobre el servicio para su posterior almacenamiento en papel.
 
-### Gestión contabilidad
+Una cuestión importante a la hora de generar los documentos sería verificar si se dispone de todos los datos necesarios para la generación de los diferentes documentos. En caso negativo, valorar las opciones de redirigir al anterior módulo o desde este mismo añadir dichos datos. Pensar especialmente en la independencia entre módulos.
 
-Este módulo se implementará en mayor o menor medida en función del tiempo disponible.
+Finalmente, el módulo será capaz de realizar un pre-visualizado del documento y su posterior generación en pdf para descarga.
 
-Módulo encargado del control de la facturación para cada servicio. Como en los casos anteriores, dispondremos de diversas opciones para el manejo de los datos, visualizado y descarga en PDF.
+Como posible expansión del módulo en un aspecto más ambicioso podríamos valorar las siguientes posibilidades: 
+- Trabajar con archivos word o excel almacenados en servicios de la nube como google drive o dropbox.
+- Adjuntar archivos cargados en el sistema desde plataformas como google drive, dropbox o escaner. Por ejemplo, un DNI.
 
-Destacable en esta sección la posibilidad de controlar el estado de la factura, siendo esta sin emitir o sin cobrar. Esto cobra especial importancia con dos aspectos de nuestro home. Por un lado, la posibilidad de generar alertas en función de dicho estado, y por otro, la generación de un gráfico que nos mostrará el número de servicios realizados cada mes.
+## Módulo 3: Gestor de contabilidad
 
-### Agenda
+Módulo más abierto de todos y especialmente dependiente del tiempo disponible. Como caso base nos permitirá añadir los datos necesarios para la generación de una factura estandar. Es especialmente importante pensar como generar una factura customizada para cada cliente. Es decir, todo cliente añadirá los datos bajo el mismo proceso, pero luego cada uno podría tener su estructura de factura propia. Esto es un punto interesante que pensar y que valorar en el diseño de la arquitectura. Además, como en el módulo anterior, tendremos la posibilidad de previsualizar la factura y posteriormente descargar en pdf.
 
-Cuarto modulo en cuestión, esta vez encargado de la gestión de un calendario. En él, los distintos usuarios del sistema pueden crear nuevos eventos que estén por realizar. Así, de una manera sencilla y rápida, todos podrán visualizar las tareas pendientes por realizar.
+Importante poder establecer valores relativos a conceptos como IVA, IRFP, base imponible, descuentos, etc. 
 
-Sería interesante que eventos como misas pendientes, o facturas por emitir, por nombrar algunos, se añadan a la agenda automaticamente.
+Destacable en esta sección la posibilidad de controlar el estado de la factura, siendo esta sin emitir, emitida, sin cobrar o cualquier otro estado posible. Esto cobra especial importancia para la posterior generación de alertas, gráficos o estadísticas.
 
-### Correo
+En el caso de un óptimo aprovechamiento del tiempo, se podría trabajar en aspectos extra como el control de inventario, control de pedidos a empresas externas, control de gastos de todo tipo como por ejemplo de empleados, combustibles, tickets y facturas, etc. Como punto final sería la posibilidad de emitir documentos legales ligados a la contabilidad de la empresa para futuras declaraciones.
 
-Relacionado con el anterior, un módulo para la gestión del correo. Siendo así posible el envío de emails, y como cuestión destacable, la posibilidad de obtener la bandeja de entrada desde dentro del mismo sistema. Con esto conseguimos poder gestionar la pyme al completo desde el sistema web.
+## Módulo 4: Agenda
 
-### Informes, Alertas y Gráficos
+Cuarto módulo en cuestión, esta vez encargado de la gestión de un calendario. En este aspecto tenemos dos posibilidades por delante que valorar. Un camino sería trabajar con un calendario global para todos los usuarios de una misma empresa en el que puedan crear nuevos eventos que estén por realizar. Así, de una manera sencilla y rápida, todos podrán visualizar las tareas pendientes por realizar. Incluso se añadirían los eventos que automáticamente se generen. El segundo caso estaría enfocado a que cada usuario pueda tener un calendario propio.
 
-Pensando en aportar información desde el home del sistema tendremos dos ítems importantes.
+Ambas posibilidades tienen muchas cuestiones abiertas, pues una empresa con un gran número de usuarios puede hacer que su calendario global sea muy caótico. Quizás la idea de un calendario individual sea lo más apetecible, pero también habría que pensar en como añadir las alertas que se generen en cada calendario individual. Aunque este segundo caso puede llegar a abrir otras posibilidades, pues una vez que se defina un servicio, si la empresa tiene varios funerarios en su plantilla, el servicio puede ir adjudicado a uno de estos, y por tanto, la alerta solo se generaría en el calendario de este. Hay que pensar por tanto en todas estas posibilidades.
 
-Por un lado, encontramos un gráfico representativo del número de servicios alcanzados mensualmente. Dicho gráfico podrá estar sometido a restricciones de los roles, siendo solo visible para usuarios de alto rango.
+Como eventos interesantes por generar encontraríaamos fechas y horas de servicios pendientes, también misas pendientes, o facturas tanto pendientes de emitir como de cobrar.
 
-Por otro lado, un sistema de notificaciones. Este en función de distintos eventos, como facturas sin cobrar, servicios en ejecución o misas funerales próximas, nos mostrará un listado de noticias a tener en cuenta.
+## Módulo 5: Correo
+
+Relacionado conceptualmene con el módulo anterior, cada usuario podría tener su propia dirección de correo. Entonces las tareas ligadas a este módulo sería la de tanto poder enviar correo como poder recibirlos, leerlos y cualquier cuestión relacionada. En general la idea de todos estos módulos es la de poder gestionar nuestra empresa o PYME sin salir de la plataforma.
+
+Sería muy interesante poder adjuntar en el correo cualquiera de los documentos generados por el sistema. 
+
+## Módulo 6: Informes, Alertas y Gráficos
+
+Al final de todo, poder manejar, estudiar, valorar y visualizar los datos que se generan en el sistema es un punto que nos puede aportar información sustancial y de valor. Por tanto, este último módulo estará encargado por un lado de la generación tanto de los datos como del aspecto visual de distintos gráficos. Estos podrían mostrar información como por ejemplo de los servicios alcanzados mensualmente. Gráficos como esté podría estar sometido a restricciones según el rol del usuario, siendo solo visible para usuarios de alto rango. 
+
+Por otro lado, un sistema de notificaciones. Este en función de distintos eventos, como facturas sin cobrar, servicios en ejecución o misas funerales próximas, nos mostrará un listado de noticias a tener presente.
+
+## Módulo 7: Gestión de personal
+
+Módulo extra que no entra en los planes de ejecución inicial pero que puede resultar muy interesante en una expansión futura. Pues como es normal, una empresa tendrá un amplio personal en su plantilla, con diferentes funciones, horarios, etc. Este módulo estaría encargado de almacenar todos los datos relativos y poder gestionar las diferentes tareas que le ocupen. Por ejemplo, cuando se cree un servicio y sea asignado al empleado X, el sistema podrá calcular que ese empleado va a estar ciertas horas ocupado con un servicio, y por tanto, en el caso de que se genere un nuevo servicio, tendrá que estar asignado a otro empleado. Entonces este módulo realizaría funciones como imposibilitar ciertas asignaciones y mucho más. Por ahora es solo un idea surgida.

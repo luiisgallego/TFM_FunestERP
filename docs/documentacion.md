@@ -5,7 +5,10 @@ En el presente documento se pretende introducir los diferentes aspectos de docum
 ## Índice
 
 - [Módulos propuestos](#modulos)
-- [Metodología de desarrollo](#metodologia_desarrollo) 
+- [Metodología y estimación](#metodologia_estimacion)
+	- [Metodología de desarrollo](#metodologia_desarrollo) 
+	- [Estimación temporal](#estimacion_temporal)
+	- [Metodología SCRUM](#metodologia_scrum) 
 - [Especificación de requisitos](#especificacion_requisitos)
 	- [Requisitos funcionales](#requisitos_funcionales)
 	- [Requisitos no funcionales](#requisitos_no_funcionales)
@@ -21,11 +24,21 @@ Quizás una de las cuestiones más difíciles que se nos presenta en el proyecto
 
 Mientras tanto, la primera conceptualización de los módulos a crear la podemos encontrar [aquí](modulos.md).
 
-## Metodología de desarrollo <a name="metodologia_desarrollo"></a>
+## Metodología de desarrollo y estimación temporal <a name="metodologia_estimacion"></a>
 
-A lo largo del tiempo, la cantidad de metologías de desarrollo ha ido creciendo para paliar deficits que podíamos encontrar tanto en metodologías previas como necesidades de los equipos de desarrollo y de los procesos de negocio. En la actualidad, la necesidad de la entrega rápida y continua de nuevas funcionalidades por parte de las empresas, ha hecho surgir una vertiente de desarrollo ágil bastante interesante en la modalidad de desarrollo actual.
+En los siguientes apartados nos centraremos en valorar las diferentes metodologías de desarrollo existentes y en la elección de la más adecuada al proyecto que nos ocupa. Una vez elegida, plantearemos una primera estimación temporal, especialmente ligada a la metodología elegida. Esto será especialmente útil para marcar una visión inicial del proceso que queremos seguir en el desarrollo y su estimación. Después, a la finalización del proyecto podremos comparar lo estimado, con lo realmente necesitado.
+
+### Metodología de desarrollo <a name="metodologia_desarrollo"></a>
+
+A lo largo del tiempo, la cantidad de metologías de desarrollo ha ido creciendo para paliar los deficits que podíamos encontrar tanto en metodologías previas como en las necesidades de los equipos de desarrollo y de los procesos de negocio. En la actualidad, la necesidad de la entrega rápida y continua de nuevas funcionalidades por parte de las empresas, ha hecho surgir una vertiente de desarrollo ágil bastante interesante en la modalidad de desarrollo actual.
 
 La investigación completa puede verse [aquí](metodologias_desarrollo.md).
+
+### Estimación temporal <a name="estimacion_temporal"></a>
+
+La estimación completa puede verse [aquí](estimacion_temporal.md).
+
+### Metodología SCRUM <a name="metodologia_scrum"></a>
 
 ## Especificación de requisitos <a name="especificacion_requisitos"></a>
 

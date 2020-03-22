@@ -8,7 +8,6 @@ En el presente documento se pretende introducir los diferentes aspectos de docum
 - [Metodología y estimación](#metodologia_estimacion)
 	- [Metodología de desarrollo](#metodologia_desarrollo) 
 	- [Estimación temporal](#estimacion_temporal)
-	- [Metodología SCRUM](#metodologia_scrum) 
 - [Especificación de requisitos](#especificacion_requisitos)
 	- [Requisitos funcionales](#requisitos_funcionales)
 	- [Requisitos no funcionales](#requisitos_no_funcionales)
@@ -36,9 +35,9 @@ La investigación completa puede verse [aquí](metodologias_desarrollo.md).
 
 ### Estimación temporal <a name="estimacion_temporal"></a>
 
-La estimación completa puede verse [aquí](estimacion_temporal.md).
+Necesaria desde los primeros compases del desarrollo de un nuevo proyecto, marca una previsión inicial del tiempo que preevemos emplear para el desarrollo de este. Esencial para establecer unas metas realistas, además nos puede ayudar a reorganizar diferentes entregas del proyecto en función del tiempo que estemos empleando. Por tanto, junto a la metodología Scrum elegida, vamos a proceder a establecer la planificación que marcará el desarrollo de los próximos meses.
 
-### Metodología SCRUM <a name="metodologia_scrum"></a>
+La estimación completa puede verse [aquí](estimacion_temporal.md).
 
 ## Especificación de requisitos <a name="especificacion_requisitos"></a>
 

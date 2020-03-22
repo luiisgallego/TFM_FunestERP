@@ -43,14 +43,14 @@ A grandes rasgos estos son los principios y las pautas que rigen a la metodolog�
 
 Por tanto, en nuestro caso usaremos los principios básicos de la metodología Scrum pero orientada al caso de un solo usuario en el proyecto, que a la vez es tanto cliente, como desarrollador.
 
-[Fuente_1](https://proyectosagiles.org/que-es-scrum/)
-[Fuente_2](https://proyectosagiles.org/como-funciona-scrum/)
+- [Fuente_1](https://proyectosagiles.org/que-es-scrum/)
+- [Fuente_2](https://proyectosagiles.org/como-funciona-scrum/)
 
 ## Planificación
 
 Una vez definidos los requisitos (en este caso historias de usuario) que el sistema debería poder cumplirr al culminar este, definimos una planificación con la que poder afrontar progresivamente cada unos de estos requisitos. Por tanto definimos los siguientes sprints, que tendrán una duración cada uno de 4 semanas, para los que se dedicarán unas 80 horas en cada uno dando lugar a temporización final de unas 300 horas. 
 
-*En el siguiente documento se irán anotando las horas empleadas y las tareas realizadas en cada momentot para que una vez finalizado el proyecto podamos establecer una comparativa real entre la estimación inicial realizada y la final necesitada.* [Timing](timing.md)
+*En el siguiente documento se irán anotando las horas empleadas y las tareas realizadas en cada momentot para que una vez finalizado el proyecto podamos establecer una comparativa real entre la estimación inicial realizada y la final necesitada. ([Enlace - Timing](personal/timing.md))* 
 
 ### Sprint 1 - Marzo
 

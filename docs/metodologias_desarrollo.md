@@ -57,7 +57,7 @@ Metodología de desarrollo ágil que tiene como principal objetivo aumentar la p
 - Propiedad intelectual compartida.
 - Entendimiento compartido.
 
-
+### Conclusión
 
 Después de valorar las distintas metodologías de desarrollo, nos hemos decantado para la realización de nuestro proyecto por Scrum. La razón ha sido bastante básica, nos enfrentamos a un trabajo con unos requisitos definidos, pero no tenemos dudas de que estos pueden cambiar (ampliándose y reduciendose) a lo largo de su desarrollo, o más concretamente, surgirán nuevas posibilidades para acometerlos de maneras más efectivas, fruto de la experiencia tomada a lo largo del proceso de desarrollo.
 
@@ -66,4 +66,4 @@ También la metodología Scrum es relevante para nuestro proceso de desarrollo y
 Por tanto, mediante esta metodología, una vez definido el proyecto, se seguirá un proceso iterativo que nos ayude a controlar, desarrollar y mejorar nuestra idea inicial.
 
 
-[Fuente](https://www.megapractical.com/blog-de-arquitectura-soa-y-desarrollo-de-software/metodologias-de-desarrollo-de-software)
+[Otra Fuente](https://www.megapractical.com/blog-de-arquitectura-soa-y-desarrollo-de-software/metodologias-de-desarrollo-de-software)

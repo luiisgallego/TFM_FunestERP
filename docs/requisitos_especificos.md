@@ -2,7 +2,7 @@
 
 En esta sección expondremos los requisitos a un nivel de detalle suficiente como para permitirnos diseñar un sistema que los satisfaga, y que además permita realizar las pruebas pertinentes que demuestren que el sistema cumple correctamente nuestras necesidades. Todo requisito aquí especificado describirá los comportamientos externos del sistema, perceptibles por parte de los usuarios. (Citar documento segundo).
 
-## Estandar a seguir
+## Estándar a seguir
 
 El estándar utilizado para la especificación de requisitos es el [IEE 830](http://www.math.uaa.alaska.edu/~afkjm/cs401/IEEE830.pdf). Usado durante años en la mayoría de proyectos de software, describe los enfoques más adecuados para su especificación. 
 

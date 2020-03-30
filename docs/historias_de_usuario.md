@@ -8,7 +8,7 @@ Podemos entender las historias de usuario como una manera simple de describir un
 
 Esta forma de representar a los requisitos está directamente ligada a los casos de uso, y en gran parte los sustituye. Esto se debe a que las historias de usuarios son más simples de escribir y de entender, además nos aseguran que no hay cabos sueltos.
 
-Finalmente están especialmente relacionadas con el desarrollo ágil. Las historias de usuarios están vivas. Cuando se realizan las planificaciones para los sprint son fácilmente desglosables, priorizadas y organizadas en diferentes tareas, listas para ser repartidas a los diferentes equipos. Ideal para metodologías como Scrum.
+Finalmente están especialmente relacionadas con el desarrollo ágil. Las historias de usuarios están vivas. Cuando se realizan las planificaciones para los sprint son fácilmente desglosables, priorizadas y organizadas en diferentes tareas, listas para ser repartidas a los diferentes equipos. Ideal para metodologías como *Scrum*.
 
 - La estructura que siguen es la siguiente:
 	- Yo como <usuario>
@@ -19,18 +19,18 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 
 - HU. 1
 	- Usuario: Jefe / Empleado
-	- Funcionalidad: Login en el sistema.
+	- Funcionalidad: *Login* en el sistema.
 	- Resultado: Acceder a las funcionalidades del sistema.
 	- Criterios de aceptación:
 		- Se aceptará como nombre de usuario tanto el correo como el nombre.
 		- La contraseña asociada tiene que ser correcta.
 		- La contraseña tendrá más de 8 carácteres.
 		- Se tiene que proporcionar una doble verificación.
-		- Una vez realizado el login el sistema mantendrá la sesión abierta.
+		- Una vez realizado el *login* el sistema mantendrá la sesión abierta.
 
 - HU. 2
 	- Usuario: Jefe / Empleado
-	- Funcionalidad: Logout en el sistema.
+	- Funcionalidad: *Logout* en el sistema.
 	- Resultado: Salir del sistema.
 	- Criterios de aceptación:
 		- Se cerrará completamente la sesión del usuario.
@@ -80,7 +80,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 	- Resultado: Edición y guardado de los datos en cuestión del servicio, cliente o familiares.
 	- Criterios de aceptación:
 		- Se tiene que poder mostrar y editar todos los datos habilitados.
-		- Se tiene que poder excluir ciertos datos de la edición. Como por ejemplo, fecha de creación del servicio o identicadores varios.
+		- Se tiene que poder excluir ciertos datos de la edición. Como por ejemplo, fecha de creación del servicio o identificadores varios.
 		- Solo se actualizarán los datos relativos al servicio, cliente o familiares si algún campo de estos es modificado.
 		- Se tiene que almacenar un historial de cambios. Si fuera posible además guardar la información previa por si fuera necesario volver atrás.
 		- La información tiene que poder ser mostrada en diversos dispositivos (pc-tablet).
@@ -116,7 +116,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 	- Resultado: La información se almacenará en el sistema.
 	- Criterios de aceptación:
 		- El sistema presentará un formulario sencillo en el que añadir los diferentes conceptos que tendrán lugar en la factura.
-		- El sistema realizará los calculos finales tales como cálculo de IVA o importe final entre otros.
+		- El sistema realizará los cálculos finales tales como cálculo de IVA o importe final entre otros.
 		- Solo un usuario con permisos especiales podrá realizar esta acción.
 
 - HU. 10
@@ -142,7 +142,7 @@ HU. 11
 	- Resultado: El sistema nos permitirá observar el resultado final del montaje de los diferentes documentos y facturas del servicio.
 	- Criterios de aceptación:
 		- Los datos se mostrarán correctamente en el documento.
-		- El documento debe autoajustarse en funcion de la longitud del texto personalizado que se use en cada caso.
+		- El documento debe autoajustarse en función de la longitud del texto personalizado que se use en cada caso.
 		- El visualizado se tiene que poder realizar en diferentes dispositivos.
 		- Solo un usuario con permisos especiales podrá visualizar las facturas.
 		- Solo un usuario logueado podrá realizar esta acción.
@@ -240,7 +240,7 @@ HU. 11
 	- Funcionalidad: El sistema debe permitir múltiples peticiones simultáneas.
 	- Resultado: El sistema responderá sin necesidad de máquinas adicionales.
 	- Criterios de aceptación:
-		- Múltiples usuarios podrán trabajar simultaneamente.
+		- Múltiples usuarios podrán trabajar simultáneamente.
 		- El sistema responderá a las múltiples peticiones sin necesidad de más infraestructura hardware.
 		- La experiencia de usuario no se verá ralentizada cuando múltiples usuarios estén trabajando en el sistema.
 
@@ -249,9 +249,9 @@ HU. 11
 	- Funcionalidad: El sistema podrá realizar tareas en segundo plano.
 	- Resultado: Las peticiones que se puedan realizar en segundo plano se enviarán a una cola y se procesarán mientras el sistema trabaja en otras tareas.
 	- Criterios de aceptación:
-		- Trabajos como el envio de correo se realizarán en segundo plano. 
+		- Trabajos como el envío de correo se realizarán en segundo plano. 
 		- Trabajos como la generación de eventos en el calendario se realizarán en segundo plano.
-		- Las tareas en segundo plano no interferiran en la experiencia del usuario.
+		- Las tareas en segundo plano no interferirán en la experiencia del usuario.
 
 - HU. 25
 	- Usuario: Programador
@@ -260,7 +260,7 @@ HU. 11
 	- Criterios de aceptación:
 		- Integración con Github.
 		- La herramienta de integración continua lanzará y verificará que los tests se pasan correctamente.
-		- La herramienta desplegará automáticament en el sistema cloud elegido.
+		- La herramienta desplegará automáticamente en el sistema cloud elegido.
 		- El coste de administración será sencillo.
 		- Debe tener un plan gratuito.
 

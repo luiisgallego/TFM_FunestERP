@@ -29,13 +29,13 @@ En los siguientes apartados nos centraremos en valorar las diferentes metodolog�
 
 ### Metodología de desarrollo <a name="metodologia_desarrollo"></a>
 
-A lo largo del tiempo, la cantidad de metologías de desarrollo ha ido creciendo para paliar los deficits que podíamos encontrar tanto en metodologías previas como en las necesidades de los equipos de desarrollo y de los procesos de negocio. En la actualidad, la necesidad de la entrega rápida y continua de nuevas funcionalidades por parte de las empresas, ha hecho surgir una vertiente de desarrollo ágil bastante interesante en la modalidad de desarrollo actual.
+A lo largo del tiempo, la cantidad de metodologías de desarrollo ha ido creciendo para paliar los deficits que podíamos encontrar tanto en metodologías previas como en las necesidades de los equipos de desarrollo y de los procesos de negocio. En la actualidad, la necesidad de la entrega rápida y continua de nuevas funcionalidades por parte de las empresas, ha hecho surgir una vertiente de desarrollo ágil bastante interesante en la modalidad de desarrollo actual.
 
 La investigación completa puede verse [aquí](metodologias_desarrollo.md).
 
 ### Estimación temporal <a name="estimacion_temporal"></a>
 
-Necesaria desde los primeros compases del desarrollo de un nuevo proyecto, marca una previsión inicial del tiempo que preevemos emplear para el desarrollo de este. Esencial para establecer unas metas realistas, además nos puede ayudar a reorganizar diferentes entregas del proyecto en función del tiempo que estemos empleando. Por tanto, junto a la metodología Scrum elegida, vamos a proceder a establecer la planificación que marcará el desarrollo de los próximos meses.
+Necesaria desde los primeros compases del desarrollo de un nuevo proyecto, marca una previsión inicial del tiempo que prevemos emplear para el desarrollo de este. Esencial para establecer unas metas realistas, además nos puede ayudar a reorganizar diferentes entregas del proyecto en función del tiempo que estemos empleando. Por tanto, junto a la metodología *Scrum* elegida, vamos a proceder a establecer la planificación que marcará el desarrollo de los próximos meses.
 
 La estimación completa puede verse [aquí](estimacion_temporal.md).
 
@@ -59,7 +59,7 @@ La terminología completa puede verse [aquí](terminologia.md).
 
 ## Investigación <a name="investigacion"></a>
 
-El primer paso claro en el desarrollo de un nuevo proyecto software es el de la investigación. El gran abanico de herramientas, lenguajes, frameworks, librerías, etc que disponemos hoy en día es inmenso. Renovandose constanmente, siempre podemos encontrar una opción que se adapte lo mejor posible a nuestras necesidades principales. Por todo eso, el primer paso es valorar las diferentes opciones y mediante un análisis de los requisitos de nuestro proyecto, elegir la opción que nos resulte más favorable.
+El primer paso claro en el desarrollo de un nuevo proyecto software es el de la investigación. El gran abanico de herramientas, lenguajes, *frameworks*, librerías, etc que disponemos hoy en día es inmenso. Renovándose constantemente, siempre podemos encontrar una opción que se adapte lo mejor posible a nuestras necesidades principales. Por todo eso, el primer paso es valorar las diferentes opciones y mediante un análisis de los requisitos de nuestro proyecto, elegir la opción que nos resulte más favorable.
 
 ### Arquitectura de microservicios <a name="microservicios"></a>
 

@@ -26,7 +26,7 @@ Como posible expansión del módulo en un aspecto más ambicioso podríamos valo
 
 ## Módulo 3: Gestor de contabilidad
 
-Módulo más abierto de todos y especialmente dependiente del tiempo disponible. Como caso base nos permitirá añadir los datos necesarios para la generación de una factura estandar. Es especialmente importante pensar como generar una factura customizada para cada cliente. Es decir, todo cliente añadirá los datos bajo el mismo proceso, pero luego cada uno podría tener su estructura de factura propia. Esto es un punto interesante que pensar y que valorar en el diseño de la arquitectura. Además, como en el módulo anterior, tendremos la posibilidad de previsualizar la factura y posteriormente descargar en pdf.
+Módulo más abierto de todos y especialmente dependiente del tiempo disponible. Como caso base nos permitirá añadir los datos necesarios para la generación de una factura estándar. Es especialmente importante pensar como generar una factura customizada para cada cliente. Es decir, todo cliente añadirá los datos bajo el mismo proceso, pero luego cada uno podría tener su estructura de factura propia. Esto es un punto interesante que pensar y que valorar en el diseño de la arquitectura. Además, como en el módulo anterior, tendremos la posibilidad de previsualizar la factura y posteriormente descargar en pdf.
 
 Importante poder establecer valores relativos a conceptos como IVA, IRFP, base imponible, descuentos, etc. 
 
@@ -40,11 +40,11 @@ Cuarto módulo en cuestión, esta vez encargado de la gestión de un calendario.
 
 Ambas posibilidades tienen muchas cuestiones abiertas, pues una empresa con un gran número de usuarios puede hacer que su calendario global sea muy caótico. Quizás la idea de un calendario individual sea lo más apetecible, pero también habría que pensar en como añadir las alertas que se generen en cada calendario individual. Aunque este segundo caso puede llegar a abrir otras posibilidades, pues una vez que se defina un servicio, si la empresa tiene varios funerarios en su plantilla, el servicio puede ir adjudicado a uno de estos, y por tanto, la alerta solo se generaría en el calendario de este. Hay que pensar por tanto en todas estas posibilidades.
 
-Como eventos interesantes por generar encontraríaamos fechas y horas de servicios pendientes, también misas pendientes, o facturas tanto pendientes de emitir como de cobrar.
+Como eventos interesantes por generar encontraríamos fechas y horas de servicios pendientes, también misas pendientes, o facturas tanto pendientes de emitir como de cobrar.
 
 ## Módulo 5: Correo
 
-Relacionado conceptualmene con el módulo anterior, cada usuario podría tener su propia dirección de correo. Entonces las tareas ligadas a este módulo sería la de tanto poder enviar correo como poder recibirlos, leerlos y cualquier cuestión relacionada. En general la idea de todos estos módulos es la de poder gestionar nuestra empresa o PYME sin salir de la plataforma.
+Relacionado conceptualmente con el módulo anterior, cada usuario podría tener su propia dirección de correo. Entonces las tareas ligadas a este módulo sería la de tanto poder enviar correo como poder recibirlos, leerlos y cualquier cuestión relacionada. En general la idea de todos estos módulos es la de poder gestionar nuestra empresa o PYME sin salir de la plataforma.
 
 Sería muy interesante poder adjuntar en el correo cualquiera de los documentos generados por el sistema. 
 

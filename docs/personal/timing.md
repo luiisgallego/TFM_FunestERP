@@ -6,7 +6,7 @@
 	- Doc: investigación general.
 - Día 14: 4.30 horas
 	- Doc: microservicios. #16
-	- Doc: investigacion, documentación y elección de las herramientas-lenguajes. #17
+	- Doc: investigación, documentación y elección de las herramientas-lenguajes. #17
 - Día 15: 2.30
 	- Doc: documentar introducción git. #17
 	- Doc: documentar investigación frontend. #17
@@ -24,7 +24,7 @@
 - Día 22: 5.00 + 2.00
 	- Doc: estimación temporal. #15
 - Día 23: 2h
-	- Doc: investigacion, documentación y elección de las herramientas-lenguajes. #17
+	- Doc: investigación, documentación y elección de las herramientas-lenguajes. #17
 - Día 24: 3h
 	- Doc: api gateway
 - Día 25: 2h
@@ -33,8 +33,9 @@
 	- Investigación
 - Día 28: 6h
 	- Reorganizar hitos e issues.	
-- Día 28: 7h
+- Día 29: 7h
 	- Milestone 1: Login
+- Día 30: 1h
 
-Total: 56 horas
+Total: 57 horas
 

@@ -1,6 +1,6 @@
 # Metodologías de desarrollo
 
-Las metodologías de desarrollo se centran principalmente en hacer uso de diversas herramientas, técnicas, métodos y modelos para la ejecución correcta de los procesos que conlleva el proyecto. Concretamente Sommerville ([Fuente](https://books.google.es/books?hl=es&lr=&id=gQWd49zSut4C&oi=fnd&pg=PR14&dq=Ian+Sommerville.+Ingenier%C3%ADa+del+Software,+9a+Edici%C3%B3n&ots=s775xtrBvi&sig=gYSUgO0IotekleX-1ppRObgta9U#v=onepage&q=Ian%20Sommerville.%20Ingenier%C3%ADa%20del%20Software%2C%209a%20Edici%C3%B3n&f=false)) define el proceso de software como "una representación, simplificada de un proceso de software, representada desde una perspectiva específica. Por su naturaleza los modelos son simplificados, por lo tanto, un modelo de procesos del software es una abstacción de un proceso real".
+Las metodologías de desarrollo se centran principalmente en hacer uso de diversas herramientas, técnicas, métodos y modelos para la ejecución correcta de los procesos que conlleva el proyecto. Concretamente Sommerville ([Fuente](https://books.google.es/books?hl=es&lr=&id=gQWd49zSut4C&oi=fnd&pg=PR14&dq=Ian+Sommerville.+Ingenier%C3%ADa+del+Software,+9a+Edici%C3%B3n&ots=s775xtrBvi&sig=gYSUgO0IotekleX-1ppRObgta9U#v=onepage&q=Ian%20Sommerville.%20Ingenier%C3%ADa%20del%20Software%2C%209a%20Edici%C3%B3n&f=false)) define el proceso de software como "una representación, simplificada de un proceso de software, representada desde una perspectiva específica. Por su naturaleza los modelos son simplificados, por lo tanto, un modelo de procesos del software es una abstracción de un proceso real".
 
 Actualmente disponemos de una gran cantidad de modelos y metodologías para el desarrollo de software. Durante muchos años se han estudiado y elaborado diferentes propuestas que buscan hacer más eficiente y efectivo el desarrollo de un proyecto, por lo que hoy en día disfrutamos la oportunidad de elegir el que más se adapte a nuestras necesidades.
 
@@ -44,9 +44,9 @@ Denominadas metodologías ágiles de desarrollo, nacieron tratando de dar una re
 
 Basada en la idea de minimizar los riesgos durante la realización de un proyecto de forma colaborativa. Encontramos distintas ventajas como la productividad, la calidad y el seguimiento diario de los avances del proyecto, logrando así que los integrantes estén unidos, comunicados y que el cliente este informado de los avances.
 
-Podríamos decir que Scrum es un proceso en el que se aplican de manera regular un conjunto de buenas prácticas para trabajar en equipo, y obtener el mejor resultado posible de un proyecto. Estas prácticas se apoyan unas a otras y su selección tiene origen en un estudio de la manera de trabajar de equipos altamente productivos.
+Podríamos decir que *Scrum* es un proceso en el que se aplican de manera regular un conjunto de buenas prácticas para trabajar en equipo, y obtener el mejor resultado posible de un proyecto. Estas prácticas se apoyan unas a otras y su selección tiene origen en un estudio de la manera de trabajar de equipos altamente productivos.
 
-En Scrum se realizan entregas parciales y regulares del producto final, priorizadas por el beneficio que aportan al receptor del proyecto. Por ello, Scrum está especialmente indicado para proyectos en entornos complejos, donde se necesita obtener resultados pronto, donde los requisitos son cambiantes o poco definidos, donde la innovación, la competitividad, la flexibilidad y la productividad son fundamentales. [Fuente](https://proyectosagiles.org/que-es-scrum/)
+En *Scrum* se realizan entregas parciales y regulares del producto final, priorizadas por el beneficio que aportan al receptor del proyecto. Por ello, *Scrum* está especialmente indicado para proyectos en entornos complejos, donde se necesita obtener resultados pronto, donde los requisitos son cambiantes o poco definidos, donde la innovación, la competitividad, la flexibilidad y la productividad son fundamentales. [Fuente](https://proyectosagiles.org/que-es-scrum/)
 
 ### ProgramaciónExtrema:
 
@@ -59,9 +59,9 @@ Metodología de desarrollo ágil que tiene como principal objetivo aumentar la p
 
 ### Conclusión
 
-Después de valorar las distintas metodologías de desarrollo, nos hemos decantado para la realización de nuestro proyecto por Scrum. La razón ha sido bastante básica, nos enfrentamos a un trabajo con unos requisitos definidos, pero no tenemos dudas de que estos pueden cambiar (ampliándose y reduciendose) a lo largo de su desarrollo, o más concretamente, surgirán nuevas posibilidades para acometerlos de maneras más efectivas, fruto de la experiencia tomada a lo largo del proceso de desarrollo.
+Después de valorar las distintas metodologías de desarrollo, nos hemos decantado para la realización de nuestro proyecto por *Scrum*. La razón ha sido bastante básica, nos enfrentamos a un trabajo con unos requisitos definidos, pero no tenemos dudas de que estos pueden cambiar (ampliándose y reduciéndose) a lo largo de su desarrollo, o más concretamente, surgirán nuevas posibilidades para acometerlos de maneras más efectivas, fruto de la experiencia tomada a lo largo del proceso de desarrollo.
 
-También la metodología Scrum es relevante para nuestro proceso de desarrollo ya que nos permité desde tiempos tempranos establecer una base completa de nuestro proyecto, con cada una de las tecnologías y herramientas funcionando desde casos base. Y por tanto, construir el trabajo planificado de forma uniforme, consiguiendo de esta manera entregar funcionalidad tanto operativa como completamente testeada.
+También la metodología *Scrum* es relevante para nuestro proceso de desarrollo ya que nos permite desde tiempos tempranos establecer una base completa de nuestro proyecto, con cada una de las tecnologías y herramientas funcionando desde casos base. Y por tanto, construir el trabajo planificado de forma uniforme, consiguiendo de esta manera entregar funcionalidad tanto operativa como completamente testeada.
 
 Por tanto, mediante esta metodología, una vez definido el proyecto, se seguirá un proceso iterativo que nos ayude a controlar, desarrollar y mejorar nuestra idea inicial.
 

@@ -3,7 +3,10 @@ docs/personal/Ideas.md
 docs/personal/timing.md
 docs/personal/borrador.md
 
-## NODE.JS
+# Login
+src/backend/login/package-lock.json
+
+# NODE.JS
 
 # Logs
 logs
@@ -121,4 +124,3 @@ dist
 .yarn/build-state.yml
 .pnp.*
 
-package-lock.json

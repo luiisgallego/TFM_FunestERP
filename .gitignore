@@ -6,6 +6,9 @@ docs/personal/borrador.md
 # Login
 src/backend/login/package-lock.json
 
+# General
+.idea
+
 # NODE.JS
 
 # Logs

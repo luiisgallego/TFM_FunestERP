@@ -12,7 +12,7 @@ let userSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         default: mongoose.Types.ObjectId()
     },
-    user_id: {
+    username: {
         type: String,
         required: true,
         unique: true

@@ -15,13 +15,13 @@ describe('User login: ', () => {
             .then(() => done())
     });
 
-    describe('GET /user/login/user_id', () => {
+    describe('GET /user/login/username', () => {
 
         beforeEach(done => {
             request(app)
                 .post('/user')
                 .send({
-                    user_id: 'user_1',
+                    username: 'user_1',
                     password: 'pass',
                     email: 'correo@correo.com',
                     name: 'name last_name'
@@ -39,7 +39,11 @@ describe('User login: ', () => {
 
         it('Debe devolver login correcto', done => {
             request(app)
-                .get('/user/login/user_id/' + user.user_id + '/' + user.password)
+                .post('/user/login')
+                .send({
+                    username: user.username,
+                    password: user.password
+                })
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end((err, res) => {
@@ -54,13 +58,19 @@ describe('User login: ', () => {
 
         it('Si la contraseña es incorrecta, debe devolver un mensaje de error', done => {
             request(app)
-                .get('/user/login/user_id/' + user.user_id + '/' + user.password)
+                .post('/user/login')
+                .send({
+                    username: user.username,
+                    password: user.password
+                })
                 .expect('Content-Type', /json/)
-                .expect(404)
+                .expect(400)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
                         let result = res.body;
+                        console.log('LOGIN CORRECTO');
+                        console.log(result);
                         // añadir comprobaciones
                         done()
                     }
@@ -69,7 +79,7 @@ describe('User login: ', () => {
 
         it('Si no hay contraseña, debe devolver error', done => {
             request(app)
-                .get('/user/login/user_id/' + user.user_id + '/' + user.password)
+                .get('/user/login/username/' + user.username + '/' + user.password)
                 .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
@@ -82,9 +92,9 @@ describe('User login: ', () => {
                 });
         });
 
-        it('Si no hay user_id, debe devolver error', done => {
+        it('Si no hay username, debe devolver error', done => {
             request(app)
-                .get('/user/login/' + user.user_id + '/' + user.password)
+                .get('/user/login/' + user.username + '/' + user.password)
                 .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
@@ -98,66 +108,66 @@ describe('User login: ', () => {
         });
     });
 
-    describe('GET /user/login/email', () => {
-
-        it('Debe devolver login correcto usando email y pass', done => {
-            request(app)
-                .get('/user/login/email/' + user.email + '/' + user.password)
-                .expect('Content-Type', /json/)
-                .expect(200)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        let result = res.body;
-                        // añadir comprobaciones
-                        done()
-                    }
-                });
-        });
-
-        it('Si la contraseña es incorrecta, debe devolver un mensaje de error', done => {
-            request(app)
-                .get('/user/login/email/' + user.email + '/' + user.password)
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        let result = res.body;
-                        // añadir comprobaciones
-                        done()
-                    }
-                });
-        });
-
-        it('Si no hay contraseña, debe devolver error', done => {
-            request(app)
-                .get('/user/login/email/' + user.email + '/' + user.password)
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        let result = res.body;
-                        // añadir comprobaciones
-                        done()
-                    }
-                });
-        });
-
-        it('Si no hay email, debe devolver error', done => {
-            request(app)
-                .get('/user/login/email/' + user.email + '/' + user.password)
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        let result = res.body;
-                        // añadir comprobaciones
-                        done()
-                    }
-                });
-        });
-    });
+    // describe('GET /user/login/email', () => {
+    //
+    //     it('Debe devolver login correcto usando email y pass', done => {
+    //         request(app)
+    //             .get('/user/login/email/' + user.email + '/' + user.password)
+    //             .expect('Content-Type', /json/)
+    //             .expect(200)
+    //             .end((err, res) => {
+    //                 if(err) return done(err);
+    //                 else {
+    //                     let result = res.body;
+    //                     // añadir comprobaciones
+    //                     done()
+    //                 }
+    //             });
+    //     });
+    //
+    //     it('Si la contraseña es incorrecta, debe devolver un mensaje de error', done => {
+    //         request(app)
+    //             .get('/user/login/email/' + user.email + '/' + user.password)
+    //             .expect('Content-Type', /json/)
+    //             .expect(404)
+    //             .end((err, res) => {
+    //                 if(err) return done(err);
+    //                 else {
+    //                     let result = res.body;
+    //                     // añadir comprobaciones
+    //                     done()
+    //                 }
+    //             });
+    //     });
+    //
+    //     it('Si no hay contraseña, debe devolver error', done => {
+    //         request(app)
+    //             .get('/user/login/email/' + user.email + '/' + user.password)
+    //             .expect('Content-Type', /json/)
+    //             .expect(404)
+    //             .end((err, res) => {
+    //                 if(err) return done(err);
+    //                 else {
+    //                     let result = res.body;
+    //                     // añadir comprobaciones
+    //                     done()
+    //                 }
+    //             });
+    //     });
+    //
+    //     it('Si no hay email, debe devolver error', done => {
+    //         request(app)
+    //             .get('/user/login/email/' + user.email + '/' + user.password)
+    //             .expect('Content-Type', /json/)
+    //             .expect(404)
+    //             .end((err, res) => {
+    //                 if(err) return done(err);
+    //                 else {
+    //                     let result = res.body;
+    //                     // añadir comprobaciones
+    //                     done()
+    //                 }
+    //             });
+    //     });
+    // });
 });

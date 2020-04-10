@@ -40,7 +40,7 @@ describe('User API:', () => {
             request(app)
                 .post('/user')
                 .send({
-                    user_id: 'user_1',
+                    username: 'user_1',
                     password: 'pass',
                     email: 'correo@correo.com',
                     name: 'name last_name'
@@ -55,8 +55,8 @@ describe('User API:', () => {
                         expect(newUser).ownProperty('_id');
                         expect(newUser).to.not.be.undefined;
                         expect(newUser).to.not.be.null;
-                        expect(newUser).ownProperty('user_id');
-                        expect(newUser.user_id).to.equal('user_1');
+                        expect(newUser).ownProperty('username');
+                        expect(newUser.username).to.equal('user_1');
                         expect(newUser).ownProperty('password');
                         expect(newUser.password).to.equal('pass');
                         expect(newUser).ownProperty('email');
@@ -93,7 +93,7 @@ describe('User API:', () => {
             request(app)
                 .post('/user')
                 .send({
-                    user_id: 'user_1',
+                    username: 'user_1',
                     password: 'pass',
                     email: 'newcorreo@correo.com'
                 })
@@ -112,7 +112,7 @@ describe('User API:', () => {
             request(app)
                 .post('/user')
                 .send({
-                    user_id: 'newuser',
+                    username: 'newuser',
                     password: 'pass',
                     email: 'correo@correo.com'
                 })
@@ -143,8 +143,8 @@ describe('User API:', () => {
                         expect(result).ownProperty('_id');
                         expect(result).to.not.be.undefined;
                         expect(result).to.not.be.null;
-                        expect(result).ownProperty('user_id');
-                        expect(result.user_id).to.equal('user_1');
+                        expect(result).ownProperty('username');
+                        expect(result.username).to.equal('user_1');
                         expect(result).ownProperty('password');
                         expect(result.password).to.equal('pass');
                         expect(result).ownProperty('email');
@@ -178,11 +178,11 @@ describe('User API:', () => {
         });
     });
 
-    describe('GET /user/user_id/:user_id', () => {
+    describe('GET /user/username/:username', () => {
 
         it('Debe devolver los datos del usuario', done => {
             request(app)
-                .get('/user/user_id/' + newUser.user_id)
+                .get('/user/username/' + newUser.username)
                 .expect(200)
                 .expect('Content-Type', /json/)
                 .end((err, res) => {
@@ -193,8 +193,8 @@ describe('User API:', () => {
                         expect(result).ownProperty('_id');
                         expect(result).to.not.be.undefined;
                         expect(result).to.not.be.null;
-                        expect(result).ownProperty('user_id');
-                        expect(result.user_id).to.equal('user_1');
+                        expect(result).ownProperty('username');
+                        expect(result.username).to.equal('user_1');
                         expect(result).ownProperty('password');
                         expect(result.password).to.equal('pass');
                         expect(result).ownProperty('email');
@@ -214,7 +214,7 @@ describe('User API:', () => {
 
         it('Si el usuario no existe, debe responder 404', done => {
             request(app)
-                .get('/user/user_id/33333')
+                .get('/user/username/33333')
                 .send({})
                 .expect('Content-Type', /json/)
                 .expect(404)
@@ -235,7 +235,7 @@ describe('User API:', () => {
             request(app)
                 .post('/user')
                 .send({
-                    user_id: 'user_2',
+                    username: 'user_2',
                     password: 'pass_2',
                     email: 'correo2@correo2.com',
                     name: 'name2 last_name2'
@@ -262,7 +262,7 @@ describe('User API:', () => {
                         let result = res.body;
                         expect(result[0]).to.be.instanceOf(Object);
                         expect(result[0]).ownProperty('_id');
-                        expect(result[0].user_id).to.equal('user_1');
+                        expect(result[0].username).to.equal('user_1');
                         expect(result[0].password).to.equal('pass');
                         expect(result[0].email).to.equal('correo@correo.com');
                         expect(result[0].name).to.equal('name last_name');
@@ -271,7 +271,7 @@ describe('User API:', () => {
                         expect(result[0]).to.not.have.ownProperty('updatedAt');
                         expect(result[1]).to.be.instanceOf(Object);
                         expect(result[1]).ownProperty('_id');
-                        expect(result[1].user_id).to.equal('user_2');
+                        expect(result[1].username).to.equal('user_2');
                         expect(result[1].password).to.equal('pass_2');
                         expect(result[1].email).to.equal('correo2@correo2.com');
                         expect(result[1].name).to.equal('name last_name2');
@@ -291,7 +291,7 @@ describe('User API:', () => {
                 .put('/user')
                 .send({
                     _id: newUser._id,
-                    user_id: 'new_user',
+                    username: 'new_user',
                     password: 'other_pass',
                     email: 'other_email@email',
                     name: 'new_name new_last_name',
@@ -307,7 +307,7 @@ describe('User API:', () => {
                         expect(updatedUser).to.be.instanceOf(Object);
                         expect(updatedUser).ownProperty('_id');
                         expect(updatedUser._id).to.equal(newUser._id);
-                        expect(updatedUser.user_id).to.equal('new_user');
+                        expect(updatedUser.username).to.equal('new_user');
                         expect(updatedUser.password).to.equal('other_pass');
                         expect(updatedUser.email).to.equal('other_email@email');
                         expect(updatedUser.name).to.equal('new_name new_last_name');
@@ -325,7 +325,7 @@ describe('User API:', () => {
             request(app)
                 .put('/user')
                 .send({
-                    user_id: 'other_new_user',
+                    username: 'other_new_user',
                     password: 'other_other_pass',
                     email: 'other_other_email@email',
                     name: 'other_new_name new_last_name',
@@ -361,7 +361,7 @@ describe('User API:', () => {
                 .put('/user')
                 .send({
                     _id: newUser._id,
-                    user_id: 'new_user',
+                    username: 'new_user',
                     password: 'other_other_pass',
                     email: 'other_other_email@email',
                     name: 'other_new_name new_last_name',
@@ -383,7 +383,7 @@ describe('User API:', () => {
                 .put('/user')
                 .send({
                     _id: newUser._id,
-                    user_id: 'other_new_user',
+                    username: 'other_new_user',
                     password: 'other_other_pass',
                     email: 'other_email@email',
                     name: 'other_new_name new_last_name',
@@ -408,7 +408,7 @@ describe('User API:', () => {
                 .patch('/user')
                 .send({
                     _id: newUser._id,
-                    user_id: 'new_user_2'
+                    username: 'new_user_2'
                 })
                 .expect(200)
                 .expect('Content-Type', /json/)
@@ -419,7 +419,7 @@ describe('User API:', () => {
                         expect(result).to.be.instanceOf(Object);
                         expect(result).ownProperty('_id');
                         expect(result._id).to.equal(newUser._id);
-                        expect(result.user_id).to.equal('new_user_2');
+                        expect(result.username).to.equal('new_user_2');
                         expect(result.password).to.equal('other_pass');
                         expect(result.email).to.equal('other_email@email');
                         expect(result.name).to.equal('new_name new_last_name');
@@ -436,7 +436,7 @@ describe('User API:', () => {
         it('Si no hay _id, debe devolver error', done => {
             request(app)
                 .patch('/user')
-                .send({ user_id: 'new_user' })
+                .send({ username: 'new_user' })
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -466,7 +466,7 @@ describe('User API:', () => {
                 .patch('/user')
                 .send({
                     _id: newUser._id,
-                    user_id: ''
+                    username: ''
                 })
                 .expect(404)
                 .end((err, res) => {
@@ -483,7 +483,7 @@ describe('User API:', () => {
                 .patch('/user')
                 .send({
                     _id: newUser._id,
-                    user_id: 'new_user'
+                    username: 'new_user'
                 })
                 .expect(404)
                 .end((err, res) => {

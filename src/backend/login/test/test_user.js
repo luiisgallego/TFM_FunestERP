@@ -162,10 +162,23 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el usuario no existe, debe responder 404', done => {
+        it('Si el usuario no existe, debe responder error', done => {
             request(app)
-                .get('/user/33333')
-                .send({})
+                .get('/user/5e9096e06c93422c6a083ec4')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end((err, res) => {
+                    if(err) done(err)
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+
+        it('Si el formato del ObjectId no es correcto, debe responder error', done => {
+            request(app)
+                .get('/user/555')
                 .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
@@ -183,8 +196,8 @@ describe('User API:', () => {
         it('Debe devolver los datos del usuario', done => {
             request(app)
                 .get('/user/username/' + newUser.username)
-                .expect(200)
                 .expect('Content-Type', /json/)
+                .expect(200)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
@@ -212,12 +225,11 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el usuario no existe, debe responder 404', done => {
+        it('Si el usuario no existe, debe responder error', done => {
             request(app)
                 .get('/user/username/33333')
-                .send({})
                 .expect('Content-Type', /json/)
-                .expect(404)
+                .expect(200)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
@@ -231,17 +243,17 @@ describe('User API:', () => {
     describe('GET /user/list', () => {
         let other_user;
 
-        beforeEach(done => {
+        it('Debe crear un nuevo usuario', done => {
             request(app)
                 .post('/user')
                 .send({
                     username: 'user_2',
                     password: 'pass_2',
                     email: 'correo2@correo2.com',
-                    name: 'name2 last_name2'
+                    name: 'name22222 last_name2'
                 })
-                .expect(200)
                 .expect('Content-Type', /json/)
+                .expect(200)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
@@ -254,8 +266,8 @@ describe('User API:', () => {
         it('Debe devolver los usuarios existentes', done => {
             request(app)
                 .get('/user/list')
-                .expect(200)
                 .expect('Content-Type', /json/)
+                .expect(200)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
@@ -298,8 +310,8 @@ describe('User API:', () => {
                     rol: 'user',
                     createdAt: newUser.createdAt
                 })
-                .expect(200)
                 .expect('Content-Type', /json/)
+                .expect(200)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
@@ -332,6 +344,7 @@ describe('User API:', () => {
                     rol: 'user',
                     createdAt: newUser.createdAt
                 })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -346,6 +359,7 @@ describe('User API:', () => {
             request(app)
                 .put('/user')
                 .send({ _id: newUser._id })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -368,6 +382,7 @@ describe('User API:', () => {
                     rol: 'user',
                     createdAt: newUser.createdAt
                 })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -390,6 +405,7 @@ describe('User API:', () => {
                     rol: 'user',
                     createdAt: newUser.createdAt
                 })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -437,6 +453,7 @@ describe('User API:', () => {
             request(app)
                 .patch('/user')
                 .send({ username: 'new_user' })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -451,6 +468,7 @@ describe('User API:', () => {
             request(app)
                 .patch('/user')
                 .send({ _id: newUser._id })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -468,6 +486,7 @@ describe('User API:', () => {
                     _id: newUser._id,
                     username: ''
                 })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -485,6 +504,7 @@ describe('User API:', () => {
                     _id: newUser._id,
                     username: 'new_user'
                 })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -502,6 +522,7 @@ describe('User API:', () => {
                     _id: newUser._id,
                     email: 'other_email@email',
                 })
+                .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -518,8 +539,8 @@ describe('User API:', () => {
         it('Debe borrar el usuario', done => {
             request(app)
                 .delete('/user/' + newUser._id)
-                .expect(204)
                 .expect('Content-Type', /json/)
+                .expect(204)
                 .end((err, res) => {
                     if(err) return done(err);
                     else done()
@@ -529,8 +550,8 @@ describe('User API:', () => {
         it('Si el usuario no existe, debe devolver eror', done => {
             request(app)
                 .delete('/user/' + newUser._id)
-                .expect(404)
                 .expect('Content-Type', /json/)
+                .expect(404)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {

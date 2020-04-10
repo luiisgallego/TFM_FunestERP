@@ -148,7 +148,7 @@ describe('User API:', () => {
                         expect(result).ownProperty('password');
                         expect(result.password).to.equal('pass');
                         expect(result).ownProperty('email');
-                        expect(result.email).to.equal('correo@gmail.com');
+                        expect(result.email).to.equal('correo@correo.com');
                         expect(result).ownProperty('name');
                         expect(result.name).to.equal('name last_name');
                         expect(result).ownProperty('rol');
@@ -173,6 +173,112 @@ describe('User API:', () => {
                     else {
                         expect(res.body).ownProperty('error');
                         done();
+                    }
+                });
+        });
+    });
+
+    describe('GET /user/user/:user', () => {
+
+        it('Debe devolver los datos del usuario', done => {
+            request(app)
+                .get('/user/user/' + newUser.user)
+                .expect(200)
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        let result = res.body;
+                        expect(result).to.be.instanceOf(Object);
+                        expect(result).ownProperty('_id');
+                        expect(result).to.not.be.undefined;
+                        expect(result).to.not.be.null;
+                        expect(result).ownProperty('user');
+                        expect(result.user).to.equal('user_1');
+                        expect(result).ownProperty('password');
+                        expect(result.password).to.equal('pass');
+                        expect(result).ownProperty('email');
+                        expect(result.email).to.equal('correo@correo.com');
+                        expect(result).ownProperty('name');
+                        expect(result.name).to.equal('name last_name');
+                        expect(result).ownProperty('rol');
+                        expect(result.rol).to.equal('user');
+                        expect(result).ownProperty('createdAt');
+                        expect(result.createdAt).to.not.be.undefined;
+                        expect(result.createdAt).to.not.be.null;
+                        expect(result).to.not.have.ownProperty('updatedAt');
+                        done();
+                    }
+                });
+        });
+
+        it('Si el usuario no existe, debe responder 404', done => {
+            request(app)
+                .get('/user/user/33333')
+                .send({})
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+    });
+
+    describe('GET /user/list', () => {
+        let other_user;
+
+        beforeEach(done => {
+            request(app)
+                .post('/user')
+                .send({
+                    user: 'user_2',
+                    password: 'pass_2',
+                    email: 'correo2@correo2.com',
+                    name: 'name2 last_name2'
+                })
+                .expect(200)
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        other_user = res.body;
+                        done()
+                    }
+                });
+        });
+
+        it('Debe devolver los usuarios existentes', done => {
+            request(app)
+                .get('/user/list')
+                .expect(200)
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        let result = res.body;
+                        expect(result[0]).to.be.instanceOf(Object);
+                        expect(result[0]).ownProperty('_id');
+                        expect(result[0].user).to.equal('user_1');
+                        expect(result[0].password).to.equal('pass');
+                        expect(result[0].email).to.equal('correo@correo.com');
+                        expect(result[0].name).to.equal('name last_name');
+                        expect(result[0].rol).to.equal('user');
+                        expect(result[0]).ownProperty('createdAt');
+                        expect(result[0]).to.not.have.ownProperty('updatedAt');
+                        expect(result[1]).to.be.instanceOf(Object);
+                        expect(result[1]).ownProperty('_id');
+                        expect(result[1].user).to.equal('user_2');
+                        expect(result[1].password).to.equal('pass_2');
+                        expect(result[1].email).to.equal('correo2@correo2.com');
+                        expect(result[1].name).to.equal('name last_name2');
+                        expect(result[1].rol).to.equal('user');
+                        expect(result[1]).ownProperty('createdAt');
+                        expect(result[1]).to.not.have.ownProperty('updatedAt');
+                        done()
                     }
                 });
         });
@@ -405,7 +511,6 @@ describe('User API:', () => {
                     }
                 });
         });
-
     });
 
     describe('DELETE /user/:_id', () => {
@@ -437,5 +542,3 @@ describe('User API:', () => {
     });
 
 });
-
-

@@ -10,7 +10,7 @@ let mongoose = require('mongoose');
 let userSchema = new mongoose.Schema({
     _id: {
         type: mongoose.Schema.ObjectId,
-        default: mongoose.Types.ObjectId()
+        auto: true,
     },
     username: {
         type: String,

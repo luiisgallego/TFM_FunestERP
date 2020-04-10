@@ -10,7 +10,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha --exit"
+    "test": "nyc --reporter=text mocha --exit"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -21,6 +21,7 @@
     "chai": "^4.2.0",
     "lodash.merge": "^4.6.2",
     "mocha": "^7.1.1",
+    "nyc": "^15.0.1",
     "supertest": "^4.0.2"
   }
 }

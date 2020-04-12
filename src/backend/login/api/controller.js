@@ -1,7 +1,5 @@
 'use strict';
 
-let objectId = require('mongoose').mongo.ObjectId;
-let mongoose = require('mongoose');
 let merge = require('lodash.merge');
 
 let userModel = require('./model');
@@ -21,63 +19,94 @@ function read(req, res) {
     }
 
     if (req.params._id) {
-        userModel.findById(req.params._id,  (err, user) => {
-            if (err) return res.status(404).type('json').send({'error': err.message});
-            if (!user) return res.status(200).type('json').send({'error': 'Usuario no encontrado'});
-            else res.status(200).type('json').send(user)
-        });
+        userModel.findById(req.params._id)
+            .then(user => {
+                if (!user) return res.status(200).type('json').send({'error': 'Usuario no encontrado'});
+                res.status(200).type('json').send(user);
+            })
+            .catch(err => {
+                return res.status(404).type('json').send({'error': err.message});
+            });
     }
 
     if(req.params.username) {
-        userModel.findOne({'username': req.params.username}, (err, user) => {
-            if (err) return res.status(404).type('json').send({'error': err.message});
-            if (!user) return res.status(200).type('json').send({'error': 'Usuario no encontrado'});
-            else res.status(200).type('json').send(user)
-        });
+        userModel.findOne({'username': req.params.username})
+            .then(user => {
+                if (!user) return res.status(200).type('json').send({'error': 'Usuario no encontrado'});
+                res.status(200).type('json').send(user);
+            })
+            .catch(err => {
+                return res.status(404).type('json').send({'error': err.message});
+            });
     }
 }
 
 function list(req, res) {
 
-    userModel.find((err, users) => {
-        if (err) return res.status(404).type('json').send({'error': err.message});
-        if (!users) return res.status(200).type('json').send({'error': 'Ningun usuario encontrado'});
-        else res.status(200).type('json').send(users)
-    });
+    userModel.find()
+        .then(users => {
+            if (!users) return res.status(200).type('json').send({'error': 'Ningun usuario encontrado'});
+            res.status(200).type('json').send(users);
+        })
+        .catch(err => {
+            return res.status(404).type('json').send({'error': err.message});
+        });
 }
 
 function create(req, res) {
 
-    userModel.create(req.body, (err, user) => {
-        if (err) return res.status(404).type('json').send({'error': err.message});
-        else res.status(200).type('json').send(user)
-    });
-}
-
-function updateAll(req, res) {
-
+    userModel.create(req.body)
+        .then(user => {
+            res.status(200).type('json').send(user)
+        })
+        .catch(err => {
+            res.status(404).type('json').send({'error': err.message});
+        });
 }
 
 function update(req, res) {
 
-    // console.log('UPDATE');
-    //
-    // let orig = {
-    //     'name': 'luis',
-    //     'password': 'pass',
-    //     'email': 'correo@gmail.com'
-    // };
-    //
-    // let fin = {'user': 'fran'};
-    //
-    // let result = merge(orig, fin);
-    //
-    // console.log(result);
+    if (!req.body._id) {
+        return res.status(404).type('json').send({'error': 'Faltan parametro _id'});
+    }
 
+    userModel.findById(req.body._id)
+        .then((user) => {
+            if (!user) return res.status(200).type('json').send({'error': 'Usuario no encontrado'});
+
+            let new_user = new userModel(merge(user, req.body));
+            new_user.updatedAt = Date.now();
+
+            new_user.save()
+                .then(() => {
+                    res.status(200).type('json').send(new_user);
+                })
+                .catch(err => {
+                    res.status(404).type('json').send({'error': err.message});
+                });
+        })
+        .catch(err => {
+            res.status(404).type('json').send({'error': err.message});
+        });
 }
 
 function destroy(req, res) {
 
+    userModel.findById(req.params._id)
+        .then(user => {
+            if (!user) return res.status(200).type('json').send({'error': 'Usuario no encontrado'});
+
+            user.remove()
+                .then(() => {
+                    return res.status(204).send();
+                })
+                .catch((err) => {
+                    return res.status(404).type('json').send({'error': err.message});
+                });
+        })
+        .catch(err => {
+            return res.status(404).type('json').send({'error': err.message});
+        });
 }
 
 
@@ -113,7 +142,6 @@ module.exports = {
     read,
     list,
     create,
-    updateAll,
     update,
     destroy,
     login

@@ -14,11 +14,11 @@ let server_ip_address = '0.0.0.0';
 app.set('puerto', 3000);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
+// app.use(require('express-session')({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: false
+// }));
 app.use(passport.initialize());
 app.use('/user', routes);
 // app.use(passport.session());

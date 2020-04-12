@@ -7,14 +7,13 @@ let controller = require('./controller');
 
 router.get('/', controller.status);
 router.post('/', controller.create);
-router.put('/', controller.updateAll);
-router.patch('/', controller.update);
+router.put('/', controller.update);
+router.get('/list', controller.list);
 
 router.get('/:_id', controller.read);
 router.delete('/:_id', controller.destroy);
 
 router.get('/username/:username/', controller.read);
-router.get('/list', controller.list);
 
 router.post('/login', controller.login);
 

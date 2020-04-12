@@ -9,7 +9,7 @@ let mongoose = require('mongoose');
  */
 let userSchema = new mongoose.Schema({
     _id: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         auto: true,
     },
     username: {

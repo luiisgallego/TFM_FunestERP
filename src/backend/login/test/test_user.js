@@ -2,6 +2,7 @@
 
 let request = require('supertest'),
     expect = require('chai').expect;
+let mongoose = require('mongoose');
 let app = require('../');
 
 let userModel = require('../api/model');
@@ -74,7 +75,7 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si falta algún parámetro, debe responder con un mensaje de error', done => {
+        it('Si falta algún parámetro, debe responder con un error', done => {
             request(app)
                 .post('/user')
                 .send({})
@@ -89,7 +90,7 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el usuario ya existe, debe responder con un mensaje de error', done => {
+        it('Si el usuario ya existe, debe responder con un error', done => {
             request(app)
                 .post('/user')
                 .send({
@@ -108,7 +109,7 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el email ya existe, debe responder con un mensaje de error', done => {
+        it('Si el email ya existe, debe responder con un error', done => {
             request(app)
                 .post('/user')
                 .send({
@@ -162,13 +163,13 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el usuario no existe, debe responder error', done => {
+        it('Si el usuario no existe, debe responder con un mensaje de error', done => {
             request(app)
                 .get('/user/5e9096e06c93422c6a083ec4')
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end((err, res) => {
-                    if(err) done(err)
+                    if(err) done(err);
                     else {
                         expect(res.body).ownProperty('error');
                         done();
@@ -176,7 +177,7 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el formato del ObjectId no es correcto, debe responder error', done => {
+        it('Si el formato del ObjectId no es correcto, debe responder con un error', done => {
             request(app)
                 .get('/user/555')
                 .expect('Content-Type', /json/)
@@ -225,7 +226,7 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el usuario no existe, debe responder error', done => {
+        it('Si el usuario no existe, debe responder con un mensaje de error', done => {
             request(app)
                 .get('/user/username/33333')
                 .expect('Content-Type', /json/)
@@ -250,7 +251,7 @@ describe('User API:', () => {
                     username: 'user_2',
                     password: 'pass_2',
                     email: 'correo2@correo2.com',
-                    name: 'name22222 last_name2'
+                    name: 'name2 last_name2'
                 })
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -286,7 +287,7 @@ describe('User API:', () => {
                         expect(result[1].username).to.equal('user_2');
                         expect(result[1].password).to.equal('pass_2');
                         expect(result[1].email).to.equal('correo2@correo2.com');
-                        expect(result[1].name).to.equal('name last_name2');
+                        expect(result[1].name).to.equal('name2 last_name2');
                         expect(result[1].rol).to.equal('user');
                         expect(result[1]).ownProperty('createdAt');
                         expect(result[1]).to.not.have.ownProperty('updatedAt');
@@ -325,7 +326,7 @@ describe('User API:', () => {
                         expect(updatedUser.name).to.equal('new_name new_last_name');
                         expect(updatedUser.rol).to.equal('user');
                         expect(updatedUser).ownProperty('createdAt');
-                        expect(updatedUser.email).to.equal(newUser.createdAt);
+                        expect(updatedUser.createdAt).to.equal(newUser.createdAt);
                         expect(updatedUser).ownProperty('updatedAt');
                         expect(updatedUser.updatedAt).to.not.equal(newUser.updatedAt);
                         done()
@@ -355,26 +356,11 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si se deja en blanco algún campo, debe devolver error', done => {
-            request(app)
-                .put('/user')
-                .send({ _id: newUser._id })
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        expect(res.body).ownProperty('error');
-                        done();
-                    }
-                });
-        });
-
-        it('Si el user existe, debe devolver error', done => {
+        it('Si el user (_id) no existe, debe devolver un mensaje de error', done => {
             request(app)
                 .put('/user')
                 .send({
-                    _id: newUser._id,
+                    _id: new mongoose.Types.ObjectId(),
                     username: 'new_user',
                     password: 'other_other_pass',
                     email: 'other_other_email@email',
@@ -383,7 +369,7 @@ describe('User API:', () => {
                     createdAt: newUser.createdAt
                 })
                 .expect('Content-Type', /json/)
-                .expect(404)
+                .expect(200)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
@@ -393,12 +379,25 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el email existe, debe devolver error', done => {
+        it('Insertamos user para siguiente test', done => {
+            request(app)
+                .post('/user')
+                .send({
+                    username: 'user_test',
+                    password: 'pass_test',
+                    email: 'correo_test@correo.com',
+                    name: 'name_test last_name'
+                })
+                .expect('Content-Type', /json/)
+                .expect(200, done)
+        });
+
+        it('Si las claves existen, debe devolver error', done => {
             request(app)
                 .put('/user')
                 .send({
                     _id: newUser._id,
-                    username: 'other_new_user',
+                    username: 'user_test',
                     password: 'other_other_pass',
                     email: 'other_email@email',
                     name: 'other_new_name new_last_name',
@@ -415,112 +414,18 @@ describe('User API:', () => {
                     }
                 });
         });
-    });
 
-    describe('PATCH /user', () => {
-
-        it('Debe devolver solo el nombre modificado', done => {
+        it('Si las claves son vacias, debe devolver error', done => {
             request(app)
-                .patch('/user')
+                .put('/user')
                 .send({
                     _id: newUser._id,
-                    username: 'new_user_2'
-                })
-                .expect(200)
-                .expect('Content-Type', /json/)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        let result = res.body;
-                        expect(result).to.be.instanceOf(Object);
-                        expect(result).ownProperty('_id');
-                        expect(result._id).to.equal(newUser._id);
-                        expect(result.username).to.equal('new_user_2');
-                        expect(result.password).to.equal('other_pass');
-                        expect(result.email).to.equal('other_email@email');
-                        expect(result.name).to.equal('new_name new_last_name');
-                        expect(result.rol).to.equal('user');
-                        expect(result).ownProperty('createdAt');
-                        expect(result.email).to.equal(newUser.createdAt);
-                        expect(result).ownProperty('updatedAt');
-                        expect(result.updatedAt).to.not.equal(newUser.updatedAt);
-                        done()
-                    }
-                });
-        });
-
-        it('Si no hay _id, debe devolver error', done => {
-            request(app)
-                .patch('/user')
-                .send({ username: 'new_user' })
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        expect(res.body).ownProperty('error');
-                        done();
-                    }
-                });
-        });
-
-        it('Si no hay ningún campo que actualizar, debe devolver error', done => {
-            request(app)
-                .patch('/user')
-                .send({ _id: newUser._id })
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        expect(res.body).ownProperty('error');
-                        done();
-                    }
-                });
-        });
-
-        it('Si se deja en blanco algún campo obligatorio, debe devolver error', done => {
-            request(app)
-                .patch('/user')
-                .send({
-                    _id: newUser._id,
-                    username: ''
-                })
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        expect(res.body).ownProperty('error');
-                        done();
-                    }
-                });
-        });
-
-        it('Si el user existe, debe devolver error', done => {
-            request(app)
-                .patch('/user')
-                .send({
-                    _id: newUser._id,
-                    username: 'new_user'
-                })
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        expect(res.body).ownProperty('error');
-                        done();
-                    }
-                });
-        });
-
-        it('Si el email existe, debe devolver error', done => {
-            request(app)
-                .patch('/user')
-                .send({
-                    _id: newUser._id,
+                    username: '',
+                    password: 'other_other_pass',
                     email: 'other_email@email',
+                    name: 'other_new_name new_last_name',
+                    rol: 'user',
+                    createdAt: newUser.createdAt
                 })
                 .expect('Content-Type', /json/)
                 .expect(404)
@@ -539,7 +444,6 @@ describe('User API:', () => {
         it('Debe borrar el usuario', done => {
             request(app)
                 .delete('/user/' + newUser._id)
-                .expect('Content-Type', /json/)
                 .expect(204)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -547,19 +451,47 @@ describe('User API:', () => {
                 });
         });
 
-        it('Si el usuario no existe, debe devolver eror', done => {
+        it('No debe encontrar al usuario', done => {
             request(app)
-                .delete('/user/' + newUser._id)
+                .get('/user/' + newUser._id)
                 .expect('Content-Type', /json/)
-                .expect(404)
+                .expect(200)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
                         expect(res.body).ownProperty('error');
-                        done();
+                        done()
                     }
                 });
         });
+
+        it('Si el usuario no existe debe enviar un mensaje de error', done => {
+            request(app)
+                .delete('/user/' + newUser._id)
+                .expect(200)
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done()
+                    }
+                });
+        });
+
+        it('Si el formato del _id no es correcto, debe enviar un error', done => {
+            request(app)
+                .delete('/user/4444')
+                .expect(404)
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done()
+                    }
+                });
+        })
     });
 
 });

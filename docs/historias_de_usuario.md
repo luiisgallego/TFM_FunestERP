@@ -17,144 +17,174 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 
 ## Listado
 
-- HU. 1
+- HU. 1 - Backend
 	- Usuario: Jefe / Empleado
 	- Funcionalidad: *Login* en el sistema.
-	- Resultado: Acceder a las funcionalidades del sistema.
+	- Resultado: Nos permitirá verificar que los datos del usuario introducidos son correctos. También nos permitirá manejar la información de los usuarios (creación - lectura, actualización - borrado).
 	- Criterios de aceptación:
 		- Se aceptará como nombre de usuario tanto el correo como el nombre.
 		- La contraseña asociada tiene que ser correcta.
 		- La contraseña tendrá más de 8 carácteres.
-		- Se tiene que proporcionar una doble verificación.
-		- Una vez realizado el *login* el sistema mantendrá la sesión abierta.
+		- La contraseña se almacenará bajo encriptación.
+		- Se proporcionarán varios métodos de login o al menos el sistema estará preparado para su inclusión rápida.
+		- Se debe posibilitar el uso de JWT si fuera necesario.
+		- El nombre del usuario y su correo deberán ser únicos.
+		- Debemos poder tener diferentes roles.
 
-- HU. 2
+- HU. - Backend
+	- Usuario: Jefe / Empleado
+	- Funcionalidad: Crear, leer, actualizar y borrar un servicio (funerario).
+	- Resultado: El sistema añadirá, leerá, actualizará o borrará los datos del servicio en el sistema. 
+	- Criterios de aceptación:
+		- Se tiene que permitir tanto añadir un nuevo servicio como leer, actualizar y borrar este.
+		- Debemos poder obtener la información de todos los servicios almacenados en la base de datos.
+		- Nos debe proporcionar almacenar datos para la primera parte del servicio, estos son datos como nombre de difunto, DNI, fecha, localización, etc.
+		- Debemos poder tener referencias a su cliente, familiares y facturas asociados.
+		- Debemos poder tener información de historial de cambios, como fecha de creación, fecha de edición, usuario creador y actualizador en principio.
+		- Solo un usuario con rol de administrador podrá borrar un servicio.
+
+- HU. - Backend
+	- Usuario: Jefe / Empleado
+	- Funcionalidad: Crear, leer, actualizar y borrar los datos relativos a un cliente.
+	- Resultado: El sistema añadirá, leerá, actualizará o borrará los datos del cliente en el sistema. 
+	- Criterios de aceptación:
+		- Se tiene que permitir tanto añadir un nuevo cliente como leer, actualizar y borrar este.
+		- Un cliente no tiene porqué estar ligado inicialmente a un servicio (difunto).
+		- El sistema debe permitir asociar el cliente al difunto posteriormente.
+		- Un cliente debe poder asociarse a varios servicios. 
+		- Los datos que manejaremos relativos al cliente están especialmente ligados a la posterior facturación del servicio, por lo que la posibilidad de almacenar datos como cuentas bancarias serán de especial interés.
+		- Debemos poder tener información de historial de cambios, como fecha de creación, fecha de edición, usuario creador y actualizador en principio.
+		- Solo un usuario con rol de administrador podrá borrar un servicio.
+
+- HU. - Backend
+	- Usuario: Jefe / Empleado
+	- Funcionalidad: Crear, leer, actualizar y borrar los datos relativos a familiares.
+	- Resultado: El sistema añadirá, leerá, actualizará o borrará los datos del cliente en el sistema. 
+	- Criterios de aceptación:		
+		- Se tiene que permitir tanto añadir los datos de familiares como leer, actualizar y borrar estos.
+		- Familiares es una sola entidad que tiene información relativa a los familiares más cercanos del difunto.
+		- Tiene que estar siempre ligada a un servicio, no tiene sentido crearlo independiente a un servicio concreto.
+		- La estructura que se utilice para su almacenamiento debe ser óptima para su posterior uso en documentos.
+		- Debemos poder tener información de historial de cambios, como fecha de creación, fecha de edición, usuario creador y actualizador en principio.
+		- Solo un usuario con rol de administrador podrá borrar un servicio.		
+
+*Los aspectos relativos a contabilidad dan cabida a un gran número de posibilidades, desde controlar el stock de material actual en la empresa hasta tener un control de gastos total, pero de cara el proyecto que nos ocupa esta parte de simplificará a tan solo generar una factura final. Esta parte se ampliará si el tiempo lo permite.*
+
+- HU. - Backend
+	- Usuario: Jefe / Empleado
+	- Funcionalidad: Crear, leer, actualizar y borrar los distintos conceptos de una factura.
+	- Resultado: El sistema añadirá, leerá, actualizará o borrará los datos para la factura. Además nos permitirá realizar operaciones para calcular los costes finales en dicha factura. 
+	- Criterios de aceptación:
+		- Se tiene que permitir tanto añadir los conceptos que aparecerán en la factura, además de leerlos, editarlos o borrarlos.
+		- Debemos poder obtener la información de todos los datos de las facturas.
+		- Los datos de facturas siempre están asociados a un servicio.
+		- La estructura de datos utilizada debe ser manejable y lo más extensible posible. Además debe ser óptima para su uso en documentos.
+		- El sistema realizará los cálculos finales tales como cálculo de IVA o importe final entre otros.
+		- Solo un usuario con rol de administrador podrá borrar una factura.
+		- Debemos poder tener información de historial de cambios.
+
+- HU - Interfaz 
+	- Usuario: Jefe / Empleado
+	- Funcionalidad: *Login* desde la interfaz.
+	- Resultado: La interfaz nos proporcionará diferentes métodos para realizar el *login* del usuario en la plataforma.
+	- Criterios de aceptación:
+		- El método inicial que nos mostrará será el típico usuario - contraseña mediante un formulario sencillo para el usuario.
+		- El *frontend* verificará que los parámetros obligatorios (usuario - contraseña) son introducidos antes de enviar la petición al *backend*.
+		- Una vez realizado el *login* el sistema mantendrá la sesión abierta.
+		- Si el tiempo lo permite, se usarán otros métodos de *login*, y para ello el sistema proporcionará los botones y formularios adecuados para su uso. Por ejemplo, *login* mediante *Google* o *Facebook*.
+
+- HU. - Interfaz
 	- Usuario: Jefe / Empleado
 	- Funcionalidad: *Logout* en el sistema.
 	- Resultado: Salir del sistema.
 	- Criterios de aceptación:
+		- Se redirigirá a la pantalla inicial de *login* y se mostrará un claro mensaje de confirmación sobre que la sesión ha terminado correctamente.
 		- Se cerrará completamente la sesión del usuario.
 		- Los datos almacenados en caché se eliminarán.
 
-- HU. 3
+- HU - Interfaz. 
 	- Usuario: Jefe / Empleado
-	- Funcionalidad: Comenzar nuevo servicio.
-	- Resultado: Registrar los datos del nuevo servicio en el sistema.
-	- Criterios de aceptación:
-		- Se tiene que permitir añadir un nuevo servicio.
-		- Se tiene que permitir añadir los datos del cliente y familiares asociados, aunque estos serán opciones en este punto.
-		- La solicitud de datos se presentará en un formulario, el cual distinguirá claramente las diferentes secciones (servicio-cliente-familiares).
-		- Solo si algún campo de las secciones de cliente y familiares tienen datos rellenos se almacenarán.
-		- El formulario tiene que ser comprensible para cualquier tipo de usuario.
-		- La pantalla se tiene que adaptar tanto a ordenadores como a tablets, y si fuera posible, a móviles.
-		- Solo un usuario logueado podrá crear un nuevo servicio.
+	- Funcionalidad: Crear, leer, actualizar y borrar un servicio (funerario) en la interfaz.
+	- Resultado: La interfaz nos proporcionará todos los instrumentos necesarios con los que poder realizar dichas acciones.
+	- Criterios de aceptación:	
+		- La solicitud de datos se presentará en un formulario, el cual distinguirá claramente las diferentes secciones (servicio - cliente - familiares).
+		- El formulario tiene que ser comprensible para cualquier tipo de usuario, incluso para aquellos que no sean especialmente habilidosos con las nuevas tecnologías. Por tanto, la experiencia del usuario al usar la plataforma tiene que ser óptima.
+		- Se tiene que permitir añadir los datos del cliente y familiares asociados, aunque estos serán opcionales en este punto.
+		- Solo si algún campo de las secciones de cliente y familiares tienen datos rellenos se enviará la petición al *backend*.
+		- El sistema nos proporcionará una tabla en la que se listará los servicios almacenados. 
+		- Dicha tabla nos debe permitir seleccionar la opción tanto de editar como de borrar. Además podremos seleccionar la opción de ver la información completa.
+		- La información completa almacenada se nos presentará de una forma amigable y correctamente ordenada. Además podremos ver los datos del cliente y familiares asociados. 
+		- Desde la vista en detalle del servicio debemos poder acceder al resto de vistas en detalle (cliente - documentos - facturas) ligadas a este servicio concreto.
+		- Mostrar alertas en el caso de que algún campo obligatorio no haya sido rellenado.
+		- Mostrar alertas en el caso de que algo haya fallado.
+		- El sistema nos tiene que permitir validar los datos en el lado del *frontend*, es decir, el tipado de los datos es importante.
+		- La pantalla se tiene que adaptar tanto a ordenadores como a *tablets*, y si fuera posible, a móviles.
+		- Solo si el usuario tiene un rol suficiente podrá ver la opción de borrar. 
+		- Solo si el usuario está correctamente *logueado* podrá realizar las acciones.
 
-- HU. 4
+- HU - Interfaz 
 	- Usuario: Jefe / Empleado
-	- Funcionalidad: Añadir los datos del cliente o de los familiares tras el registro del servicio.
-	- Resultado: Registrar los datos en el sistema.
+	- Funcionalidad: Crear, leer, actualizar y borrar los datos relativos a un cliente en la interfaz.
+	- Resultado: La interfaz nos proporcionará todos los instrumentos necesarios con los que poder realizar dichas acciones.
 	- Criterios de aceptación:
-		- El sistema tiene que permitir añadir los datos del cliente y de los familiares en un punto posterior a la creación del servicio.
-		- El sistema tiene que permitir añadir estos datos sin vincular a ningún servicio.
-		- La solicitud de datos se presentará en un formulario, el cual distinguirá claramente las diferentes secciones.
-		- La pantalla se tiene que adaptar tanto ordenadores como tablets, y si fuera posible, a móviles.
-		- Solo un usuario logueado podrá crear un nuevo servicio.
+		- El sistema nos proporcionará una sección específica para los clientes.
+		- La información de los actuales clientes se listarán en una tabla.
+		- La tabla nos permitirá la selección de edición, borrado y vista en más detalle.
+		- Desde la vista en detalle del cliente debemos poder acceder al resto de vistas en detalle (servicio - documentos - facturas) ligadas a este servicio concreto.
+		- Si el cliente está asociado a varios servicios, entonces en el momento de acceder a sus vistas asociadas estas se mostrarán inicialmente listadas en una tabla.
+		- La sección de clientes nos debe permitir añadir el cliente seleccionado al servicio deseado.
+		- Mostrar alertas en el caso de que algún campo obligatorio no haya sido rellenado.
+		- Mostrar alertas en el caso de que algo haya fallado.
+		- Validación de tipado de datos.
+		- Pantalla adaptable a otro dispositivos. 		
+		- La experiencia del usuario debe ser óptima.
+		- Solo si el usuario tiene un rol suficiente podrá ver la opción de borrar. 
+		- Solo si el usuario está correctamente *logueado* podrá realizar las acciones.	
 
-
-- HU. 5
+- HU - Interfaz 
 	- Usuario: Jefe / Empleado
-	- Funcionalidad: Ver datos del servicio, cliente y familiares.
-	- Resultado: El sistema mostrará datos sobre el servicio y su cliente y familiares asociados de forma ordenada y legible.
-	- Criterios de aceptación:
-		- Se tiene que poder mostrar todos los datos del servicio, cliente y familiares en una misma pantalla.
-		- Se tienen que poder mostrar las diferentes secciones de datos en pantallas diferentes. Quizás lo más interesante es tener una pantalla general y otra para los clientes especialmente, ya que estos se pueden vincular a varios servicios.
-		- Se tiene que poder buscar entre servicios. Según el servicio elegido, se mostrará su cliente y sus familiares.
-		- Se tiene que poder buscar entre clientes. Según el cliente elegido, se mostrará su servicio y sus familiares.
-		- Se tiene que permitir la edición de los datos desde esta misma pantalla.
-		- La información tiene que poder ser mostrada en diversos dispositivos (pc-tablet).
-		- Solo un usuario logueado podrá acceder a la información.
+	- Funcionalidad: Visualizar, editar y descargar los distintos documentos (esquelas y misas) del servicio.
+	- Resultado: La interfaz nos proporcionará todos los instrumentos necesarios con los que poder realizar dichas acciones.
+	- Criterios de aceptación:	
+		- Inicialmente los documentos con los que trabajaremos son dos, esquelas mortuorias y esquelas funerales.
+		- El sistema nos proporcionará un listado de documentos disponibles mediante una tabla.
+		- El sistema nos permitirá visualizar los documentos. Para ello tendrá que recuperar toda la información necesaria y mostrarla en el formato del documento elegido, por tanto deberá autoajustarse.
+		- El sistema nos permitirá descargar los documentos en formato *.pdf*.
+		- Mientras visualizamos debemos poder acceder al resto de vistas en detalle (servicio - cliente - facturas) ligadas a este servicio concreto.
+		- Si el servicio ya tiene los datos de cliente y familiares asociados, los documentos debe aparecer en el listado (tabla).
+		- En esta sección el sistema nos debe permitir añadir los datos de familiares a servicios que aún no los tengan, esto además generaría los documentos correspondientes. Esto se realizará mediante un formulario.
+		- Mostrar alertas en el caso de que algún campo obligatorio no haya sido rellenado.
+		- Mostrar alertas en el caso de que algo haya fallado.
+		- Validación de tipado de datos.
+		- Pantalla adaptable a otro dispositivos. 		
+		- La experiencia del usuario debe ser óptima.
+		- Solo si el usuario tiene un rol suficiente podrá ver la opción de borrar. 
+		- Solo si el usuario está correctamente *logueado* podrá realizar las acciones.
 
-- HU. 6
+- HU - Interfaz 
 	- Usuario: Jefe / Empleado
-	- Funcionalidad: Editar datos del servicio, cliente y familiares.
-	- Resultado: Edición y guardado de los datos en cuestión del servicio, cliente o familiares.
-	- Criterios de aceptación:
-		- Se tiene que poder mostrar y editar todos los datos habilitados.
-		- Se tiene que poder excluir ciertos datos de la edición. Como por ejemplo, fecha de creación del servicio o identificadores varios.
-		- Solo se actualizarán los datos relativos al servicio, cliente o familiares si algún campo de estos es modificado.
-		- Se tiene que almacenar un historial de cambios. Si fuera posible además guardar la información previa por si fuera necesario volver atrás.
-		- La información tiene que poder ser mostrada en diversos dispositivos (pc-tablet).
-		- Solo un usuario logueado podrá editar un servicio.
+	- Funcionalidad: Visualizar, editar y descargar la factura del servicio.
+	- Resultado: La interfaz nos proporcionará todos los instrumentos necesarios con los que poder realizar dichas acciones.
+	- Criterios de aceptación:		
+		- El sistema nos proporcionará un listado de facturas disponibles mediante una tabla.	
+		- El sistema nos permitirá visualizar las facturas. Para ello tendrá que recuperar toda la información necesaria y mostrarla en el formato del documento elegido. Si la factura es extensa, deberá autoajustarse correctamente.
+		- El sistema nos permitirá descargar los documentos en formato *.pdf*.
+		- Mientras visualizamos debemos poder acceder al resto de vistas en detalle (servicio - cliente - documentos) ligadas a este servicio concreto.
+		- Si el servicio ya tiene los datos de cliente y factura asociados, los documentos debe aparecer en el listado (tabla).
+		- El sistema nos debe permitir añadir la información de los conceptos de la factura a servicios que aún no tengan estos asociados. Esto se realizará mediante un formulario.		
+		- Si el servicio ya tiene los datos de cliente y facturas asociados, los documentos debe aparecer en el listado (tabla).
+		- Mostrar alertas en el caso de que algún campo obligatorio no haya sido rellenado.
+		- Mostrar alertas en el caso de que algo haya fallado.
+		- Validación de tipado de datos.
+		- Pantalla adaptable a otro dispositivos. 		
+		- La experiencia del usuario debe ser óptima.
+		- Solo si el usuario tiene un rol suficiente podrá ver la opción de borrar. 
+		- Solo un usuario con permisos especiales podrá visualizar las facturas.	
 
-- HU. 7
-	- Usuario: Jefe 
-	- Funcionalidad: Borrar servicio, cliente o familiares.
-	- Resultado: La información no será accesible.
-	- Criterios de aceptación:
-		- El listado de servicios no mostrará el servicio eliminado.
-		- Los datos del servicio permanecerán en la base de datos, por si en un futuro se necesitaran de nuevo.
-		- El sistema debe permitir mostrar los servicios eliminados.
-		- El sistema solicitará una confirmación antes de ser eliminado.
-		- Solo un usuario con permisos especiales podrá borrar un servicio.
-		- Solo un usuario con permisos especiales podrá tener la opción de borrar un servicio.
 
-- HU. 8
-	- Usuario: Jefe / Empleado
-	- Funcionalidad: Enlazar cliente a varios servicios.
-	- Resultado: La información relativa al cliente se enlazará a otro nuevo servicio.
-	- Criterios de aceptación:
-		- El sistema tiene que permitir enlazar un cliente existente a un servicio.
-		- El sistema tiene que proporcionar información de los servicios sin clientes.
-		- Un servicio no puede tener varios clientes.		
-		- Solo un usuario logueado podrá realizar esta acción.
 
-*Los aspectos relativos a contabilidad dan cabida a un gran número de posibilidades, desde controlar el stock de material actual en la empresa hasta tener un control de gastos total, pero de cara el proyecto que nos ocupa esta parte de simplificará a tan solo generar una factura final. Esta parte se ampliará si el tiempo lo permite.*
 
-- HU. 9
-	- Usuario: Jefe
-	- Funcionalidad: Añadir datos para contabilidad.
-	- Resultado: La información se almacenará en el sistema.
-	- Criterios de aceptación:
-		- El sistema presentará un formulario sencillo en el que añadir los diferentes conceptos que tendrán lugar en la factura.
-		- El sistema realizará los cálculos finales tales como cálculo de IVA o importe final entre otros.
-		- Solo un usuario con permisos especiales podrá realizar esta acción.
 
-- HU. 10
-	- Usuario: Jefe
-	- Funcionalidad: Editar datos de contabilidad.
-	- Resultado: El sistema mostrará los datos y posteriormente los actualizará.
-	- Criterios de aceptación:
-		- El sistema permitirá editar los diferentes puntos de las facturas.
-		- Solo un usuario con permisos especiales podrá realizar esta acción.
-
-HU. 11
-	- Usuario: Jefe
-	- Funcionalidad: Borrar facturas.
-	- Resultado: La información no será mostrada de nuevo en el listado.
-	- Criterios de aceptación:
-		- El sistema permitirá borrar la factura.
-		- La factura no se borrará completamente del sistema, por si fuera necesario su recuperación.
-		- Solo un usuario con permisos especiales podrá realizar esta acción.
-
-- HU. 12
-	- Usuario: Jefe / Empleado
-	- Funcionalidad: Vista previa de los diferentes documentos y de las facturas.
-	- Resultado: El sistema nos permitirá observar el resultado final del montaje de los diferentes documentos y facturas del servicio.
-	- Criterios de aceptación:
-		- Los datos se mostrarán correctamente en el documento.
-		- El documento debe autoajustarse en función de la longitud del texto personalizado que se use en cada caso.
-		- El visualizado se tiene que poder realizar en diferentes dispositivos.
-		- Solo un usuario con permisos especiales podrá visualizar las facturas.
-		- Solo un usuario logueado podrá realizar esta acción.
-
-- HU. 13
-	- Usuario: Jefe / Empleado
-	- Funcionalidad: Exportación a PDF de los documentos y de las facturas.
-	- Resultado: El sistema nos permitirá descargar los documentos en PDF para su posterior guardado.
-	- Criterios de aceptación:
-		- El documento mantendrá el mismo formato que el mostrado en la vista previa.
-		- El sistema nos tiene que permitir descargar el documento en formato .pdf.
-		- Solo un usuario logueado podrá realizar esta acción.
 
 - HU. 14
 	- Usuario: Jefe / Empleado
@@ -218,6 +248,11 @@ HU. 11
 	- Criterios de aceptación:
 		- Una vez seleccionado un servicio concreto el sistema nos tiene que permitir acceder de una forma rápida a los datos de su cliente asociado, sus documentos y sus facturas.
 		- Desde cualquiera de estas cuatro secciones (servicio - cliente - documentos - facturas) se tiene que poder acceder al resto de forma rápida.
+
+
+
+
+
 
 - HU. 21
 	- Usuario: Programador

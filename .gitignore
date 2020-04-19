@@ -7,7 +7,7 @@ docs/personal/notas.md
 # Login
 src/backend/login/package-lock.json
 # Servicio
-src/backend/servicio/package-lock.json
+src/backend/defuncion/package-lock.json
 
 # General
 .idea

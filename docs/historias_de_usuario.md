@@ -29,6 +29,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 		- Se proporcionarán varios métodos de login o al menos el sistema estará preparado para su inclusión rápida.
 		- Se debe posibilitar el uso de JWT si fuera necesario.
 		- El nombre del usuario y su correo deberán ser únicos.
+		- Al menos podremos loguearnos mediante usuario y contraseña.
 		- Debemos poder tener diferentes roles.
 
 - HU. 2 - Sistema
@@ -111,10 +112,9 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 		- El formulario tiene que ser comprensible para cualquier tipo de usuario, incluso para aquellos que no sean especialmente habilidosos con las nuevas tecnologías. Por tanto, la experiencia del usuario al usar la plataforma tiene que ser óptima.
 		- Se tiene que permitir añadir los datos del cliente y familiares asociados, aunque estos serán opcionales en este punto.
 		- Solo si algún campo de las secciones de cliente y familiares tienen datos rellenos se enviará la petición al *backend*.
-		- El sistema nos proporcionará una tabla en la que se listará las defunciones almacenadas. 
-		- Dicha tabla nos debe permitir seleccionar la opción tanto de editar como de borrar. Además podremos seleccionar la opción de ver la información completa.
-		- La información completa almacenada se nos presentará de una forma amigable y correctamente ordenada. Además podremos ver los datos del cliente y familiares asociados. 
-		- Desde la vista en detalle de la defunción debemos poder acceder al resto de vistas en detalle (cliente - documentos - facturas) ligadas a esta defunción concreto.
+		- El sistema nos proporcionará una tabla en la que se listará las defunciones almacenadas. Dicha tabla nos debe permitir seleccionar la opción tanto de editar como de borrar. Además podremos seleccionar la opción de ver la información completa.
+		- Desde la vista en detalle de la defunción debemos poder acceder al resto de vistas en detalle (cliente - documentos - facturas) ligadas a esta defunción en concreto.
+		- El sistema nos tiene que permitir introducir las fechas y horas por separado, pero si estas se refieren a lo mismo, se unificarán posteriormente.
 		- Mostrar alertas en el caso de que algún campo obligatorio no haya sido rellenado.
 		- Mostrar alertas en el caso de que algo haya fallado.
 		- El sistema nos tiene que permitir validar los datos en el lado del *frontend*, es decir, el tipado de los datos es importante.
@@ -227,32 +227,25 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 		- Solo un usuario logueado podrá realizar esta acción.
 
 - HU. 16
-	- Usuario: Programador
+	- Usuario: Administrador
 	- Funcionalidad: Permitir el uso del lenguaje óptimo en cada momento.
 	- Resultado: Múltiples lenguajes funcionando entre sí.
 	- Criterios de aceptación:
 		- Sistema en el que puedan coexistir múltiples lenguajes.
+		- Cada módulo trabaja de forma independiente y realiza su funcionalidad sin importarle el resto de los módulos.
 
 - HU. 17
-	- Usuario: Programador
+	- Usuario: Administrador
 	- Funcionalidad: Permitir el uso de diferentes protocolos de comunicación.
 	- Resultado: Poder usar tanto un protocolo síncrono como asíncrono.
 	- Criterios de aceptación:
 		- El sistema debe permitir ambos protocolos.
 		- El sistema debe permitir la comunicación más óptima según la petición que se realice.
 		- En cada caso el lenguaje que reciba la petición debe poder satisfacer la demanda.
+		- Los tiempos de respuesta se verán reducidos.
 
 - HU. 18
-	- Usuario: Programador
-	- Funcionalidad: El sistema debe permitir múltiples peticiones simultáneas.
-	- Resultado: El sistema responderá sin necesidad de máquinas adicionales.
-	- Criterios de aceptación:
-		- Múltiples usuarios podrán trabajar simultáneamente.
-		- El sistema responderá a las múltiples peticiones sin necesidad de más infraestructura hardware.
-		- La experiencia de usuario no se verá ralentizada cuando múltiples usuarios estén trabajando en el sistema.
-
-- HU. 19
-	- Usuario: Programador
+	- Usuario: Administrador
 	- Funcionalidad: El sistema podrá realizar tareas en segundo plano.
 	- Resultado: Las peticiones que se puedan realizar en segundo plano se enviarán a una cola y se procesarán mientras el sistema trabaja en otras tareas.
 	- Criterios de aceptación:
@@ -260,27 +253,84 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 		- Trabajos como la generación de eventos en el calendario se realizarán en segundo plano.
 		- Las tareas en segundo plano no interferirán en la experiencia del usuario.
 
-- HU. 20
-	- Usuario: Programador
-	- Funcionalidad: Integración continua.
-	- Resultado: El sistema se testeará y desplegará automáticamente al añadir los cambios a *Git*.  
+- HU. 19
+	- Usuario: Administrador
+	- Funcionalidad: Como administrador debo ser capaz de testear los cambios añadidos a *Git* y desplegar el proyecto si dichos tests finalizan positivamente.
+	- Resultado: El sistema se testeará y desplegará automáticamente al añadir los cambios a *Git*. (Integración continua)
 	- Criterios de aceptación:
 		- Integración con *Github*.
 		- La herramienta de integración continua lanzará y verificará que los tests se pasan correctamente.
 		- La herramienta desplegará automáticamente en el sistema *Cloud* elegido.
-		- El coste de administración será sencillo.
+		- Los tests deben poder realizarse en cada microservicio de forma independiente.
+		- El coste de administración y uso de la herramienta será sencillo.
 		- Debe tener un plan gratuito.
 
-- HU. 21
-	- Usuario: Programador
-	- Funcionalidad: Crear y configurar máquinas virtuales en la nube.
-	- Resultado: Desde infraestructura como código podremos crear y manejar máquinas virtuales en el sistema *Cloud* elegido.
+- HU. 20 
+	- Usuario: Administrador
+	- Funcionalidad: Como administrador quiero ser capaz de almacenar un historial de todo lo que ocurra en mi sistema. (LOG)
+	- Resultado: Cada acción realizada en el sistema tendrá una entrada en el historial de cambios.
 	- Criterios de aceptación:
-		- Tenemos que poder provisionar cada una de las máquinas virtuales específicamente para la funcionalidad que corra en dicha máquina.
-		- Tenemos que poder orquestar las máquinas en el sistema *Cloud*∫ elegido.
+		- No debe interferir de forma notable en los tiempos de respuesta.
+		- Se debe poder anotar de forma independiente la información de cada microservicio. 
+
+- HU. 21
+	- Usuario: Administrador
+	- Funcionalidad: Como administrador, quiero ser capaz de desplegar mi infraestructura de forma escalable. (Api Gateway)
+	- Resultado: El sistema responderá en un tiempo óptimo sin necesidad de máquinas adicionales.
+	- Criterios de aceptación:
+		- Múltiples usuarios podrán trabajar simultáneamente de forma que el sistema no se vuelva más lento.
+		- El sistema será capaz de responder a las múltiples peticiones sin necesidad de un incremento de infraestructura hardware.
+		- La experiencia de usuario no se verá ralentizada cuando múltiples usuarios estén trabajando en el sistema.
+		- Debe poder comunicarse con microservicios creados en cualquier lenguaje o *framework*.
+		- Debe poder usarse en cualquier servicio *cloud*.
+		- Debe poder usarse con Docker, ya que esto facilitaría su uso tanto en una plataforma local para desarrollo, como en el servicio *cloud*.
+		- Debe poder ser usable por diferentes orquestadores, ya que en una versión más amplia del proyecto serán interesante usarlos.
+		- Debe permitir el uso de diferentes políticas de seguridad, como OAuth, JWT o SSL entre otras
+		- Debe ser capaz tanto de verificar la entrada de datos, como de preparar correctamente la salida de estos.
+		- Open source.
+
+- HU. 22
+	- Usuario: Administrador
+	- Funcionalidad: Como administrador quiero ser capaz tanto de provisionar como orquestar para diferentes sistemas (Docker - PaaS - SaaS) con una solo definición de mi microservicio.
+	- Resultado: Desde infraestructura como código podremos configurar nuestro proyecto para poder ser usado en diferentes sistemas.
+	- Criterios de aceptación:
+		- Se elegirá un sistema operativo sobre el que correrá el proyecto.
+		- Este sistema operativo será común para cada microservicio. Aunque se valorará la posibilidad de que algún microservicio funciones mejor en cualquier otro sistema operativo.
+		- Cada microservicio tendrá su propia provisión.
+		- Cada microservicio tendrá su propia orquestación.
+		- Debemos poder desplegar nuestros sistema en contenedores Docker.
+		- Nuestro sistema será fácilmente desplegable en proveedores *Cloud*.
+		- (Investigar criterios para elegir orquestador y provisionador).
+
+- HU. 23
+	- Usuario: Administrador
+	- Funcionalidad: Como administrador, debo ser capaz de desplegar el proyecto en un sistema *Cloud*.
+	- Resultado:
+	- Criterios de aceptación:
+		- Deberá tener tarifas gratuitas para las diferentes pruebas durante el desarrollo.
+		- (Investigar requisitos)
+
+- HU. 24
+	- Usuario: Administrador
+	- Funcionalidad: Como administrador quiero ser capaz de evaluar los costes de operar mi aplicación en un proveedor *Cloud* final, haciendo uso de *software as a service*.
+	- Resultado: Obtendremos los costes de trabajar con un proyecto como el que nos ocupa en proveedores *Cloud*.
+	- Criterios de aceptación:
+		- Realizaremos las pruebas en diferentes proveedores.
+		- Realizaremos las pruebas en distintas localizaciones para los mismos proveedores.
+		- Los diferentes estudios comprenderán desde el momento en el que el sistema comienza el despliegue en el proveedor *Cloud* hasta la interacción con este. Para esta última parte se necesitará también alguna forma de automatizar y masificar esa interacción con la plataforma de una forma rápida.
+		- Podremos valorar y documentar cuales son las mejores opciones.
+
+HU. 25
+	- Usuario: Administrador
+	- Funcionalidad: Como administrador debo ser capaz de almacenar información en bases de datos.
+	- Resultado: La información obtenida en los diferentes microservicios será almacenada.
+	- Criterios de aceptación:
+		- El modelo de base de datos elegido me debe permitir tener total libertad en cuanto a la estructura que usará cada microservicio.
+		- Debe tener una versión *Cloud*. Además esta debe tener una versión gratuita.
+		- (Investigar requisitos) 
 
 HU. X
-	- Usuario: Programador
+	- Usuario: Administrador
 	- Funcionalidad: 
 	- Resultado:
 	- Criterios de aceptación:

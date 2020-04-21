@@ -11,7 +11,7 @@ const app = express();
 
 /* Configuramos puertos y conexiones */
 let server_ip_address = '0.0.0.0';
-app.set('puerto', 3000);
+app.set('puerto', 3010);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.use(require('express-session')({
@@ -25,7 +25,7 @@ app.use('/user', routes);
 
 
 /* Conectamos la BD */
-let uri_localhost = "mongodb://localhost:27017/login";
+let uri_localhost = "mongodb://localhost:27017/user";
 mongoose.connect(uri_localhost, {
     useNewUrlParser: true,
     useUnifiedTopology: true

@@ -2,7 +2,7 @@
 
 let passport = require('passport');
 let Strategy = require('passport-local').Strategy;
-let userModel = require('./model');
+let userModel = require('./user_model');
 
 passport.use('user-local', new Strategy((username, password, done) => {
     userModel.findOne({username: username})

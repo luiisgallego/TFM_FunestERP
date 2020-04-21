@@ -4,7 +4,7 @@ let request = require('supertest'),
     expect = require('chai').expect;
 let app = require('../');
 
-let userModel = require('../api/model');
+let userModel = require('../api/user_model');
 let user;
 
 describe('User login: ', () => {

@@ -2,7 +2,7 @@
 
 let merge = require('lodash.merge');
 
-let userModel = require('./model');
+let userModel = require('./user_model');
 let passport = require('./passport');
 
 function status(req, res) {

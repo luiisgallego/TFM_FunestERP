@@ -5,7 +5,7 @@ let request = require('supertest'),
 let mongoose = require('mongoose');
 let app = require('../');
 
-let userModel = require('../api/model');
+let userModel = require('../api/user_model');
 let newUser;
 
 describe('User API:', () => {
@@ -29,7 +29,7 @@ describe('User API:', () => {
                         let result = res.body;
                         expect(result).ownProperty('status');
                         expect(result.status).to.equal('OK');
-                        done()
+                        done();
                     }
                 });
         });
@@ -54,8 +54,8 @@ describe('User API:', () => {
                         newUser = res.body;
                         expect(newUser).to.be.instanceOf(Object);
                         expect(newUser).ownProperty('_id');
-                        expect(newUser).to.not.be.undefined;
-                        expect(newUser).to.not.be.null;
+                        expect(newUser._id).to.not.be.undefined;
+                        expect(newUser._id).to.not.be.null;
                         expect(newUser).ownProperty('username');
                         expect(newUser.username).to.equal('user_1');
                         expect(newUser).ownProperty('password');
@@ -70,7 +70,7 @@ describe('User API:', () => {
                         expect(newUser.createdAt).to.not.be.undefined;
                         expect(newUser.createdAt).to.not.be.null;
                         expect(newUser).to.not.have.ownProperty('updatedAt');
-                        done()
+                        done();
                     }
                 });
         });
@@ -142,8 +142,8 @@ describe('User API:', () => {
                         let result = res.body;
                         expect(result).to.be.instanceOf(Object);
                         expect(result).ownProperty('_id');
-                        expect(result).to.not.be.undefined;
-                        expect(result).to.not.be.null;
+                        expect(result._id).to.not.be.undefined;
+                        expect(result._id).to.not.be.null;
                         expect(result).ownProperty('username');
                         expect(result.username).to.equal('user_1');
                         expect(result).ownProperty('password');
@@ -158,7 +158,7 @@ describe('User API:', () => {
                         expect(result.createdAt).to.not.be.undefined;
                         expect(result.createdAt).to.not.be.null;
                         expect(result).to.not.have.ownProperty('updatedAt');
-                        done()
+                        done();
                     }
                 });
         });
@@ -205,8 +205,8 @@ describe('User API:', () => {
                         let result = res.body;
                         expect(result).to.be.instanceOf(Object);
                         expect(result).ownProperty('_id');
-                        expect(result).to.not.be.undefined;
-                        expect(result).to.not.be.null;
+                        expect(result._id).to.not.be.undefined;
+                        expect(result._id).to.not.be.null;
                         expect(result).ownProperty('username');
                         expect(result.username).to.equal('user_1');
                         expect(result).ownProperty('password');
@@ -242,7 +242,6 @@ describe('User API:', () => {
     });
 
     describe('GET /user/list', () => {
-        let other_user;
 
         it('Debe crear un nuevo usuario', done => {
             request(app)
@@ -254,14 +253,7 @@ describe('User API:', () => {
                     name: 'name2 last_name2'
                 })
                 .expect('Content-Type', /json/)
-                .expect(200)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        other_user = res.body;
-                        done()
-                    }
-                });
+                .expect(200, done)
         });
 
         it('Debe devolver los usuarios existentes', done => {
@@ -291,7 +283,7 @@ describe('User API:', () => {
                         expect(result[1].rol).to.equal('user');
                         expect(result[1]).ownProperty('createdAt');
                         expect(result[1]).to.not.have.ownProperty('updatedAt');
-                        done()
+                        done();
                     }
                 });
         });
@@ -329,7 +321,7 @@ describe('User API:', () => {
                         expect(updatedUser.createdAt).to.equal(newUser.createdAt);
                         expect(updatedUser).ownProperty('updatedAt');
                         expect(updatedUser.updatedAt).to.not.equal(newUser.updatedAt);
-                        done()
+                        done();
                     }
                 });
         });
@@ -447,7 +439,7 @@ describe('User API:', () => {
                 .expect(204)
                 .end((err, res) => {
                     if(err) return done(err);
-                    else done()
+                    else done();
                 });
         });
 
@@ -460,7 +452,7 @@ describe('User API:', () => {
                     if(err) return done(err);
                     else {
                         expect(res.body).ownProperty('error');
-                        done()
+                        done();
                     }
                 });
         });
@@ -474,7 +466,7 @@ describe('User API:', () => {
                     if(err) return done(err);
                     else {
                         expect(res.body).ownProperty('error');
-                        done()
+                        done();
                     }
                 });
         });
@@ -488,7 +480,7 @@ describe('User API:', () => {
                     if(err) return done(err);
                     else {
                         expect(res.body).ownProperty('error');
-                        done()
+                        done();
                     }
                 });
         })

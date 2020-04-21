@@ -259,11 +259,14 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 	- Resultado: El sistema se testeará y desplegará automáticamente al añadir los cambios a *Git*. (Integración continua)
 	- Criterios de aceptación:
 		- Integración con *Github*.
-		- La herramienta de integración continua lanzará y verificará que los tests se pasan correctamente.
-		- La herramienta desplegará automáticamente en el sistema *Cloud* elegido.
+		- La herramienta de integración podrá lanzar y verficar que los tests se pasan correctamente.
+		- La herramienta podrá desplegar automáticamente en el sistema *Cloud* elegido (pipelines)
 		- Los tests deben poder realizarse en cada microservicio de forma independiente.
-		- El coste de administración y uso de la herramienta será sencillo.
+		- El coste de administración y uso de la herramienta deberá ser sencillo.
 		- Debe tener un plan gratuito.
+		- Debe tener soporte para hacer uso de Docker.
+		- Debe tener una interfaz de usuario.
+		- Debe soportar notificaciones por correo.
 
 - HU. 20 
 	- Usuario: Administrador

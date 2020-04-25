@@ -1,7 +1,7 @@
 'use strict';
 
 let merge = require('lodash.merge'),
-    mongoose = require('mongoose');
+    moment = require('moment');
 
 let difuntoModel = require('./difunto_model');
 
@@ -77,7 +77,7 @@ function update(req, res) {
     return new Promise(resolve => {
 
         if (!req.body._id) {
-            const message = {'error': 'Faltan parametro _id'};
+            const message = {'error': 'Falta parametro _id'};
             if (res) return res.status(404).type('json').send(message);
             resolve([404, message]);
         }
@@ -91,7 +91,7 @@ function update(req, res) {
                 }
 
                 let new_difunto = new difuntoModel(merge(difunto, req.body));
-                new_difunto.updatedAt = Date.now();
+                new_difunto.updatedAt = moment().format();
 
 
                 new_difunto.save()

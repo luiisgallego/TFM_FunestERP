@@ -46,7 +46,9 @@ router.get('/:_id', controller.read);
 router.delete('/:_id', controller.destroy);
 
 // /DEFUNCION/SERVICIO
-router.get('/servicio/:_id', controller.read);
-router.delete('/servicio/:_id', controller.destroy);
+router.get('/servicio/:_id', servicioController.read);
+router.delete('/servicio/:_id', servicioController.destroy);
+// Obtener datos del servicio según ID del difunto
+router.get('/servicio/difunto/:difunto', servicioController.readByDifuntoId);
 
 module.exports = router;

@@ -275,6 +275,9 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 	- Criterios de aceptación:
 		- No debe interferir de forma notable en los tiempos de respuesta.
 		- Se debe poder anotar de forma independiente la información de cada microservicio. 
+		- Debe poder almacenarse la información tanto en la base de datos como en ficheros.
+		- La información también podrá mostrarse por consola.
+		- Se debe de poder almacenar distintos niveles de alertas.
 
 - HU. 21
 	- Usuario: Administrador

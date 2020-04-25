@@ -63,7 +63,6 @@ servicioSchema.path('compania')
     .validate(function (value) {
         return new Promise((resolve, reject) => {
             if (this.tipoServicio === 'particular') {
-                console.log('particular');
                 if (value.length > 0) reject(new Error('Un particular no puede tener compania'));
                 resolve(true);
             } resolve(true);

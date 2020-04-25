@@ -2,7 +2,8 @@
 
 let request = require('supertest'),
     expect = require('chai').expect,
-    nock = require('nock');
+    nock = require('nock'),
+    moment = require('moment');
 
 let mongoose = require('mongoose'),
     app = require('../'),
@@ -136,6 +137,7 @@ describe('Difunto API:', () => {
 
         it('Debe devolver el nuevo difunto creado', done => {
 
+            const fechaNacimiento = moment("2020-01-01").format();
             let difunto = new difuntoModel({
                 nombre: 'nombre_test',
                 DNI: '77335522J',
@@ -147,7 +149,7 @@ describe('Difunto API:', () => {
                 bloque: 10,
                 portal: '4D',
                 codigoPostal: 23790,
-                fechaNacimiento: Date(2000, 1, 1),
+                fechaNacimiento: fechaNacimiento,
                 estadoCivil: 'casado',
                 nombreParejaCivil: 'nombreParejaCivil_test',
                 nombrePadre: 'nombrePadre_test',
@@ -168,7 +170,7 @@ describe('Difunto API:', () => {
                     else {
                         newDifunto = res.body;
                         expect(newDifunto).to.be.instanceOf(Object);
-                        expect(newDifunto._id).ownProperty('_id');
+                        expect(newDifunto).ownProperty('_id');
                         expect(newDifunto._id).to.not.be.undefined;
                         expect(newDifunto._id).to.not.be.null;
                         expect(newDifunto).ownProperty('nombre');
@@ -183,7 +185,7 @@ describe('Difunto API:', () => {
                         expect(newDifunto.bloque).to.equal(10);
                         expect(newDifunto.portal).to.equal('4D');
                         expect(newDifunto.codigoPostal).to.equal(23790);
-                        expect(newDifunto.fechaNacimiento).to.equal(Date(2000, 1, 1));
+                        expect(newDifunto.fechaNacimiento).to.equal(fechaNacimiento);
                         expect(newDifunto.estadoCivil).to.equal('casado');
                         expect(newDifunto.nombreParejaCivil).to.equal('nombreParejaCivil_test');
                         expect(newDifunto.nombrePadre).to.equal('nombrePadre_test');
@@ -219,7 +221,7 @@ describe('Difunto API:', () => {
         it('Si el difunto ya existe (DNI), debe responder con un error', done => {
             request(app)
                 .post('/defuncion/difunto')
-                .send({ DNI: difunto.DNI })
+                .send({ DNI: newDifunto.DNI })
                 .expect('Content-Type', /json/)
                 .expect(404)
                 .end((err, res) => {
@@ -254,7 +256,7 @@ describe('Difunto API:', () => {
                         expect(result.bloque).to.equal(10);
                         expect(result.portal).to.equal('4D');
                         expect(result.codigoPostal).to.equal(23790);
-                        expect(result.fechaNacimiento).to.equal(Date(2000, 1, 1));
+                        expect(result.fechaNacimiento).to.equal(moment("2020-01-01").format());
                         expect(result.estadoCivil).to.equal('casado');
                         expect(result.nombreParejaCivil).to.equal('nombreParejaCivil_test');
                         expect(result.nombrePadre).to.equal('nombrePadre_test');
@@ -321,10 +323,10 @@ describe('Difunto API:', () => {
                     else {
                         let result = res.body;
                         expect(result[0]._id).to.equal(newDifunto._id);
-                        expect(result[0].name).to.equal(newDifunto.name);
+                        expect(result[0].nombre).to.equal(newDifunto.nombre);
                         expect(result[0].DNI).to.equal(newDifunto.DNI);
-                        expect(result[1]._id).to.equal(difuntoExtra._id);
-                        expect(result[1].name).to.equal(difuntoExtra.name);
+                        expect(result[1]._id).to.equal(difuntoExtra._id.toString());
+                        expect(result[1].nombre).to.equal(difuntoExtra.nombre);
                         expect(result[1].DNI).to.equal(difuntoExtra.DNI);
                         done();
                     }
@@ -343,7 +345,7 @@ describe('Difunto API:', () => {
                 .put('/defuncion/difunto')
                 .send({
                     _id: newDifunto._id,
-                    name: 'nuevo_name',
+                    nombre: 'nuevo_name',
                     DNI: '11223344P',
                     updatedBy: user._id
                 })
@@ -406,7 +408,8 @@ describe('Difunto API:', () => {
                 .put('/defuncion/difunto')
                 .send({
                     _id: newDifunto._id,
-                    DNI: '11223344P'
+                    DNI: '11223344P',
+                    nombre: 'other_name'
                 })
                 .expect('Content-Type', /json/)
                 .expect(404)
@@ -495,7 +498,7 @@ describe('Difunto API:', () => {
 
     describe('Asociar cliente, familiar y difunto', () => {
 
-        beforeEach('Debe crear un nuevo difunto', done => {
+        it('Debe crear un nuevo difunto', done => {
             request(app)
                 .post('/defuncion/difunto')
                 .send(difuntoExtra)
@@ -507,18 +510,17 @@ describe('Difunto API:', () => {
 
             it('Debe devolver las defunciones sin clientes asociados', done => {
                 request(app)
-                    .get('defuncion/difunto/cliente')
+                    .get('/defuncion/difunto/cliente')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
                         if(err) return done(err);
                         else {
                             let result = res.body;
-                            expect(result[0]._id).to.equal(difuntoExtra._id);
-                            expect(result[0].name).to.equal(difuntoExtra.name);
+                            expect(result[0]._id).to.equal(difuntoExtra._id.toString());
+                            expect(result[0].nombre).to.equal(difuntoExtra.nombre);
                             expect(result[0].DNI).to.equal(difuntoExtra.DNI);
                             expect(result[0].cliente).to.be.undefined;
-                            expect(result[0].cliente).to.be.null;
                             done();
                         }
                     });
@@ -529,20 +531,24 @@ describe('Difunto API:', () => {
 
             it('Debe asociar un cliente a una defuncion', done => {
                 request(app)
-                    .post('defuncion/difunto/cliente')
+                    .post('/defuncion/difunto/cliente')
                     .send({
-                        difunto_id: difuntoExtra._id,
+                        _id: difuntoExtra._id,
                         cliente_id: cliente._id
                     })
                     .expect('Content-Type', /json/)
+                    .expect(200, done)
+            });
+
+            it('Debe verificar que el cliente se ha asociado', done => {
+                request(app)
+                    .get('/defuncion/difunto/' + difuntoExtra._id)
+                    .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
-                        if(err) return done(err);
+                        if(err) done(err);
                         else {
-                            let result = res.body;
-                            expect(result._id).to.equal(difuntoExtra._id);
-                            expect(result.DNI).to.equal(difuntoExtra.DNI);
-                            expect(result.cliente).to.equal(cliente._id);
+                            expect(res.body.cliente).to.equal(cliente._id.toString());
                             done();
                         }
                     });
@@ -550,7 +556,7 @@ describe('Difunto API:', () => {
 
             it('No debe devolver ninguna defuncion sin cliente', done => {
                 request(app)
-                    .get('defuncion/difunto/cliente')
+                    .get('/defuncion/difunto/cliente')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
@@ -568,18 +574,17 @@ describe('Difunto API:', () => {
 
             it('Debe devolver las defunciones sin familiares asociados', done => {
                 request(app)
-                    .get('defuncion/difunto/familia')
+                    .get('/defuncion/difunto/familia')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
                         if(err) return done(err);
                         else {
                             let result = res.body;
-                            expect(result[0]._id).to.equal(difuntoExtra._id);
+                            expect(result[0]._id).to.equal(difuntoExtra._id.toString());
                             expect(result[0].name).to.equal(difuntoExtra.name);
                             expect(result[0].DNI).to.equal(difuntoExtra.DNI);
                             expect(result[0].familia).to.be.undefined;
-                            expect(result[0].familia).to.be.null;
                             done();
                         }
                     });
@@ -590,20 +595,24 @@ describe('Difunto API:', () => {
 
             it('Debe asociar una familia a una defuncion', done => {
                 request(app)
-                    .post('defuncion/difunto/familia')
+                    .post('/defuncion/difunto/familia')
                     .send({
-                        difunto_id: difuntoExtra._id,
+                        _id: difuntoExtra._id,
                         familia_id: familia._id
                     })
                     .expect('Content-Type', /json/)
+                    .expect(200, done)
+            });
+
+            it('Debe verificar que la familia se ha asociado', done => {
+                request(app)
+                    .get('/defuncion/difunto/' + difuntoExtra._id)
+                    .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
-                        if(err) return done(err);
+                        if(err) done(err);
                         else {
-                            let result = res.body;
-                            expect(result._id).to.equal(difuntoExtra._id);
-                            expect(result.DNI).to.equal(difuntoExtra.DNI);
-                            expect(result.familia).to.equal(familia._id);
+                            expect(res.body.familia).to.equal(familia._id.toString());
                             done();
                         }
                     });
@@ -611,7 +620,7 @@ describe('Difunto API:', () => {
 
             it('No debe devolver ninguna defuncion sin familia', done => {
                 request(app)
-                    .get('defuncion/difunto/familia')
+                    .get('/defuncion/difunto/familia')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
@@ -629,18 +638,17 @@ describe('Difunto API:', () => {
 
             it('Debe devolver las defunciones sin facturas asociadas', done => {
                 request(app)
-                    .get('defuncion/difunto/factura')
+                    .get('/defuncion/difunto/factura')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
                         if(err) return done(err);
                         else {
                             let result = res.body;
-                            expect(result[0]._id).to.equal(difuntoExtra._id);
+                            expect(result[0]._id).to.equal(difuntoExtra._id.toString());
                             expect(result[0].name).to.equal(difuntoExtra.name);
                             expect(result[0].DNI).to.equal(difuntoExtra.DNI);
                             expect(result[0].factura).to.be.undefined;
-                            expect(result[0].factura).to.be.null;
                             done();
                         }
                     });
@@ -651,20 +659,24 @@ describe('Difunto API:', () => {
 
             it('Debe asociar una factura a una defuncion', done => {
                 request(app)
-                    .post('defuncion/difunto/factura')
+                    .post('/defuncion/difunto/factura')
                     .send({
-                        difunto_id: difuntoExtra._id,
+                        _id: difuntoExtra._id,
                         factura_id: factura._id
                     })
                     .expect('Content-Type', /json/)
+                    .expect(200, done)
+            });
+
+            it('Debe verificar que la factura se ha asociado', done => {
+                request(app)
+                    .get('/defuncion/difunto/' + difuntoExtra._id)
+                    .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
-                        if(err) return done(err);
+                        if(err) done(err);
                         else {
-                            let result = res.body;
-                            expect(result._id).to.equal(difuntoExtra._id);
-                            expect(result.DNI).to.equal(difuntoExtra.DNI);
-                            expect(result.factura).to.equal(factura._id);
+                            expect(res.body.factura).to.equal(factura._id.toString());
                             done();
                         }
                     });
@@ -672,7 +684,7 @@ describe('Difunto API:', () => {
 
             it('No debe devolver ninguna factura sin cliente', done => {
                 request(app)
-                    .get('defuncion/difunto/factura')
+                    .get('/defuncion/difunto/factura')
                     .expect('Content-Type', /json/)
                     .expect(200)
                     .end((err, res) => {
@@ -684,10 +696,6 @@ describe('Difunto API:', () => {
                     });
 
             });
-        });
-
-        afterEach('Debe eliminar el difunto', done => {
-            difuntoExtra.remove().then(() => done());
         });
     });
 });

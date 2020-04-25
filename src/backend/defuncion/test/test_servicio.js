@@ -315,7 +315,6 @@ describe('Servicio API:', () => {
                     if(err) return done(err);
                     else {
                         let result = res.body;
-                        console.log('RESULT: ' + result);
                         expect(result._id).to.equal(newServicio._id);
                         expect(result.fechaDefuncion).to.equal(moment("2020-01-01").format());
                         done();

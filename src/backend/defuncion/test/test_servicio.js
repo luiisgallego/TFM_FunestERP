@@ -361,6 +361,7 @@ describe('Servicio API:', () => {
                     _id: newServicio._id,
                     fechaDefuncion: moment("2020-10-10").format(),
                     fechaEntierro: moment("2020-11-11").format(),
+                    updatedBy: user._id
                 })
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -371,6 +372,9 @@ describe('Servicio API:', () => {
                         expect(result._id).to.equal(newServicio._id);
                         expect(result.fechaDefuncion).to.equal(moment("2020-10-10").format());
                         expect(result.fechaEntierro).to.equal(moment("2020-11-11").format());
+                        expect(result.updatedAt).to.not.be.undefined;
+                        expect(result.updatedAt).to.not.be.null;
+                        expect(result.updatedBy).to.equal(user._id);
                         done()
                     }
                 });

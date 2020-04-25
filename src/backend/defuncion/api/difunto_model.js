@@ -1,7 +1,7 @@
 'use strict';
 
-let mongoose = require('mongoose');
-
+let mongoose = require('mongoose'),
+    moment = require('moment');
 
 /**
  * @description Difunto MongoDB Schema
@@ -47,7 +47,7 @@ let difuntoSchema = new mongoose.Schema({
         type: Number
     },
     fechaNacimiento: {
-        type: Date
+        type: String
     },
     estadoCivil: {
         type: String,
@@ -73,20 +73,32 @@ let difuntoSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId
     },
     createdAt: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: moment().format()
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId
     },
     updatedAt: {
-        type: Date
+        type: String
     },
     updatedBy: {
         type: mongoose.Schema.Types.ObjectId
     }
 }, {
     versionKey: false
+});
+
+difuntoSchema.path('DNI')
+    .validate(function(value) {
+        return new Promise((resolve, reject) => {
+            this.constructor.findOne({ DNI: value })
+                .then(model => {
+                    if (model.DNI) reject(new Error('DNI en uso'));
+                    resolve(true);
+                })
+                .catch(err => { resolve(err); });
+        });
 });
 
 

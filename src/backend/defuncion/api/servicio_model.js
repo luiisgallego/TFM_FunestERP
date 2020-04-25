@@ -1,7 +1,7 @@
 'use strict';
 
-let mongoose = require('mongoose');
-
+let mongoose = require('mongoose'),
+    moment = require('moment');
 
 /**
  * @description Servicio MongoDB Schema
@@ -13,20 +13,20 @@ let servicioSchema = new mongoose.Schema({
         auto: true
     },
     fechaDefuncion: {
-        type: Date
+        type: String
     },
     fechaEntierro: {
-        type: Date
+        type: String
     },
     fechaMisa: {
-        type: Date
+        type: String
     },
     poblacionEntierro: {
         type: String
     },
     tanatorio: {
         type: String,
-        enum: ['sala1', 'sala2', 'sala3']
+        enum: ['sala1', 'sala2', 'sala3', 'no']
     },
     tipoServicio: {
         type: String,
@@ -39,15 +39,18 @@ let servicioSchema = new mongoose.Schema({
     incineracion: {
         type: Boolean
     },
+    difunto: {
+        type: mongoose.Schema.Types.ObjectId
+    },
     createdAt: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: moment().format()
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId
     },
     updatedAt: {
-        type: Date
+        type: String
     },
     updatedBy: {
         type: mongoose.Schema.Types.ObjectId
@@ -56,16 +59,16 @@ let servicioSchema = new mongoose.Schema({
     versionKey: false
 });
 
-// servicioSchema.path('compania').validate(function (compania, response) {
-//     if (this.constructor.tipoServicio === 'particular') {
-//         if (!compania.length) {
-//             return response('Un particular no puede tener compania');
-//         } else {
-//             return response(true);
-//         }
-//     }
-//
-// });
+servicioSchema.path('compania')
+    .validate(function (value) {
+        return new Promise((resolve, reject) => {
+            if (this.tipoServicio === 'particular') {
+                console.log('particular');
+                if (value.length > 0) reject(new Error('Un particular no puede tener compania'));
+                resolve(true);
+            } resolve(true);
+        });
+});
 
 
-module.exports = mongoose.model('defuncion', servicioSchema);
+module.exports = mongoose.model('servicio', servicioSchema);

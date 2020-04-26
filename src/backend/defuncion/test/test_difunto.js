@@ -444,6 +444,12 @@ describe('Difunto API:', () => {
     describe('DELETE /defuncion/difunto/:_id', () => {
 
         it('Debe borrar el difunto', done => {
+            nock('http://localhost:3040')
+                .delete('/familia')
+                .reply(204, {});
+            nock('http://localhost:3030')
+                .delete('/cliente/eliminar_difunto')
+                .reply(204, {});
             request(app)
                 .delete('/defuncion/difunto/' + newDifunto._id)
                 .expect(204)

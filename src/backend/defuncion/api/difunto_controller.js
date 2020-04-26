@@ -3,6 +3,9 @@
 let merge = require('lodash.merge'),
     moment = require('moment');
 
+let axios = require('axios');
+
+let servicioController = require('./servicio_controller');
 let difuntoModel = require('./difunto_model');
 
 function status(req, res) {
@@ -12,7 +15,7 @@ function status(req, res) {
     res.status(200).type('json').send(data);
 }
 
-function read(req, res) {
+async function read(req, res) {
 
     return new Promise(resolve => {
         difuntoModel.findById(req.params._id)
@@ -93,7 +96,6 @@ function update(req, res) {
                 let new_difunto = new difuntoModel(merge(difunto, req.body));
                 new_difunto.updatedAt = moment().format();
 
-
                 new_difunto.save()
                     .then(() => {
                         if (res) return res.status(200).type('json').send(new_difunto);
@@ -114,34 +116,93 @@ function update(req, res) {
         });
 }
 
-function destroy(req, res) {
+async function destroyDifunto(req) {
 
     return new Promise(resolve => {
         difuntoModel.findById(req.params._id)
             .then(difunto => {
                 if (!difunto) {
                     const message = {'error': 'Difunto no encontrado'};
-                    if (res) return res.status(200).type('json').send(message);
                     resolve([200, message]);
                 }
 
                 difunto.remove()
                     .then(() => {
-                        if (res) return res.status(204).send();
                         resolve([204, {}]);
                     })
                     .catch((err) => {
                         const message = {'error': err.message};
-                        if (res) return res.status(404).type('json').send(message);
                         resolve([404, message]);
                     });
             })
             .catch(err => {
                 const message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
                 resolve([404, message]);
             });
     });
+}
+
+async function destroyFamilia(difunto_id) {
+
+    return new Promise((resolve, reject) => {
+        axios.delete('http://localhost:3040/familia/destroy_difunto', {
+                data: {
+                    difunto_id: difunto_id
+                }
+            })
+            .then(response => {
+                resolve([response.status, response.data]);
+            })
+            .catch(error => {
+                reject([404, error.response.data]);
+            });
+    });
+}
+
+async function eliminarDifuntoCliente(difunto_id) {
+
+    return new Promise((resolve, reject) => {
+        axios.delete('http://localhost:3030/cliente/destroy_difunto', {
+                data: {
+                    difunto_id: difunto_id
+                }
+            })
+            .then(response => {
+                resolve([response.status, response.data]);
+            })
+            .catch(error => {
+                reject([404, error.response.data]);
+            });
+    });
+}
+
+async function destroy(req, res) {
+
+    const [status_difunto, difunto] = await destroyDifunto(req);
+    if (status_difunto === 204) {
+
+        const difunto_id = req.params._id;
+        const [status_familiares, familia] = await destroyFamilia(difunto_id);
+        const [status_cliente, cliente] = await eliminarDifuntoCliente(difunto_id);
+        const [status_servicio, servicio] = await servicioController.destroy(req);
+
+        if (status_familiares === 204 && status_cliente === 204 && status_servicio === 204) {
+            return res.status(204).type('json').send();
+        }
+        if (status_familiares === 200 || status_cliente === 200 || status_servicio === 200) {
+            return res.status(200).type('json').send({
+                'familia': familia,
+                'cliente': cliente,
+                'servicio': servicio
+            });
+        }
+        return res.status(404).type('json').send({
+            'familia': familia,
+            'cliente': cliente,
+            'servicio': servicio
+        });
+    }
+    return res.status(status_difunto).type('json').send(difunto);
 }
 
 function getNoClientes(req, res) {

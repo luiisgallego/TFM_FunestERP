@@ -12,7 +12,7 @@ function status(req, res) {
     res.status(200).type('json').send(data);
 }
 
-function read(req, res) {
+async function read(req, res) {
 
     return new Promise(resolve => {
         servicioModel.findById(req.params._id)
@@ -34,7 +34,7 @@ function read(req, res) {
     });
 }
 
-function readByDifuntoId(req, res) {
+async function readByDifuntoId(req, res) {
 
     return new Promise(resolve => {
         servicioModel.findOne({difunto: req.params.difunto})
@@ -78,7 +78,7 @@ function list(req, res) {
     });
 }
 
-function create(req, res) {
+async function create(req, res) {
 
     return new Promise((resolve) => {
         if (Object.keys(req.body).length === 0) {
@@ -141,7 +141,7 @@ function update(req, res) {
         });
 }
 
-function destroy(req, res) {
+async function destroy(req, res) {
 
     return new Promise(resolve => {
         servicioModel.findById(req.params._id)

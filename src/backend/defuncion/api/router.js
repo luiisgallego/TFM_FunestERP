@@ -11,9 +11,6 @@ let controller = require('./defuncion_controller');
 router.get('/', controller.status);
 // Debe crear el enlace difunto - servicio
 router.post('/', controller.create);
-// Debe permitir modificar ambos, pero
-router.put('/', controller.update);
-router.get('/list', controller.list);
 
 // /DEFUNCION/DIFUNTO
 router.get('/difunto', difuntoController.status);
@@ -38,12 +35,13 @@ router.get('/servicio/list', servicioController.list);
 
 // /DEFUNCION/DIFUNTO
 router.get('/difunto/:_id', difuntoController.read);
+// Se borrara tanto el difunto como el servicio.
+// Enviará una petición a Familiares para eliminar su asociacion
+// Enviará una peticion a Clientes para eliminar su asociacion
 router.delete('/difunto/:_id', difuntoController.destroy);
 
 // /DEFUNCION/
 router.get('/:_id', controller.read);
-// Solo si el usuario es 'Administrador' puede borrar.
-router.delete('/:_id', controller.destroy);
 
 // /DEFUNCION/SERVICIO
 router.get('/servicio/:_id', servicioController.read);

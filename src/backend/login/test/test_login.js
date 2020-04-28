@@ -8,6 +8,7 @@ let userModel = require('../api/user_model');
 let user;
 
 describe('User login: ', () => {
+    this.timeout(10000);
 
     /* Limpiar la db */
     before(done => {
@@ -16,6 +17,7 @@ describe('User login: ', () => {
     });
 
     describe('GET /user/login (username)', () => {
+        this.timeout(10000);
 
         it('Insertar usuario', done => {
             request(app)
@@ -112,6 +114,7 @@ describe('User login: ', () => {
     });
 
     describe('GET /user/login (email)', () => {
+        this.timeout(10000);
 
         it('Debe devolver login correcto usando email', done => {
             request(app)

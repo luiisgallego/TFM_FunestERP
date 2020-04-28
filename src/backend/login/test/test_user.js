@@ -12,13 +12,12 @@ describe('User API:', function () {
     this.timeout(10000);
 
     /* Limpiar la db */
-    // before(done => {
-    //     userModel.remove({})
-    //         .then(() => done())
-    // });
+    before(done => {
+        userModel.remove({})
+            .then(() => done())
+    });
 
     describe('GET /user', () => {
-        // this.timeout(10000);
 
         it('Debe devolver status OK', done => {
             request(app)
@@ -38,7 +37,6 @@ describe('User API:', function () {
     });
 
     describe('POST /user', () => {
-        // this.timeout(10000);
 
         it('Debe devolver el nuevo usuario creado', done => {
             request(app)
@@ -133,7 +131,6 @@ describe('User API:', function () {
     });
 
     describe('GET /user/:_id', () => {
-        // this.timeout(10000);
 
         it('Debería devolver los datos del usuario', done => {
             request(app)
@@ -197,7 +194,6 @@ describe('User API:', function () {
     });
 
     describe('GET /user/username/:username', () => {
-        // this.timeout(10000);
 
         it('Debe devolver los datos del usuario', done => {
             request(app)
@@ -247,7 +243,6 @@ describe('User API:', function () {
     });
 
     describe('GET /user/list', () => {
-        // this.timeout(10000);
 
         it('Debe crear un nuevo usuario', done => {
             request(app)
@@ -296,7 +291,6 @@ describe('User API:', function () {
     });
 
     describe('PUT /user', () => {
-        // this.timeout(10000);
 
         it('Debe devolver los datos modificados', done => {
             request(app)
@@ -493,5 +487,4 @@ describe('User API:', function () {
                 });
         })
     });
-
 });

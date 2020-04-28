@@ -11,13 +11,12 @@ describe('User login: ', function () {
     this.timeout(10000);
 
     /* Limpiar la db */
-    // before(done => {
-    //     userModel.remove({})
-    //         .then(() => done())
-    // });
+    before(done => {
+        userModel.remove({})
+            .then(() => done())
+    });
 
     describe('GET /user/login (username)', () => {
-        // this.timeout(10000);
 
         it('Insertar usuario', done => {
             request(app)
@@ -114,7 +113,6 @@ describe('User login: ', function () {
     });
 
     describe('GET /user/login (email)', () => {
-        // this.timeout(10000);
 
         it('Debe devolver login correcto usando email', done => {
             request(app)

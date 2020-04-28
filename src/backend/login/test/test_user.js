@@ -8,7 +8,7 @@ let app = require('../');
 let userModel = require('../api/user_model');
 let newUser;
 
-describe('User API:', () => {
+describe('User API:', function () {
     this.timeout(10000);
 
     /* Limpiar la db */
@@ -18,7 +18,7 @@ describe('User API:', () => {
     });
 
     describe('GET /user', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Debe devolver status OK', done => {
             request(app)
@@ -38,7 +38,7 @@ describe('User API:', () => {
     });
 
     describe('POST /user', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Debe devolver el nuevo usuario creado', done => {
             request(app)
@@ -133,7 +133,7 @@ describe('User API:', () => {
     });
 
     describe('GET /user/:_id', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Debería devolver los datos del usuario', done => {
             request(app)
@@ -197,7 +197,7 @@ describe('User API:', () => {
     });
 
     describe('GET /user/username/:username', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Debe devolver los datos del usuario', done => {
             request(app)
@@ -247,7 +247,7 @@ describe('User API:', () => {
     });
 
     describe('GET /user/list', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Debe crear un nuevo usuario', done => {
             request(app)
@@ -296,7 +296,7 @@ describe('User API:', () => {
     });
 
     describe('PUT /user', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Debe devolver los datos modificados', done => {
             request(app)
@@ -439,7 +439,7 @@ describe('User API:', () => {
     });
 
     describe('DELETE /user/:_id', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Debe borrar el usuario', done => {
             request(app)

@@ -7,7 +7,7 @@ let app = require('../');
 let userModel = require('../api/user_model');
 let user;
 
-describe('User login: ', () => {
+describe('User login: ', function () {
     this.timeout(10000);
 
     /* Limpiar la db */
@@ -17,7 +17,7 @@ describe('User login: ', () => {
     });
 
     describe('GET /user/login (username)', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Insertar usuario', done => {
             request(app)
@@ -114,7 +114,7 @@ describe('User login: ', () => {
     });
 
     describe('GET /user/login (email)', () => {
-        this.timeout(10000);
+        // this.timeout(10000);
 
         it('Debe devolver login correcto usando email', done => {
             request(app)

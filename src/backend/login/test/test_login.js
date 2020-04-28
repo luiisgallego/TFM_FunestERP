@@ -11,10 +11,10 @@ describe('User login: ', function () {
     this.timeout(10000);
 
     /* Limpiar la db */
-    before(done => {
-        userModel.remove({})
-            .then(() => done())
-    });
+    // before(done => {
+    //     userModel.remove({})
+    //         .then(() => done())
+    // });
 
     describe('GET /user/login (username)', () => {
         // this.timeout(10000);

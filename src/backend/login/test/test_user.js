@@ -12,10 +12,10 @@ describe('User API:', function () {
     this.timeout(10000);
 
     /* Limpiar la db */
-    before(done => {
-        userModel.remove({})
-            .then(() => done())
-    });
+    // before(done => {
+    //     userModel.remove({})
+    //         .then(() => done())
+    // });
 
     describe('GET /user', () => {
         // this.timeout(10000);

@@ -184,7 +184,7 @@ async function destroy(req, res) {
         const difunto_id = req.params._id;
         const [status_familiares, familia] = await destroyFamilia(difunto_id);
         const [status_cliente, cliente] = await eliminarDifuntoCliente(difunto_id);
-        const [status_servicio, servicio] = await servicioController.destroy(req);
+        const [status_servicio, servicio] = await servicioController.destroyByDifunto(req);
 
         if (status_familiares === 204 && status_cliente === 204 && status_servicio === 204) {
             return res.status(204).type('json').send();

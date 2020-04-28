@@ -171,6 +171,36 @@ async function destroy(req, res) {
     });
 }
 
+async function destroyByDifunto(req, res) {
+
+    return new Promise(resolve => {
+        servicioModel.findOne({difunto: req.params._id})
+            .then(servicio => {
+                if (!servicio) {
+                    const message = {'error': 'Servicio no encontrado'};
+                    if (res) return res.status(200).type('json').send(message);
+                    resolve([200, message]);
+                }
+
+                servicio.remove()
+                    .then(() => {
+                        if (res) return res.status(204).send();
+                        resolve([204, {}]);
+                    })
+                    .catch((err) => {
+                        const message = {'error': err.message};
+                        if (res) return res.status(404).type('json').send(message);
+                        resolve([404, message]);
+                    });
+            })
+            .catch(err => {
+                const message = {'error': err.message};
+                if (res) return res.status(404).type('json').send(message);
+                resolve([404, message]);
+            });
+    });
+}
+
 
 module.exports = {
     status,
@@ -179,5 +209,6 @@ module.exports = {
     create,
     update,
     destroy,
-    readByDifuntoId
+    readByDifuntoId,
+    destroyByDifunto
 };

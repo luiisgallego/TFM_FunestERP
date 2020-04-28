@@ -101,5 +101,4 @@ difuntoSchema.path('DNI')
         });
 });
 
-
 module.exports = mongoose.model('difunto', difuntoSchema);

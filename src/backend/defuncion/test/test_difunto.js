@@ -9,7 +9,7 @@ let mongoose = require('mongoose'),
     app = require('../'),
     difuntoModel = require('../api/difunto_model');
 
-let newDifunto, user, cliente, familia, factura;
+let newDifunto, user, cliente, familia, factura, difunto_servicio;
 
 let difuntoExtra = new difuntoModel({
     nombre: 'difunto_extra',
@@ -443,15 +443,41 @@ describe('Difunto API:', () => {
 
     describe('DELETE /defuncion/difunto/:_id', () => {
 
+        it('Debe crear un difunto y servicio', done => {
+            let data = {
+                nombre: 'nombre_test',
+                DNI: '77335522J',
+                fechaDefuncion: moment("2020-01-01").format()
+            };
+            request(app)
+                .post('/defuncion')
+                .send(data)
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        difunto_servicio = res.body;
+                        expect(difunto_servicio).to.be.instanceOf(Object);
+                        expect(difunto_servicio.difunto).ownProperty('_id');
+                        expect(difunto_servicio.difunto.nombre).to.equal('nombre_test');
+                        expect(difunto_servicio.difunto.DNI).to.equal('77335522J');
+                        expect(difunto_servicio.servicio).ownProperty('_id');
+                        expect(difunto_servicio.servicio.fechaDefuncion).to.equal(moment("2020-01-01").format());
+                        done();
+                    }
+                });
+        });
+
         it('Debe borrar el difunto', done => {
             nock('http://localhost:3040')
-                .delete('/familia')
+                .delete('/familia/destroy_difunto')
                 .reply(204, {});
             nock('http://localhost:3030')
-                .delete('/cliente/eliminar_difunto')
+                .delete('/cliente/destroy_difunto')
                 .reply(204, {});
             request(app)
-                .delete('/defuncion/difunto/' + newDifunto._id)
+                .delete('/defuncion/difunto/' + difunto_servicio.difunto._id)
                 .expect(204)
                 .end((err, res) => {
                     if(err) return done(err);
@@ -461,7 +487,7 @@ describe('Difunto API:', () => {
 
         it('No debe encontrar al difunto', done => {
             request(app)
-                .get('/defuncion/difunto/' + newDifunto._id)
+                .get('/defuncion/difunto/' + difunto_servicio.difunto._id)
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .end((err, res) => {
@@ -475,7 +501,7 @@ describe('Difunto API:', () => {
 
         it('Si el difunto no existe debe enviar un mensaje de error', done => {
             request(app)
-                .delete('/defuncion/difunto/' + newDifunto._id)
+                .delete('/defuncion/difunto/' + difunto_servicio.difunto._id)
                 .expect(200)
                 .expect('Content-Type', /json/)
                 .end((err, res) => {

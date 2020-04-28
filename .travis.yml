@@ -11,11 +11,11 @@ jobs:
         - cd src/backend/login
         - npm install
       script: npm test
-      after_script: cd ../../
     - stage: defuncion
-      before_script: cd src/backend/defuncion
+      before_script:
+        - cd src/backend/defuncion
+        - npm install
       script: npm test
-      after_script: cd ../../
 #script:
 #  - npm test
 

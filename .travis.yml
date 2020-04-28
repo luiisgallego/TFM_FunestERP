@@ -2,7 +2,18 @@ language: node_js
 sudo: false
 node_js:
   - node
-script:
-  - npm test
+jobs:
+  include:
+    - stage: login
+      before_script: cd src/backend/login
+      script: npm test
+      after_script: cd ../../
+    - stage: defuncion
+      before_script: cd src/backend/defuncion
+      script: npm test
+      after_script: cd ../../
+#script:
+#  - npm test
+
 
 # https://stackoverflow.com/questions/14468464/how-to-specify-a-build-folder-in-travis

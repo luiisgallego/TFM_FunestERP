@@ -5,7 +5,9 @@ node_js:
 jobs:
   include:
     - stage: login
-      before_script: cd src/backend/login
+      before_script:
+        - cd src/backend/login
+        - npm install
       script: npm test
       after_script: cd ../../
     - stage: defuncion

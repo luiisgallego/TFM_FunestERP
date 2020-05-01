@@ -1,0 +1,39 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: False
+  vars:
+    remote_user: luis
+
+  tasks:
+    - name: Update.
+      shell: sudo apt-get -y update
+    - name: Instalar Python 2.
+      raw: test -e /usr/bin/python || apt install -y python-minimal
+    - name: Instalar Git.
+      apt:
+        pkg: git
+        state: present
+    - name: Clonar repo.
+      git:
+        repo: https://github.com/luiisgallego/TFM_FunestERP.git
+        dest: ./TFM_FunestERP
+    - name: Install build-essential.
+      apt:
+        pkg: build-essential
+        state: present
+    - name: NodeSource.
+      shell: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    - name: Instalar Node.js
+      apt:
+        pkg: nodejs
+        state: present
+    - name: Cambiamos directorio.
+      raw: cd TFM_FunestERP/src/backend/login
+    - name: Instalar dependencias proyecto.
+      raw: npm install
+    - name: Instalar process manager.
+      npm:
+        name: pm2
+        state: present
+        global: yes

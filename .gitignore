@@ -11,7 +11,9 @@ src/backend/defuncion/package-lock.json
 
 # Deploy
 deploy/login/local/.vagrant/*
+deploy/login/local/playbook.retry
 deploy/login/azure/.vagrant/*
+deploy/login/azure/playbook.retry
 
 # General
 .idea

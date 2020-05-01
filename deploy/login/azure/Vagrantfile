@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Plugin Vagrant - Azure
+require 'vagrant-azure'
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "azure-dummy"                                         # Azure box dummy
+  config.ssh.private_key_path = '~/.ssh/id_rsa'                         # Indicamos ruta ssh clave privada
+  config.vm.synced_folder ".", "/vagrant", disabled: true               # Elimino carpeta compartida
+
+  config.vm.provider "azure" do |az, override|                          # Parámetros para (LOGIN)
+
+    az.tenant_id = ENV['AZURE_TENANT_ID']
+    az.client_id = ENV['AZURE_CLIENT_ID']
+    az.client_secret = ENV['AZURE_CLIENT_SECRET']
+    az.subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
+
+    # Datos para la MV
+    az.vm_image_urn = 'Canonical:UbuntuServer:16.04-LTS:latest'     # Imagen MV
+    az.vm_name = 'login'                                            # Nombre MV
+    az.vm_size = 'Standard_B1s'                                     # Tamaño MV
+    az.resource_group_name = 'TFM'                                  # Grupo de recursos
+    az.location = 'uksouth'                                         # Azure location to build the VM
+    az.tcp_endpoints = [3010]                                       # Abrimos el puerto 80 (HTTP) y 27017 (MongoDB)
+    az.virtual_network_name = "privateNetwork"                      # Nombre del recurso de red virtual
+  end
+
+end

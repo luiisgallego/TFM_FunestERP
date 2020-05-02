@@ -16,8 +16,3 @@ jobs:
         - cd src/backend/defuncion
         - npm install
       script: npm test
-#script:
-#  - npm test
-
-
-# https://stackoverflow.com/questions/14468464/how-to-specify-a-build-folder-in-travis

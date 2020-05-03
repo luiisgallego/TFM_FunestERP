@@ -84,7 +84,7 @@ describe('Cliente API:', () => {
                     DNI: '22334455P'
                 });
             request('http://localhost')
-                .post('/user')
+                .post('/defuncion/difunto')
                 .end((err, res) => {
                     if (err) return done(err);
                     else {
@@ -103,12 +103,11 @@ describe('Cliente API:', () => {
 
     describe('POST /cliente', () => {
 
-        it('Debe devolver el nuevo difunto creado', done => {
+        it('Debe devolver el nuevo cliente creado', done => {
 
             let cliente = new clienteModel({
                 nombre: 'nombre_test',
                 DNI: '77335522J',
-                sexo: 'Hombre',
                 poblacion: 'poblacion_test',
                 provincia: 'provincia_test',
                 calle: 'calle_test',
@@ -118,7 +117,7 @@ describe('Cliente API:', () => {
                 codigoPostal: 23790,
                 telefono: '999885566',
                 email: 'correo@correo.com',
-                cuentaBancaria: '99999999999',  // hacer correctamente
+                cuentaBancaria: 'ES0011112222334444444444',
                 difunto: difunto._id,
                 createdBy: user._id
             });
@@ -140,7 +139,6 @@ describe('Cliente API:', () => {
                         expect(newCliente.nombre).to.equal('nombre_test');
                         expect(newCliente).ownProperty('DNI');
                         expect(newCliente.DNI).to.equal('77335522J');
-                        expect(newCliente.sexo).to.equal('Hombre');
                         expect(newCliente.poblacion).to.equal('poblacion_test');
                         expect(newCliente.provincia).to.equal('provincia_test');
                         expect(newCliente.calle).to.equal('calle_test');
@@ -150,13 +148,13 @@ describe('Cliente API:', () => {
                         expect(newCliente.codigoPostal).to.equal(23790);
                         expect(newCliente.telefono).to.equal('999885566');
                         expect(newCliente.email).to.equal('correo@correo.com');
-                        expect(newCliente.cuentaBancaria).to.equal('99999999999');
-                        expect(newDifunto.difunto).to.equal(difunto._id);
-                        expect(newDifunto.createdAt).to.not.be.undefined;
-                        expect(newDifunto.createdAt).to.not.be.null;
-                        expect(newDifunto.createdBy).to.equal(user._id);
-                        expect(newDifunto).to.not.have.ownProperty('updatedAt');
-                        expect(newDifunto).to.not.have.ownProperty('updatedBy');
+                        expect(newCliente.cuentaBancaria).to.equal('ES0011112222334444444444');
+                        expect(newCliente.difunto).to.equal(difunto._id);
+                        expect(newCliente.createdAt).to.not.be.undefined;
+                        expect(newCliente.createdAt).to.not.be.null;
+                        expect(newCliente.createdBy).to.equal(user._id);
+                        expect(newCliente).to.not.have.ownProperty('updatedAt');
+                        expect(newCliente).to.not.have.ownProperty('updatedBy');
                         done();
                     }
                 });
@@ -207,7 +205,6 @@ describe('Cliente API:', () => {
                         expect(result._id).to.equal(newCliente._id);
                         expect(result.nombre).to.equal('nombre_test');
                         expect(result.DNI).to.equal('77335522J');
-                        expect(result.sexo).to.equal('Hombre');
                         expect(result.poblacion).to.equal('poblacion_test');
                         expect(result.provincia).to.equal('provincia_test');
                         expect(result.calle).to.equal('calle_test');
@@ -217,7 +214,7 @@ describe('Cliente API:', () => {
                         expect(result.codigoPostal).to.equal(23790);
                         expect(result.telefono).to.equal('999885566');
                         expect(result.email).to.equal('correo@correo.com');
-                        expect(result.cuentaBancaria).to.equal('99999999999');
+                        expect(result.cuentaBancaria).to.equal('ES0011112222334444444444');
                         expect(result.difunto).to.equal(difunto._id);
                         expect(result.createdAt).to.not.be.undefined;
                         expect(result.createdAt).to.not.be.null;
@@ -293,8 +290,106 @@ describe('Cliente API:', () => {
         });
     });
 
-    describe('PUT ', () => {
+    describe('PUT /cliente', () => {
 
+        it('Debe devolver los datos modificados', done => {
+            request(app)
+                .put('/cliente')
+                .send({
+                    _id: newCliente._id,
+                    nombre: 'nuevo_name',
+                    DNI: '11223344P',
+                    updatedBy: user._id
+                })
+                .expect('Content-Type', /json/)
+                // .expect(200)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        let result = res.body;
+                        expect(result._id).to.equal(newCliente._id);
+                        expect(result.nombre).to.equal('nuevo_name');
+                        expect(result.DNI).to.equal('11223344P');
+                        expect(result.poblacion).to.equal('poblacion_test');
+                        expect(result.provincia).to.equal('provincia_test');
+                        expect(result.updatedAt).to.not.be.undefined;
+                        expect(result.updatedAt).to.not.be.null;
+                        expect(result.updatedBy).to.equal(user._id);
+                        done();
+                    }
+                });
+        });
+
+        it('Si no hay _id, debe devolver error', done => {
+            request(app)
+                .put('/cliente')
+                .send({
+                    name: 'nuevo_name',
+                    DNI: '11223344P',
+                    updatedBy: user._id
+                })
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+
+        it('Si el cliente (_id) no existe, debe devolver un mensaje de error', done => {
+            request(app)
+                .put('/cliente')
+                .send({ _id: new mongoose.Types.ObjectId() })
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+
+        it('Si alguna clave existe, debe devolver error', done => {
+            request(app)
+                .put('/cliente')
+                .send({
+                    _id: newCliente._id,
+                    DNI: '11223344P',
+                    nombre: 'other_name'
+                })
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+
+        it('Si alguna clave es vacia, debe devolver error', done => {
+            request(app)
+                .put('/cliente')
+                .send({
+                    _id: newCliente._id,
+                    name: 'nuevo_name'
+                })
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
     });
 
     describe('DELETE /cliente/:_id', () => {

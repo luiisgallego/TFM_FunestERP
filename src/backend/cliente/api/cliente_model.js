@@ -52,7 +52,7 @@ let clienteSchema = new mongoose.Schema({
         type: String
     },
     difunto: {
-        type: mongoose.Schema.Types.ObjectId
+        type: [mongoose.Schema.Types.ObjectId]
     },
     createdAt: {
         type: String,
@@ -74,9 +74,14 @@ let clienteSchema = new mongoose.Schema({
 clienteSchema.path('DNI')
     .validate(function(value) {
         return new Promise((resolve, reject) => {
-            this.constructor.findOne({ DNI: value })
+            this.constructor.find({ DNI: value })
                 .then(model => {
-                    if (model.DNI) reject(new Error('DNI en uso'));
+                    // Debemos permitir actualizar la entrada que contenga el propio DNI
+                    for (let i=0; i < model.length; i++) {
+                        if (model[i]._id.toString() !== this._id.toString()) {
+                            reject(new Error('DNI en uso'));
+                        }
+                    }
                     resolve(true);
                 })
                 .catch(err => { resolve(err); });

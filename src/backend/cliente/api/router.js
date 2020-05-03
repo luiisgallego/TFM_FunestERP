@@ -14,8 +14,8 @@ router.get('/:_id', controller.read);
 router.delete('/:_id', controller.destroy);
 
 // Asignar difunto al cliente
-router.post('/difunto/:_id', controller.asignarDifunto);
+router.post('/difunto', controller.asignarDifunto);
 // Eliminar la asociación de dicho difunto al cliente
-router.delete('/destroy_difunto', controller.eliminarDifunto);
+router.delete('/destroy_difunto/:_id/:difunto_id', controller.eliminarDifunto);
 
 module.exports = router;

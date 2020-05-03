@@ -95,7 +95,7 @@ function update(req, res) {
                 return res.status(404).type('json').send(message);
             });
 
-        });
+    });
 }
 
 function destroy(req, res) {
@@ -127,12 +127,93 @@ function destroy(req, res) {
 
 function asignarDifunto(req, res) {
 
+    return new Promise(resolve => {
 
+        if (!req.body.difunto_id) {
+            const message = {'error': 'Falta parametro difunto_id'};
+            return res.status(404).type('json').send(message);
+        }
+
+        clienteModel.findById(req.body._id)
+            .then(cliente => {
+                if (!cliente) {
+                    const message = {'error': 'Cliente no encontrado'};
+                    return res.status(200).type('json').send(message);
+                }
+
+                if (cliente.difunto.includes(req.body.difunto_id)) {
+                    const message = {'error': 'Difunto ya asociado'};
+                    return res.status(404).type('json').send(message);
+                }
+
+                // Añadimos la info
+                cliente.difunto.push(req.body.difunto_id);
+                cliente.updatedAt = moment().format();
+
+                cliente.save()
+                    .then(() => {
+                        return res.status(200).type('json').send(cliente);
+                    })
+                    .catch(err => {
+                        const message = {'error': err.message};
+                        return res.status(404).type('json').send(message);
+                    });
+            })
+            .catch(err => {
+                const message = {'error': err.message};
+                return res.status(404).type('json').send(message);
+            });
+        });
 }
 
 function eliminarDifunto(req, res) {
 
+    return new Promise(resolve => {
 
+        let _id = req.params._id;
+        let difunto_id = req.params.difunto_id;
+
+        if (!_id || !difunto_id) {
+            const message = {'error': 'Falta parametros'};
+            return res.status(404).type('json').send(message);
+        }
+
+        clienteModel.findById(req.params._id)
+            .then(cliente => {
+                if (!cliente) {
+                    const message = {'error': 'Cliente no encontrado'};
+                    return res.status(200).type('json').send(message);
+                }
+
+                if (!cliente.difunto.includes(difunto_id)) {
+                    const message = {'error': 'Difunto no asociado'};
+                    return res.status(404).type('json').send(message);
+                }
+
+                // Eliminamos
+                let difuntosFinal = [];
+                for (let i=0; i<cliente.difunto.length; i++) {
+                    if (cliente.difunto[i].toString() !== difunto_id.toString()) {
+                        difuntosFinal.push(cliente.difunto[i]);
+                    }
+                }
+                cliente.difunto = difuntosFinal;
+                cliente.updatedAt = moment().format();
+
+                cliente.save()
+                    .then(() => {
+                        return res.status(200).type('json').send(cliente);
+                    })
+                    .catch(err => {
+                        const message = {'error': err.message};
+                        return res.status(404).type('json').send(message);
+                    });
+            })
+            .catch(err => {
+                const message = {'error': err.message};
+                return res.status(404).type('json').send(message);
+            });
+        });
 }
 
 

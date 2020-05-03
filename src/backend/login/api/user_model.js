@@ -1,6 +1,7 @@
 'use strict';
 
-let mongoose = require('mongoose');
+let mongoose = require('mongoose'),
+    moment = require('moment');
 
 
 /**
@@ -35,11 +36,11 @@ let userSchema = new mongoose.Schema({
         default: 'user'
     },
     createdAt: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: moment().format()
     },
     updatedAt: {
-        type: Date
+        type: String
     }
 }, {
     versionKey: false

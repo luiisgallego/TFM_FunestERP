@@ -1,6 +1,7 @@
 'use strict';
 
-let merge = require('lodash.merge');
+let merge = require('lodash.merge'),
+    moment = require('moment');
 
 let userModel = require('./user_model');
 let passport = require('./passport');
@@ -75,7 +76,7 @@ function update(req, res) {
             if (!user) return res.status(200).type('json').send({'error': 'Usuario no encontrado'});
 
             let new_user = new userModel(merge(user, req.body));
-            new_user.updatedAt = Date.now();
+            new_user.updatedAt = moment().format();
 
             new_user.save()
                 .then(() => {

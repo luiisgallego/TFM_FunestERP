@@ -56,7 +56,15 @@ function list(req, res) {
 
 function create(req, res) {
 
-    userModel.create(req.body)
+    let newUser = new userModel(req.body);
+
+    if (!newUser.password) {
+        return res.status(404).type('json').send({'error': 'Email is required'});
+    }
+
+    newUser.setPassword(newUser.password);
+
+    userModel.create(newUser)
         .then(user => {
             res.status(200).type('json').send(user)
         })
@@ -77,6 +85,7 @@ function update(req, res) {
 
             let new_user = new userModel(merge(user, req.body));
             new_user.updatedAt = moment().format();
+            new_user.setPassword(new_user.password);
 
             new_user.save()
                 .then(() => {

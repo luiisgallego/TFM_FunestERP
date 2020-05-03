@@ -43,7 +43,7 @@ describe('User login: ', function () {
                 .post('/user/login')
                 .send({
                     username: user.username,
-                    password: user.password
+                    password: 'pass'
                 })
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -119,7 +119,7 @@ describe('User login: ', function () {
                 .post('/user/login')
                 .send({
                     email: user.email,
-                    password: user.password
+                    password: 'pass'
                 })
                 .expect('Content-Type', /json/)
                 .expect(200)

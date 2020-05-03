@@ -83,7 +83,21 @@ clienteSchema.path('DNI')
         });
 });
 
-// TODO: validar teléfono = 9 dígitos
-// TODO: validar cuenta bancaria (longitud)
+clienteSchema.path('telefono')
+    .validate(function(value) {
+        return new Promise((resolve, reject) => {
+            if (value.length !== 9) reject(new Error('Telefono incorrecto'));
+            resolve(true);
+        });
+});
+
+clienteSchema.path('cuentaBancaria')
+    .validate(function(value) {
+        return new Promise((resolve, reject) => {
+            if (value.length !== 24) reject(new Error('Numero de cuenta incorrecto'));
+            resolve(true);
+        });
+});
+
 
 module.exports = mongoose.model('cliente', clienteSchema);

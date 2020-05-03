@@ -1,7 +1,7 @@
 {
   "name": "login",
   "version": "1.0.0",
-  "description": "Microservicio para los datos del servicio (defuncionio) funerario",
+  "description": "Microservicio para los datos del servicio (defuncion) funerario",
   "author": "Luis Gallego Quero <lgaq94@gmail.com>",
   "license": "ISC",
   "repository": {

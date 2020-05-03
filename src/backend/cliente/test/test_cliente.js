@@ -2,14 +2,14 @@
 
 let request = require('supertest'),
     expect = require('chai').expect,
-    nock = require('nock'),
-    moment = require('moment');
+    nock = require('nock');
 
 let mongoose = require('mongoose'),
     app = require('../'),
     clienteModel = require('../api/cliente_model');
 
 let newCliente, user, difunto;
+const newDifuntoId = mongoose.Types.ObjectId();
 
 let clienteExtra = new clienteModel({
     nombre: 'cliente_extra',
@@ -149,7 +149,7 @@ describe('Cliente API:', () => {
                         expect(newCliente.telefono).to.equal('999885566');
                         expect(newCliente.email).to.equal('correo@correo.com');
                         expect(newCliente.cuentaBancaria).to.equal('ES0011112222334444444444');
-                        expect(newCliente.difunto).to.equal(difunto._id);
+                        expect(newCliente.difunto[0]).to.equal(difunto._id);
                         expect(newCliente.createdAt).to.not.be.undefined;
                         expect(newCliente.createdAt).to.not.be.null;
                         expect(newCliente.createdBy).to.equal(user._id);
@@ -215,7 +215,7 @@ describe('Cliente API:', () => {
                         expect(result.telefono).to.equal('999885566');
                         expect(result.email).to.equal('correo@correo.com');
                         expect(result.cuentaBancaria).to.equal('ES0011112222334444444444');
-                        expect(result.difunto).to.equal(difunto._id);
+                        expect(result.difunto[0]).to.equal(difunto._id);
                         expect(result.createdAt).to.not.be.undefined;
                         expect(result.createdAt).to.not.be.null;
                         expect(result.createdBy).to.equal(user._id);
@@ -257,7 +257,7 @@ describe('Cliente API:', () => {
 
     describe('GET /cliente/list', () => {
 
-        beforeEach('Debe crear un nuevo cliente', done => {
+        it('Debe crear un nuevo cliente', done => {
             request(app)
                 .post('/cliente')
                 .send(clienteExtra)
@@ -284,10 +284,6 @@ describe('Cliente API:', () => {
                     }
                 });
         });
-
-        afterEach('Debe eliminar el cliente', done => {
-            clienteExtra.remove().then(() => done());
-        });
     });
 
     describe('PUT /cliente', () => {
@@ -298,18 +294,18 @@ describe('Cliente API:', () => {
                 .send({
                     _id: newCliente._id,
                     nombre: 'nuevo_name',
-                    DNI: '11223344P',
+                    DNI: newCliente.DNI,
                     updatedBy: user._id
                 })
                 .expect('Content-Type', /json/)
-                // .expect(200)
+                .expect(200)
                 .end((err, res) => {
                     if(err) return done(err);
                     else {
                         let result = res.body;
                         expect(result._id).to.equal(newCliente._id);
                         expect(result.nombre).to.equal('nuevo_name');
-                        expect(result.DNI).to.equal('11223344P');
+                        expect(result.DNI).to.equal(newCliente.DNI);
                         expect(result.poblacion).to.equal('poblacion_test');
                         expect(result.provincia).to.equal('provincia_test');
                         expect(result.updatedAt).to.not.be.undefined;
@@ -354,12 +350,12 @@ describe('Cliente API:', () => {
                 });
         });
 
-        it('Si alguna clave existe, debe devolver error', done => {
+        it('Si alguna clave existe (en otro cliente), debe devolver error', done => {
             request(app)
                 .put('/cliente')
                 .send({
                     _id: newCliente._id,
-                    DNI: '11223344P',
+                    DNI: clienteExtra.DNI,
                     nombre: 'other_name'
                 })
                 .expect('Content-Type', /json/)
@@ -377,7 +373,6 @@ describe('Cliente API:', () => {
             request(app)
                 .put('/cliente')
                 .send({
-                    _id: newCliente._id,
                     name: 'nuevo_name'
                 })
                 .expect('Content-Type', /json/)
@@ -435,6 +430,107 @@ describe('Cliente API:', () => {
         it('Si el formato del _id no es correcto, debe enviar un error', done => {
             request(app)
                 .delete('/cliente/4444')
+                .expect(404)
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        })
+    });
+
+    describe('POST /cliente/difunto', () => {
+
+        it('Debe insertar un nuevo difunto al cliente', done => {
+            request(app)
+                .post('/cliente/difunto')
+                .send({
+                    _id: clienteExtra._id,
+                    difunto_id: newDifuntoId
+                })
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        let result = res.body;
+                        expect(result.difunto).to.have.length(1);
+                        expect(result.difunto[0]).to.equal(newDifuntoId.toString());
+                        done();
+                    }
+                });
+        });
+
+        it('Si no hay difunto_id, debe responder con un error', done => {
+            request(app)
+                .post('/cliente/difunto')
+                .send({ _id: clienteExtra._id })
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end((err, res) => {
+                    if (err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+
+        it('Si el difunto ya está asignado, debe responder con un error', done => {
+            request(app)
+                .post('/cliente/difunto')
+                .send({
+                    _id: clienteExtra._id,
+                    difunto_id: newDifuntoId
+                })
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end((err, res) => {
+                    if (err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+    });
+
+    describe('DELETE /cliente/destroy_difunto/:_id/:difunto_id', () => {
+
+        it('Debe borrar el difunto del cliente', done => {
+            request(app)
+                .delete('/cliente/destroy_difunto/' + clienteExtra._id + '/' + newDifuntoId)
+                .expect(200)
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body.difunto).to.have.length(0);
+                        done();
+                    }
+                });
+        });
+
+        it('Si el cliente no tiene al difunto asociado, debe devolver error', done => {
+            request(app)
+                .delete('/cliente/destroy_difunto/' + clienteExtra._id + '/' + newDifuntoId)
+                .expect(404)
+                .expect('Content-Type', /json/)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+
+        it('Si el formato del _id no es correcto, debe enviar un error', done => {
+            request(app)
+                .delete('/cliente/destroy_difunto/' + clienteExtra._id + '/444')
                 .expect(404)
                 .expect('Content-Type', /json/)
                 .end((err, res) => {

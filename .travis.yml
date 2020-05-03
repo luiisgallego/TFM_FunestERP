@@ -16,3 +16,8 @@ jobs:
         - cd src/backend/defuncion
         - npm install
       script: npm test
+    - stage: cliente
+      before_script:
+        - cd src/backend/cliente
+        - npm install
+      script: npm test

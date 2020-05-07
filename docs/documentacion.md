@@ -75,7 +75,15 @@ Punto determinante en el largo camino del desarrollo, elegir bien las diferentes
 
 De esta forma, nos centraremos en exponer y analizar las diferentes opciones que tenemos y estas se irán utilizando conforme sean necesarias. En el aspecto de infraestructura como código e integración continua si será importante decidir desde el primer momento las herramientas a usar.
 
-La investigación completa puede verse [aquí](herramientas_lenguajes.md).
-
-
+Por tanto se han creado una serie de documentos donde se explorarán los detalles de cada una de estas:
+- [FrontEnd](herramientas_lenguajes/frontend.md)
+- Backend
+	- [*Lenguaje de programación*]() 
+	- [*Protocolo de comunicación*]()
+	- [Api Gateway](herramientas_lenguajes/api_gateway.md)
+- [*Base de datos*]()
+- [Integración continua](herramientas_lenguajes/integracion_continua.md)
+- [*Provisión*]()
+- [*Orquestación*]()
+- [*Despliegue Cloud*]()
 

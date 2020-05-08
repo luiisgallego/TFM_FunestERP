@@ -128,7 +128,7 @@ async function destroyDifunto(req) {
 
                 difunto.remove()
                     .then(() => {
-                        resolve([204, {}]);
+                        resolve([200, difunto]);
                     })
                     .catch((err) => {
                         const message = {'error': err.message};
@@ -142,12 +142,13 @@ async function destroyDifunto(req) {
     });
 }
 
-async function destroyFamilia(difunto_id) {
+async function destroyFamilia(difunto_id, familia_id) {
 
     return new Promise((resolve, reject) => {
         axios.delete('http://localhost:3040/familia/destroy_difunto', {
-                data: {
-                    difunto_id: difunto_id
+                params: {
+                    _id: familia_id.toString(),
+                    difunto_id: difunto_id.toString()
                 }
             })
             .then(response => {
@@ -159,12 +160,13 @@ async function destroyFamilia(difunto_id) {
     });
 }
 
-async function eliminarDifuntoCliente(difunto_id) {
+async function eliminarDifuntoCliente(difunto_id, cliente_id) {
 
     return new Promise((resolve, reject) => {
         axios.delete('http://localhost:3030/cliente/destroy_difunto', {
-                data: {
-                    difunto_id: difunto_id
+                params: {
+                    _id: cliente_id.toString(),
+                    difunto_id: difunto_id.toString()
                 }
             })
             .then(response => {
@@ -179,11 +181,10 @@ async function eliminarDifuntoCliente(difunto_id) {
 async function destroy(req, res) {
 
     const [status_difunto, difunto] = await destroyDifunto(req);
-    if (status_difunto === 204) {
-
+    if (status_difunto === 200 && !difunto.hasOwnProperty('error')) {
         const difunto_id = req.params._id;
-        const [status_familiares, familia] = await destroyFamilia(difunto_id);
-        const [status_cliente, cliente] = await eliminarDifuntoCliente(difunto_id);
+        const [status_familiares, familia] = await destroyFamilia(difunto_id, difunto.familia);
+        const [status_cliente, cliente] = await eliminarDifuntoCliente(difunto_id, difunto.cliente);
         const [status_servicio, servicio] = await servicioController.destroyByDifunto(req);
 
         if (status_familiares === 204 && status_cliente === 204 && status_servicio === 204) {

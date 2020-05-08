@@ -428,12 +428,18 @@ describe('Difunto API:', () => {
     });
 
     describe('DELETE /defuncion/difunto/:_id', () => {
+        let cliente_id = mongoose.Types.ObjectId();
+        let familia_id = mongoose.Types.ObjectId();
+        let difunto_id = mongoose.Types.ObjectId();
 
         it('Debe crear un difunto y servicio', done => {
             let data = {
+                _id: difunto_id,
                 nombre: 'nombre_test',
                 DNI: '77335522J',
-                fechaDefuncion: moment("2020-01-01").format()
+                fechaDefuncion: moment("2020-01-01").format(),
+                cliente: cliente_id,
+                familia: familia_id,
             };
             request(app)
                 .post('/defuncion')
@@ -446,6 +452,7 @@ describe('Difunto API:', () => {
                         difunto_servicio = res.body;
                         expect(difunto_servicio).to.be.instanceOf(Object);
                         expect(difunto_servicio.difunto).ownProperty('_id');
+                        expect(difunto_servicio.difunto._id).to.equal(difunto_id.toString());
                         expect(difunto_servicio.difunto.nombre).to.equal('nombre_test');
                         expect(difunto_servicio.difunto.DNI).to.equal('77335522J');
                         expect(difunto_servicio.servicio).ownProperty('_id');
@@ -458,9 +465,17 @@ describe('Difunto API:', () => {
         it('Debe borrar el difunto', done => {
             nock('http://localhost:3040')
                 .delete('/familia/destroy_difunto')
+                .query({
+                    _id: familia_id.toString(),
+                    difunto_id: difunto_id.toString()
+                })
                 .reply(204, {});
             nock('http://localhost:3030')
                 .delete('/cliente/destroy_difunto')
+                .query({
+                    _id: cliente_id.toString(),
+                    difunto_id: difunto_id.toString()
+                })
                 .reply(204, {});
             request(app)
                 .delete('/defuncion/difunto/' + difunto_servicio.difunto._id)

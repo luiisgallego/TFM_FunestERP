@@ -79,27 +79,27 @@ clienteSchema.path('DNI')
                 .then(model => {
                     // Debemos permitir actualizar la entrada que contenga el propio DNI
                     if (model._id.toString() !== this._id.toString()) {
-                        reject(new Error('DNI en uso'));
+                        return reject(new Error('DNI en uso'));
                     }
-                    resolve(true);
+                    return resolve(true);
                 })
-                .catch(err => { resolve(err); });
+                .catch(err => { return resolve(err); });
         });
 });
 
 clienteSchema.path('telefono')
     .validate(function(value) {
         return new Promise((resolve, reject) => {
-            if (value.length !== 9) reject(new Error('Telefono incorrecto'));
-            resolve(true);
+            if (value.length !== 9) return reject(new Error('Telefono incorrecto'));
+            return resolve(true);
         });
 });
 
 clienteSchema.path('cuentaBancaria')
     .validate(function(value) {
         return new Promise((resolve, reject) => {
-            if (value.length !== 24) reject(new Error('Numero de cuenta incorrecto'));
-            resolve(true);
+            if (value.length !== 24) return reject(new Error('Numero de cuenta incorrecto'));
+            return resolve(true);
         });
 });
 

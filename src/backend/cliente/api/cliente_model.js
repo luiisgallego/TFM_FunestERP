@@ -74,13 +74,12 @@ let clienteSchema = new mongoose.Schema({
 clienteSchema.path('DNI')
     .validate(function(value) {
         return new Promise((resolve, reject) => {
-            this.constructor.find({ DNI: value })
+            this.constructor.findOne({ DNI: value })
+                // No puede haber dos DNIs iguales en el sistema actualmente
                 .then(model => {
                     // Debemos permitir actualizar la entrada que contenga el propio DNI
-                    for (let i=0; i < model.length; i++) {
-                        if (model[i]._id.toString() !== this._id.toString()) {
-                            reject(new Error('DNI en uso'));
-                        }
+                    if (model._id.toString() !== this._id.toString()) {
+                        reject(new Error('DNI en uso'));
                     }
                     resolve(true);
                 })

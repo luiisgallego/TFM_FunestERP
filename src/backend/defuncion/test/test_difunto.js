@@ -346,7 +346,7 @@ describe('Difunto API:', () => {
                 .send({
                     _id: newDifunto._id,
                     nombre: 'nuevo_name',
-                    DNI: '11223344P',
+                    DNI: newDifunto.DNI,
                     updatedBy: user._id
                 })
                 .expect('Content-Type', /json/)
@@ -357,7 +357,7 @@ describe('Difunto API:', () => {
                         let result = res.body;
                         expect(result._id).to.equal(newDifunto._id);
                         expect(result.nombre).to.equal('nuevo_name');
-                        expect(result.DNI).to.equal('11223344P');
+                        expect(result.DNI).to.equal(newDifunto.DNI);
                         expect(result.sexo).to.equal('Hombre');
                         expect(result.poblacion).to.equal('poblacion_test');
                         expect(result.provincia).to.equal('provincia_test');
@@ -369,11 +369,33 @@ describe('Difunto API:', () => {
                 });
         });
 
+        it('Debe permitir modificar los valores de las claves', done => {
+            request(app)
+                .put('/defuncion/difunto')
+                .send({
+                    _id: newDifunto._id,
+                    nombre: 'nuevo_name',
+                    DNI: '11223344P',
+                    updatedBy: user._id
+                })
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        let result = res.body;
+                        expect(result._id).to.equal(newDifunto._id);
+                        expect(result.DNI).to.equal('11223344P');
+                        done();
+                    }
+                });
+        });
+
         it('Si no hay _id, debe devolver error', done => {
             request(app)
                 .put('/defuncion/difunto')
                 .send({
-                    name: 'nuevo_name',
+                    nombre: 'nuevo_name',
                     DNI: '11223344P',
                     updatedBy: user._id
                 })
@@ -403,42 +425,6 @@ describe('Difunto API:', () => {
                 });
         });
 
-        it('Si alguna clave existe, debe devolver error', done => {
-            request(app)
-                .put('/defuncion/difunto')
-                .send({
-                    _id: newDifunto._id,
-                    DNI: '11223344P',
-                    nombre: 'other_name'
-                })
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        expect(res.body).ownProperty('error');
-                        done();
-                    }
-                });
-        });
-
-        it('Si alguna clave es vacia, debe devolver error', done => {
-            request(app)
-                .put('/defuncion/difunto')
-                .send({
-                    _id: newDifunto._id,
-                    name: 'nuevo_name'
-                })
-                .expect('Content-Type', /json/)
-                .expect(404)
-                .end((err, res) => {
-                    if(err) return done(err);
-                    else {
-                        expect(res.body).ownProperty('error');
-                        done();
-                    }
-                });
-        });
     });
 
     describe('DELETE /defuncion/difunto/:_id', () => {
@@ -614,7 +600,7 @@ describe('Difunto API:', () => {
                         else {
                             let result = res.body;
                             expect(result[0]._id).to.equal(difuntoExtra._id.toString());
-                            expect(result[0].name).to.equal(difuntoExtra.name);
+                            expect(result[0].nombre).to.equal(difuntoExtra.nombre);
                             expect(result[0].DNI).to.equal(difuntoExtra.DNI);
                             expect(result[0].familia).to.be.undefined;
                             done();
@@ -678,7 +664,7 @@ describe('Difunto API:', () => {
                         else {
                             let result = res.body;
                             expect(result[0]._id).to.equal(difuntoExtra._id.toString());
-                            expect(result[0].name).to.equal(difuntoExtra.name);
+                            expect(result[0].nombre).to.equal(difuntoExtra.nombre);
                             expect(result[0].DNI).to.equal(difuntoExtra.DNI);
                             expect(result[0].factura).to.be.undefined;
                             done();

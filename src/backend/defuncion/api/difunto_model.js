@@ -93,11 +93,15 @@ difuntoSchema.path('DNI')
     .validate(function(value) {
         return new Promise((resolve, reject) => {
             this.constructor.findOne({ DNI: value })
+                // No puede haber dos DNIs iguales en el sistema actualmente
                 .then(model => {
-                    if (model.DNI) reject(new Error('DNI en uso'));
-                    resolve(true);
+                    // Debemos permitir actualizar la entrada que contenga el propio DNI
+                    if (model._id.toString() !== this._id.toString()) {
+                        return reject(new Error('DNI en uso'));
+                    }
+                    return resolve(true);
                 })
-                .catch(err => { resolve(err); });
+                .catch(err => { return resolve(err); });
         });
 });
 

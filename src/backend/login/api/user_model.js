@@ -54,11 +54,15 @@ userSchema.path('username')
     .validate(function(value) {
         return new Promise((resolve, reject) => {
             this.constructor.findOne({ username: value })
+                // No puede haber dos USERNAMEs iguales en el sistema actualmente
                 .then(model => {
-                    if (model.username) reject(new Error('username en uso'));
-                    resolve(true);
+                    // Debemos permitir actualizar la entrada que contenga el propio USERNAME
+                    if (model._id.toString() !== this._id.toString()) {
+                        return reject(new Error('USERNAME en uso'));
+                    }
+                    return resolve(true);
                 })
-                .catch(err => { resolve(err); });
+                .catch(err => { return resolve(err); });
         });
 });
 
@@ -66,11 +70,15 @@ userSchema.path('email')
     .validate(function(value) {
         return new Promise((resolve, reject) => {
             this.constructor.findOne({ email: value })
+                // No puede haber dos EMAILs iguales en el sistema actualmente
                 .then(model => {
-                    if (model.email) reject(new Error('email en uso'));
-                    resolve(true);
+                    // Debemos permitir actualizar la entrada que contenga el propio EMAIL
+                    if (model._id.toString() !== this._id.toString()) {
+                        return reject(new Error('EMAIL en uso'));
+                    }
+                    return resolve(true);
                 })
-                .catch(err => { resolve(err); });
+                .catch(err => { return resolve(err); });
         });
 });
 

@@ -319,9 +319,9 @@ describe('User API:', function () {
                 .put('/user')
                 .send({
                     _id: newUser._id,
-                    username: 'new_user',
+                    username: newUser.username,
                     password: 'other_pass',
-                    email: 'other_email@email',
+                    email: newUser.email,
                     name: 'new_name new_last_name',
                     rol: 'user',
                     createdAt: newUser.createdAt
@@ -335,14 +335,14 @@ describe('User API:', function () {
                         expect(updatedUser).to.be.instanceOf(Object);
                         expect(updatedUser).ownProperty('_id');
                         expect(updatedUser._id).to.equal(newUser._id);
-                        expect(updatedUser.username).to.equal('new_user');
+                        expect(updatedUser.username).to.equal(newUser.username);
                         expect(updatedUser).ownProperty('password');
                         expect(updatedUser.password).to.not.be.undefined;
                         expect(updatedUser.password).to.not.be.null;
                         expect(updatedUser).ownProperty('salt');
                         expect(updatedUser.salt).to.not.be.undefined;
                         expect(updatedUser.salt).to.not.be.null;
-                        expect(updatedUser.email).to.equal('other_email@email');
+                        expect(updatedUser.email).to.equal(newUser.email);
                         expect(updatedUser.name).to.equal('new_name new_last_name');
                         expect(updatedUser.rol).to.equal('user');
                         expect(updatedUser).ownProperty('createdAt');
@@ -354,11 +354,37 @@ describe('User API:', function () {
                 });
         });
 
+        it('Debe permitir modificar los valores de las claves', done => {
+            request(app)
+                .put('/user')
+                .send({
+                    _id: newUser._id,
+                    username: newUser.username,
+                    password: 'other_pass',
+                    email: 'other_email@email',
+                    name: 'new_name new_last_name',
+                    rol: 'user',
+                    createdAt: newUser.createdAt
+                })
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        let updatedUser = res.body;
+                        expect(updatedUser._id).to.equal(newUser._id);
+                        expect(updatedUser.username).to.equal(newUser.username);
+                        expect(updatedUser.email).to.equal('other_email@email');
+                        done();
+                    }
+                });
+        });
+
         it('Si no hay _id, debe devolver error', done => {
             request(app)
                 .put('/user')
                 .send({
-                    username: 'other_new_user',
+                    username: newUser.username,
                     password: 'other_other_pass',
                     email: 'other_other_email@email',
                     name: 'other_new_name new_last_name',
@@ -412,7 +438,7 @@ describe('User API:', function () {
                 .expect(200, done)
         });
 
-        it('Si las claves existen, debe devolver error', done => {
+        it('Si las claves existen (username en este caso), debe devolver error', done => {
             request(app)
                 .put('/user')
                 .send({
@@ -435,7 +461,30 @@ describe('User API:', function () {
                 });
         });
 
-        it('Si las claves son vacias, debe devolver error', done => {
+        it('Si las claves existen (email en este caso), debe devolver error', done => {
+            request(app)
+                .put('/user')
+                .send({
+                    _id: newUser._id,
+                    username: 'other_username_again',
+                    password: 'other_other_pass',
+                    email: 'correo_test@correo.com',
+                    name: 'other_new_name new_last_name',
+                    rol: 'user',
+                    createdAt: newUser.createdAt
+                })
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .end((err, res) => {
+                    if(err) return done(err);
+                    else {
+                        expect(res.body).ownProperty('error');
+                        done();
+                    }
+                });
+        });
+
+        it('Si las claves son vacias (username en este caso), debe devolver error', done => {
             request(app)
                 .put('/user')
                 .send({

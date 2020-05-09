@@ -4,12 +4,11 @@ docs/personal/timing.md
 docs/personal/borrador.md
 docs/personal/notas.md
 
-# Login
+# Backend
 src/backend/login/package-lock.json
-# Servicio
 src/backend/defuncion/package-lock.json
-# Cliente
 src/backend/cliente/package-lock.json
+src/backend/log/package-lock.json
 
 # Deploy
 deploy/login/local/.vagrant/*

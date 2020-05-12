@@ -17,6 +17,7 @@ describe('LOG API:', () => {
                     method: 'GET',
                     route:  '/ruta',
                     time: moment().format(),
+                    status: 200,
                     input: {
                         'input1': '11',
                         'input2': '22'

@@ -1,15 +1,17 @@
 'use strict';
 
 let merge = require('lodash.merge'),
-    moment = require('moment');
+    moment = require('moment'),
+    passport = require('./passport'),
+    axios = require('axios');
 
 let userModel = require('./user_model');
-let passport = require('./passport');
 
-function status(req, res) {
+async function status(req, res) {
 
     // Mostramos status OK
     let data = { "status" : "OK" };
+    enviarLog(req, {}, data, 200).then();
     res.status(200).type('json').send(data);
 }
 
@@ -119,7 +121,6 @@ function destroy(req, res) {
         });
 }
 
-
 function login(req, res, next) {
 
     if(!req.body.password) {
@@ -145,6 +146,20 @@ function login(req, res, next) {
             return res.status(401).send(info);
         })(req, res, next);
     }
+}
+
+
+async function enviarLog(req, input, output, status) {
+
+    let data = {
+        service: 0,
+        method: req.method,
+        route: req.baseUrl + req.url,
+        status: status,
+        input: input,
+        output: output
+    };
+    axios.post('http://localhost:3050/log', {data}).then();
 }
 
 module.exports = {

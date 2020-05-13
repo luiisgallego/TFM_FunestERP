@@ -1,31 +1,16 @@
 'use strict';
 
-let winston = require('winston');
-require('winston-mongodb');
-
-let uri_localhost = "mongodb://localhost:27017/log";
-
-let logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.Console(),
-        new winston.transports.MongoDB({
-            db: uri_localhost,
-            collection : 'test',
-        })
-    ]
-});
+let logModel = require('./log_model');
 
 function getService(num) {
     let nombre;
 
     if (num === 0) {
-        nombre = 'defuncion'
+        nombre = 'DEFUNCION'
     } else if (num === 1) {
-        nombre = 'cliente'
+        nombre = 'CLIENTE'
     } else if (num === 2) {
-        nombre = 'familia'
+        nombre = 'FAMILIA'
     } else {
         nombre = 'unknown'
     }
@@ -50,14 +35,47 @@ async function create(req, res) {
             return res.status(404).type('json').send(message)
         }
 
+        // Traducir el numero a su nombre real
         data['service'] = getService(data['service']);
-        logger.info(data);
-        res.status(200).type('json').send();
+
+        logModel.create(data)
+            .then(log => {
+                console.log(log);
+                res.status(204).type('json').send();
+            })
+            .catch(err => {
+                res.status(404).type('json').send({'error': err.message});
+            });
+    });
+}
+
+function read(req, res) {
+
+    return new Promise(() => {
+        let servicio = req.params.servicio;
+
+        if (!servicio) {
+            const message = {'error': 'Falta parámetro sevicio'};
+            return res.status(404).type('json').send(message);
+        }
+
+        // Traducir el numero a su nombre real
+        let service = getService(parseInt(servicio));
+
+        logModel.find({service: service})
+            .then(logs => {
+                if (!logs) return res.status(200).type('json').send({'error': 'Servicio no encontrado'});
+                return res.status(200).type('json').send(logs);
+            })
+            .catch(err => {
+                return res.status(404).type('json').send({'error': err.message});
+            });
     });
 }
 
 module.exports = {
     status,
+    read,
     create
 };
 

@@ -1,9 +1,9 @@
 'use strict';
 
 let request = require('supertest'),
-    expect = require('chai').expect;
-let mongoose = require('mongoose');
-let app = require('../');
+    expect = require('chai').expect,
+    mongoose = require('mongoose'),
+    app = require('../');
 
 let userModel = require('../api/user_model');
 let newUser;

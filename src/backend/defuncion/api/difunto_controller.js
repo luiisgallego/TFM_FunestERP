@@ -1,9 +1,8 @@
 'use strict';
 
 let merge = require('lodash.merge'),
-    moment = require('moment');
-
-let axios = require('axios');
+    moment = require('moment'),
+    axios = require('axios');
 
 let servicioController = require('./servicio_controller');
 let difuntoModel = require('./difunto_model');
@@ -12,7 +11,7 @@ function status(req, res) {
 
     // Mostramos status OK
     let data = { "status" : "OK" };
-    res.status(200).type('json').send(data);
+    enviarResponse(req, res, {}, data, 200).then();
 }
 
 async function read(req, res) {
@@ -22,16 +21,16 @@ async function read(req, res) {
             .then(difunto => {
                 if (!difunto) {
                     const message = {'error': 'Difunto no encontrado'};
-                    if (res) return res.status(200).type('json').send(message);
+                    if (res) return enviarResponse(req, res, req.params, message, 200).then();
                     resolve([200, message]);
                 } else {
-                    if (res) return res.status(200).type('json').send(difunto);
+                    if (res) return enviarResponse(req, res, req.params, difunto, 200).then();
                     resolve([200, difunto]);
                 }
             })
             .catch(err => {
                 const message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, req.params, message, 404).then();
                 resolve([404, message]);
             });
     });
@@ -44,16 +43,16 @@ function list(req, res) {
             .then(difuntos => {
                 if (!difuntos) {
                     const message = {'error': 'Ningun difunto encontrado'};
-                    if (res) return res.status(200).type('json').send(message);
+                    if (res) return enviarResponse(req, res, {}, message, 200).then();
                     resolve([200, message]);
                 } else {
-                    if (res) return res.status(200).type('json').send(difuntos);
+                    if (res) return enviarResponse(req, res, {}, difuntos, 200).then();
                     resolve([200, difuntos]);
                 }
             })
             .catch(err => {
                 const message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, {}, message, 404).then();
                 resolve([404, message]);
             });
     });
@@ -64,12 +63,12 @@ async function create(req, res) {
     return new Promise(resolve => {
         difuntoModel.create(req.body)
             .then(difunto => {
-                if (res) return res.status(200).type('json').send(difunto);
+                if (res) return enviarResponse(req, res, req.body, difunto, 200).then();
                 resolve([200, difunto]);
             })
             .catch(err => {
                 const message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, req.body, message, 404).then();
                 resolve([404, message]);
             });
     });
@@ -81,7 +80,7 @@ function update(req, res) {
 
         if (!req.body._id) {
             const message = {'error': 'Falta parametro _id'};
-            if (res) return res.status(404).type('json').send(message);
+            if (res) return enviarResponse(req, res, req.body, message, 404).then();
             resolve([404, message]);
         }
 
@@ -89,7 +88,7 @@ function update(req, res) {
             .then(difunto => {
                 if (!difunto) {
                     const message = {'error': 'Difunto no encontrado'};
-                    if (res) return res.status(200).type('json').send(message);
+                    if (res) return enviarResponse(req, res, req.body, message, 200).then();
                     resolve([200, message]);
                 }
 
@@ -98,21 +97,20 @@ function update(req, res) {
 
                 new_difunto.save()
                     .then(() => {
-                        if (res) return res.status(200).type('json').send(new_difunto);
+                        if (res) return enviarResponse(req, res, req.body, new_difunto, 200).then();
                         resolve([200, new_difunto]);
                     })
                     .catch(err => {
                         const message = {'error': err.message};
-                        if (res) return res.status(404).type('json').send(message);
+                        if (res) return enviarResponse(req, res, req.body, message, 404).then();
                         resolve([404, message]);
                     });
             })
             .catch(err => {
                 const message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, req.body, message, 404).then();
                 resolve([404, message]);
             });
-
         });
 }
 
@@ -188,22 +186,24 @@ async function destroy(req, res) {
         const [status_servicio, servicio] = await servicioController.destroyByDifunto(req);
 
         if (status_familiares === 204 && status_cliente === 204 && status_servicio === 204) {
-            return res.status(204).type('json').send();
+            return enviarResponse(req, res, req.params, {}, 204).then();
         }
         if (status_familiares === 200 || status_cliente === 200 || status_servicio === 200) {
-            return res.status(200).type('json').send({
+            let result = {
                 'familia': familia,
                 'cliente': cliente,
                 'servicio': servicio
-            });
+            };
+            return enviarResponse(req, res, req.params, result, 200).then();
         }
-        return res.status(404).type('json').send({
+        let result = {
             'familia': familia,
             'cliente': cliente,
             'servicio': servicio
-        });
+        };
+        return enviarResponse(req, res, req.params, result, 404).then();
     }
-    return res.status(status_difunto).type('json').send(difunto);
+    return enviarResponse(req, res, req.params, difunto, status_difunto).then();
 }
 
 function getNoClientes(req, res) {
@@ -213,16 +213,16 @@ function getNoClientes(req, res) {
             .then(difuntos => {
                 if (!difuntos) {
                     const message = {'error': 'Ningun difunto encontrado'};
-                    if (res) return res.status(200).type('json').send(message);
+                    if (res) return enviarResponse(req, res, {}, message, 200).then();
                     resolve([200, message]);
                 } else {
-                    if (res) return res.status(200).type('json').send(difuntos);
+                    if (res) return enviarResponse(req, res, {}, difuntos, 200).then();
                     resolve([200, difuntos]);
                 }
             })
             .catch(err => {
                 const message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, {}, message, 404).then();
                 resolve([404, message]);
             });
     });
@@ -235,20 +235,19 @@ function getNoFamilia(req, res) {
             .then(difuntos => {
                 if (!difuntos) {
                     const message = {'error': 'Ningun difunto encontrado'};
-                    if (res) return res.status(200).type('json').send(message);
+                    if (res) return enviarResponse(req, res, {}, message, 200).then();
                     resolve([200, message]);
                 } else {
-                    if (res) return res.status(200).type('json').send(difuntos);
+                    if (res) return enviarResponse(req, res, {}, difuntos, 200).then();
                     resolve([200, difuntos]);
                 }
             })
             .catch(err => {
                 const message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, {}, message, 404).then();
                 resolve([404, message]);
             });
     });
-
 }
 
 function getNoFactura(req, res) {
@@ -258,16 +257,16 @@ function getNoFactura(req, res) {
             .then(difuntos => {
                 if (!difuntos) {
                     const message = {'error': 'Ningun difunto encontrado'};
-                    if (res) return res.status(200).type('json').send(message);
+                    if (res) return enviarResponse(req, res, {}, message, 200).then();
                     resolve([200, message]);
                 } else {
-                    if (res) return res.status(200).type('json').send(difuntos);
+                    if (res) return enviarResponse(req, res, {}, difuntos, 200).then();
                     resolve([200, difuntos]);
                 }
             })
             .catch(err => {
                 const message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, {}, message, 404).then();
                 resolve([404, message]);
             });
     });
@@ -280,18 +279,18 @@ function asignarCliente(req, res) {
 
         if (!params._id || !params.cliente_id) {
             const message = {'error': 'Faltan parametros'};
-            if (res) return res.status(404).type('json').send(message);
+            if (res) return enviarResponse(req, res, req.body, message, 404).then();
             else resolve([404, message]);
         }
 
         difuntoModel.updateOne({_id: params._id}, {cliente: params.cliente_id})
             .then(() => {
-                if (res) return res.status(200).type('json').send();
+                if (res) return enviarResponse(req, res, req.body, {}, 200).then();
                 resolve([200, {}])
             })
             .catch(err => {
                 let message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, req.body, message, 404).then();
                 resolve([404, message]);
             });
     });
@@ -304,18 +303,18 @@ function asignarFamilia(req, res) {
 
         if (!params._id || !params.familia_id) {
             const message = {'error': 'Faltan parametros'};
-            if (res) return res.status(404).type('json').send(message);
+            if (res) return enviarResponse(req, res, req.body, message, 404).then();
             else resolve([404, message]);
         }
 
         difuntoModel.updateOne({_id: params._id}, {familia: params.familia_id})
             .then(() => {
-                if (res) return res.status(200).type('json').send();
+                if (res) return enviarResponse(req, res, req.body, {}, 200).then();
                 resolve([200, {}])
             })
             .catch(err => {
                 let message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, req.body, message, 404).then();
                 resolve([404, message]);
             });
     });
@@ -328,23 +327,37 @@ function asignarFactura(req, res) {
 
         if (!params._id || !params.factura_id) {
             const message = {'error': 'Faltan parametros'};
-            if (res) return res.status(404).type('json').send(message);
+            if (res) return enviarResponse(req, res, req.body, message, 404).then();
             else resolve([404, message]);
         }
 
         difuntoModel.updateOne({_id: params._id}, {factura: params.factura_id})
             .then(() => {
-                if (res) return res.status(200).type('json').send();
+                if (res) return enviarResponse(req, res, req.body, {}, 200).then();
                 resolve([200, {}])
             })
             .catch(err => {
                 let message = {'error': err.message};
-                if (res) return res.status(404).type('json').send(message);
+                if (res) return enviarResponse(req, res, req.body, message, 404).then();
                 resolve([404, message]);
             });
     });
 }
 
+async function enviarResponse(req, res, input, output, status) {
+
+    let log = {
+        service: 0,
+        method: req.method,
+        route: req.baseUrl + req.url,
+        status: status,
+        input: input,
+        output: output
+    };
+
+    axios.post('http://localhost:3050/log', log).then().catch(err => {});
+    res.status(status).type('json').send(output);
+}
 
 module.exports = {
     status,

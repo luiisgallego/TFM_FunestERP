@@ -17,28 +17,37 @@ async function status(req, res) {
 function read(req, res) {
 
     if (!req.params._id && !req.params.username) {
-        return enviarResponse(req, res, req.params, {'error': 'Faltan parametros'}, 404).then();
+        const message = {'error': 'Faltan parametros'};
+        return enviarResponse(req, res, req.params, message, 404).then();
     }
 
     if (req.params._id) {
         userModel.findById(req.params._id)
             .then(user => {
-                if (!user) return enviarResponse(req, res, req.params, {'error': 'Usuario no encontrado'}, 200).then();
+                if (!user) {
+                    const message = {'error': 'Usuario no encontrado'};
+                    return enviarResponse(req, res, req.params, message, 200).then();
+                }
                 enviarResponse(req, res, req.params, user, 200).then();
             })
             .catch(err => {
-                enviarResponse(req, res, req.params, {'error': err.message}, 404).then();
+                const message = {'error': err.message};
+                enviarResponse(req, res, req.params, message, 404).then();
             });
     }
 
     if(req.params.username) {
         userModel.findOne({'username': req.params.username})
             .then(user => {
-                if (!user) return enviarResponse(req, res, req.params, {'error': 'Usuario no encontrado'}, 200).then();
+                if (!user) {
+                    const message = {'error': 'Usuario no encontrado'};
+                    return enviarResponse(req, res, req.params, message, 200).then();
+                }
                 enviarResponse(req, res, req.params, user, 200).then();
             })
             .catch(err => {
-                enviarResponse(req, res, req.params, {'error': err.message}, 404).then();
+                const message = {'error': err.message};
+                enviarResponse(req, res, req.params, message, 404).then();
             });
     }
 }
@@ -47,11 +56,15 @@ function list(req, res) {
 
     userModel.find()
         .then(users => {
-            if (!users) return enviarResponse(req, res, req.params, {'error': 'Ningun usuario encontrado'}, 200).then();
-            enviarResponse(req, res, req.params, users, 200).then();
+            if (!users) {
+                const message = {'error': 'Ningun usuario encontrado'};
+                return enviarResponse(req, res, {}, message, 200).then();
+            }
+            enviarResponse(req, res, {}, users, 200).then();
         })
         .catch(err => {
-            enviarResponse(req, res, req.params, {'error': err.message}, 404).then();
+            const message = {'error': err.message};
+            enviarResponse(req, res, {}, message, 404).then();
         });
 }
 
@@ -60,29 +73,35 @@ function create(req, res) {
     let newUser = new userModel(req.body);
 
     if (!newUser.password) {
-        return enviarResponse(req, res, req.params, {'error': 'Email is required'}, 404).then();
+        const message = {'error': 'Email is required'};
+        return enviarResponse(req, res, req.body, message, 404).then();
     }
 
     newUser.setPassword(newUser.password);
 
     userModel.create(newUser)
         .then(user => {
-            enviarResponse(req, res, req.params, user, 200).then();
+            enviarResponse(req, res, req.body, user, 200).then();
         })
         .catch(err => {
-            enviarResponse(req, res, req.params, {'error': err.message}, 404).then();
+            const message = {'error': err.message};
+            enviarResponse(req, res, req.body, message, 404).then();
         });
 }
 
 function update(req, res) {
 
     if (!req.body._id) {
-        return enviarResponse(req, res, req.params, {'error': 'Faltan parametro _id'}, 404).then();
+        const message = {'error': 'Faltan parametro _id'};
+        return enviarResponse(req, res, req.body, message, 404).then();
     }
 
     userModel.findById(req.body._id)
         .then((user) => {
-            if (!user) return enviarResponse(req, res, req.params, {'error': 'Usuario no encontrado'}, 200).then();
+            if (!user) {
+                const message = {'error': 'Usuario no encontrado'};
+                return enviarResponse(req, res, req.body, message, 200).then();
+            }
 
             let new_user = new userModel(merge(user, req.body));
             new_user.updatedAt = moment().format();
@@ -90,14 +109,16 @@ function update(req, res) {
 
             new_user.save()
                 .then(() => {
-                    enviarResponse(req, res, req.params, new_user, 200).then();
+                    enviarResponse(req, res, req.body, new_user, 200).then();
                 })
                 .catch(err => {
-                    enviarResponse(req, res, req.params, {'error': err.message}, 404).then();
+                    const message = {'error': err.message};
+                    enviarResponse(req, res, req.body, message, 404).then();
                 });
         })
         .catch(err => {
-            enviarResponse(req, res, req.params, {'error': err.message}, 404).then();
+            const message = {'error': err.message};
+            enviarResponse(req, res, req.body, message, 404).then();
         });
 }
 
@@ -105,44 +126,51 @@ function destroy(req, res) {
 
     userModel.findById(req.params._id)
         .then(user => {
-            if (!user) return enviarResponse(req, res, req.params, {'error': 'Usuario no encontrado'}, 200).then();
+            if (!user) {
+                const message = {'error': 'Usuario no encontrado'};
+                return enviarResponse(req, res, req.params, message, 200).then();
+            }
 
             user.remove()
                 .then(() => {
                     enviarResponse(req, res, req.params, {}, 204).then();
                 })
                 .catch((err) => {
-                    enviarResponse(req, res, req.params, {'error': err.message}, 404).then();
+                    const message = {'error': err.message};
+                    enviarResponse(req, res, req.params, message, 404).then();
                 });
         })
         .catch(err => {
-            enviarResponse(req, res, req.params, {'error': err.message}, 404).then();
+            const message = {'error': err.message};
+            enviarResponse(req, res, req.params, message, 404).then();
         });
 }
 
 function login(req, res, next) {
 
     if(!req.body.password) {
-        return enviarResponse(req, res, req.params, {'error': 'No password'}, 404).then();
+        const message = {'error': 'No password'};
+        return enviarResponse(req, res, req.body, message, 404).then();
     }
 
     if (!req.body.username && !req.body.email) {
-        return enviarResponse(req, res, req.params, {'error': 'No user o email'}, 404).then();
+        const message = {'error': 'No user o email'};
+        return enviarResponse(req, res, req.body, message, 404).then();
     }
 
     if (req.body.username) {
         return passport.authenticate('user-local',   {session: false}, (err, passportUser, info) => {
             if (err) return next(err);
-            if (passportUser) return enviarResponse(req, res, req.params, passportUser, 200).then();
-            return enviarResponse(req, res, req.params, info, 401).then();
+            if (passportUser) return enviarResponse(req, res, req.body, passportUser, 200).then();
+            return enviarResponse(req, res, req.body, info, 401).then();
         })(req, res, next);
     }
 
     if (req.body.email) {
         return passport.authenticate('email-local',   {session: false}, (err, passportUser, info) => {
             if (err) return next(err);
-            if (passportUser) return enviarResponse(req, res, req.params, passportUser, 200).then();
-            return enviarResponse(req, res, req.params, info, 401).then();
+            if (passportUser) return enviarResponse(req, res, req.body, passportUser, 200).then();
+            return enviarResponse(req, res, req.body, info, 401).then();
         })(req, res, next);
     }
 }

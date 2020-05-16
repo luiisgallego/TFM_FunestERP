@@ -6,13 +6,13 @@ function getService(num) {
     let nombre;
 
     if (num === 0) {
-        nombre = 'DEFUNCION'
+        nombre = 'DEFUNCION';
     } else if (num === 1) {
-        nombre = 'CLIENTE'
+        nombre = 'CLIENTE';
     } else if (num === 2) {
-        nombre = 'FAMILIA'
+        nombre = 'FAMILIA';
     } else {
-        nombre = 'unknown'
+        nombre = 'UNKNOWN'
     }
 
     return nombre
@@ -36,7 +36,7 @@ async function create(req, res) {
         }
 
         // Traducir el numero a su nombre real
-        data['service'] = getService(data['service']);
+        data.service = getService(data.service);
 
         logModel.create(data)
             .then(log => {

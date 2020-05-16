@@ -9,6 +9,7 @@ src/backend/login/package-lock.json
 src/backend/defuncion/package-lock.json
 src/backend/cliente/package-lock.json
 src/backend/log/package-lock.json
+src/backend/familia/package-lock.json
 
 # Deploy
 deploy/login/local/.vagrant/*

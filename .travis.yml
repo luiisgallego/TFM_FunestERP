@@ -21,6 +21,11 @@ jobs:
         - cd src/backend/cliente
         - npm install
       script: npm test
+    - stage: familia
+      before_script:
+        - cd src/backend/familia
+        - npm install
+      script: npm test
     - stage: log
       before_script:
         - cd src/backend/log

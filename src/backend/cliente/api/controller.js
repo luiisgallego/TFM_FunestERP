@@ -189,7 +189,7 @@ function eliminarDifunto(req, res) {
                     return enviarResponse(req, res, req.params, message, 404).then();
                 }
 
-                // Eliminamos
+                // Eliminamos tan solo la asociacion
                 let difuntosFinal = [];
                 for (let i=0; i<cliente.difunto.length; i++) {
                     if (cliente.difunto[i].toString() !== difunto_id.toString()) {

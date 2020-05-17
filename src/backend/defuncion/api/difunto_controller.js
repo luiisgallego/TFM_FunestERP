@@ -143,10 +143,9 @@ async function destroyDifunto(req) {
 async function destroyFamilia(difunto_id, familia_id) {
 
     return new Promise((resolve, reject) => {
-        axios.delete('http://localhost:3040/familia/destroy_difunto', {
+        axios.delete('http://localhost:3040/familia', {
                 params: {
-                    _id: familia_id.toString(),
-                    difunto_id: difunto_id.toString()
+                    _id: familia_id.toString()
                 }
             })
             .then(response => {

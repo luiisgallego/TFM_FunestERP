@@ -464,10 +464,9 @@ describe('Difunto API:', () => {
 
         it('Debe borrar el difunto', done => {
             nock('http://localhost:3040')
-                .delete('/familia/destroy_difunto')
+                .delete('/familia')
                 .query({
-                    _id: familia_id.toString(),
-                    difunto_id: difunto_id.toString()
+                    _id: familia_id.toString()
                 })
                 .reply(204, {});
             nock('http://localhost:3030')

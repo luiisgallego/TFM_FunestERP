@@ -332,9 +332,12 @@ HU. 25
 	- Funcionalidad: Como administrador debo ser capaz de almacenar información en bases de datos.
 	- Resultado: La información obtenida en los diferentes microservicios será almacenada.
 	- Criterios de aceptación:
-		- El modelo de base de datos elegido me debe permitir tener total libertad en cuanto a la estructura que usará cada microservicio.
-		- Debe tener una versión *Cloud*. Además esta debe tener una versión gratuita.
-		- (Investigar requisitos) 
+		- La base de datos nos debe permitir un crear un esquema flexible. Es decir, debemos poder trabajar con datos no estructurados o semiestructurados.
+		- La base de datos debe usar un modelo de datos eficiente e intuitivo, como puede ser *Json* por ejemplo.
+		- Sería ideal trabajar en una versión Cloud de la base de datos elegida.
+		- No debe generar cuellos de botella.
+		- Nos debe proporcionar buena escalabilidad.
+		- Debemos de poder usar tanto una versión para los tests como otra independiente para los datos reales.
 
 HU. X
 	- Usuario: Administrador

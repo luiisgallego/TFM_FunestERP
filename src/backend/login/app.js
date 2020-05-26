@@ -3,11 +3,13 @@
 /* Creamos las dependencias */
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require("body-parser");
-const routes = require('./api/router');
+const bodyParser = require('body-parser');
 const passport = require('passport');
+const dotenv = require('dotenv');
+const routes = require('./api/router');
 // const flash = require('connect-flash');
 const app = express();
+dotenv.config();
 
 /* Configuramos puertos y conexiones */
 let server_ip_address = '0.0.0.0';
@@ -25,8 +27,15 @@ app.use('/user', routes);
 
 
 /* Conectamos la BD */
-let uri_localhost = "mongodb://localhost:27017/user";
-mongoose.connect(uri_localhost, {
+const uri_localhost = "mongodb://localhost:27017/user";
+const uri_mlab = "mongodb://user:password1@ds044979.mlab.com:44979/login";
+let uri_final;
+if (process.env.TESTING === 'True') {
+    uri_final = uri_localhost;
+} else {
+    uri_final = uri_mlab;
+}
+mongoose.connect(uri_final, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err, res) => {
@@ -34,7 +43,7 @@ mongoose.connect(uri_localhost, {
         console.log(`MongoDB connection error: ${err}`);
         process.exit(-1);
     } else {
-        console.log('Conectado a la db en: ' + uri_localhost);
+        console.log('Conectado a la db en: ' + uri_final);
     }
 });
 

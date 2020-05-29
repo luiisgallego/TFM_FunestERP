@@ -35,7 +35,14 @@ jobs:
       before_script:
         - cd src/backend/login
         - npm install
-#        - npm start
+        - cd ../defuncion
+        - npm install
+        - cd ../cliente
+        - npm install
+        - cd ../familia
+        - npm install
+        - cd ../log
+        - npm install
         - cd ../test_api
         - npm install
       script: npm test

@@ -36,6 +36,6 @@ jobs:
         - cd src/backend/login
         - npm install
 #        - npm start
-        - cd src/backend/test_api
+        - cd ../test_api
         - npm install
       script: npm test

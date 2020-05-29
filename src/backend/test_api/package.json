@@ -11,6 +11,7 @@
     "test": "mocha test --exit"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "mongoose": "^5.9.7"
   },
   "devDependencies": {
@@ -18,6 +19,7 @@
     "mocha": "^7.1.1",
     "moment": "^2.25.1",
     "nyc": "^15.0.1",
+    "nock": "^12.0.3",
     "supertest": "^4.0.2"
   }
 }

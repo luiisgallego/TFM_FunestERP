@@ -34,6 +34,5 @@ jobs:
     - stage: API
       before_script:
         - cd src/backend/test_api
-        - npm cache clean
         - npm install
       script: npm test

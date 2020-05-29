@@ -6,31 +6,31 @@ services:
   - mongodb
 jobs:
   include:
-#    - stage: login
-#      before_script:
-#        - cd src/backend/login
-#        - npm install
-#      script: npm test
-#    - stage: defuncion
-#      before_script:
-#        - cd src/backend/defuncion
-#        - npm install
-#      script: npm test
-#    - stage: cliente
-#      before_script:
-#        - cd src/backend/cliente
-#        - npm install
-#      script: npm test
-#    - stage: familia
-#      before_script:
-#        - cd src/backend/familia
-#        - npm install
-#      script: npm test
-#    - stage: log
-#      before_script:
-#        - cd src/backend/log
-#        - npm install
-#      script: npm test
+    - stage: login
+      before_script:
+        - cd src/backend/login
+        - npm install
+      script: npm test
+    - stage: defuncion
+      before_script:
+        - cd src/backend/defuncion
+        - npm install
+      script: npm test
+    - stage: cliente
+      before_script:
+        - cd src/backend/cliente
+        - npm install
+      script: npm test
+    - stage: familia
+      before_script:
+        - cd src/backend/familia
+        - npm install
+      script: npm test
+    - stage: log
+      before_script:
+        - cd src/backend/log
+        - npm install
+      script: npm test
     - stage: API
       before_script:
         - cd src/backend/login

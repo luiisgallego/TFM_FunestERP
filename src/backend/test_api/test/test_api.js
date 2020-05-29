@@ -2,11 +2,10 @@
 
 let request = require('supertest'),
     expect = require('chai').expect,
-    // nock = require('nock'),
+    nock = require('nock'),
     moment = require('moment');
 
 let mongoose = require('mongoose'),
-
     app_login = require('../../login'),
     app_defuncion = require('../../defuncion'),
     app_cliente = require('../../cliente'),

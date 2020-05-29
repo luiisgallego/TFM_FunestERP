@@ -35,4 +35,5 @@ jobs:
       before_script:
         - cd src/backend/test_api
         - npm install
+        - npm install express
       script: npm test

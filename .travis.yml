@@ -31,3 +31,8 @@ jobs:
         - cd src/backend/log
         - npm install
       script: npm test
+    - stage: log
+      before_script:
+        - cd src/backend/test_api
+        - npm install
+      script: npm test

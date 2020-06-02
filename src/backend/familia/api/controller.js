@@ -144,7 +144,7 @@ function destroy(req, res) {
 async function enviarResponse(req, res, input, output, status) {
 
     let log = {
-        service: 0,
+        service: 2,
         method: req.method,
         route: req.baseUrl + req.url,
         status: status,

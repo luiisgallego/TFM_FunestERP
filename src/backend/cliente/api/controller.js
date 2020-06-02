@@ -232,7 +232,7 @@ function eliminarDifunto(req, res) {
 async function enviarResponse(req, res, input, output, status) {
 
     let log = {
-        service: 0,
+        service: 1,
         method: req.method,
         route: req.baseUrl + req.url,
         status: status,

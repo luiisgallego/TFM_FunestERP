@@ -49,18 +49,26 @@ function list(req, res) {
     });
 }
 
-function create(req, res) {
+async function create_cliente(req) {
 
     return new Promise(resolve => {
         clienteModel.create(req.body)
             .then(cliente => {
-                return enviarResponse(req, res, req.body, cliente, 200).then();
+                resolve([200, cliente]);
             })
             .catch(err => {
                 const message = {'error': err.message};
-                return enviarResponse(req, res, req.body, message, 404).then();
+                resolve([404, message]);
             });
     });
+}
+
+async function create(req, res) {
+
+    const [status_cliente, cliente] = await create_cliente(req);
+    // Si se ha creado bien el cliente enviamos la info al difunto
+    if (status_cliente === 200) enlazarClienteDifunto (cliente.difunto[0], cliente._id);
+    return enviarResponse(req, res, req.body, cliente, status_cliente).then();
 }
 
 function update(req, res) {
@@ -145,6 +153,9 @@ function asignarDifunto(req, res) {
                     return enviarResponse(req, res, req.body, message, 404).then();
                 }
 
+                // Enviamos el id del cliente al difunto
+                enlazarClienteDifunto(req.body.difunto_id, cliente._id);
+
                 // Añadimos la info
                 cliente.difunto.push(req.body.difunto_id);
                 cliente.updatedAt = moment().format();
@@ -189,6 +200,9 @@ function eliminarDifunto(req, res) {
                     return enviarResponse(req, res, req.params, message, 404).then();
                 }
 
+                // Enviamos el id del cliente al difunto
+                eliminarEnlaceClienteDifunto(difunto_id, _id);
+
                 // Eliminamos tan solo la asociacion
                 let difuntosFinal = [];
                 for (let i=0; i<cliente.difunto.length; i++) {
@@ -228,6 +242,53 @@ async function enviarResponse(req, res, input, output, status) {
 
     axios.post('http://localhost:3050/log', log).then().catch(err => {});
     res.status(status).type('json').send(output);
+}
+
+async function enlazarClienteDifunto(difunto_id, cliente_id) {
+
+    return new Promise((resolve, reject) => {
+        if (!difunto_id || !cliente_id) {
+            resolve([200,  {}]);
+        }
+        else {
+            let data = {
+                _id: difunto_id,
+                cliente_id: cliente_id
+            };
+
+            axios.post('http://localhost:3020/defuncion/difunto/cliente', data)
+                .then(response => {
+                    resolve([200, response]);
+                })
+                .catch(err => {
+                    reject([404, err]);
+                });
+        }
+    });
+}
+
+async function eliminarEnlaceClienteDifunto(difunto_id, cliente_id) {
+
+    return new Promise((resolve, reject) => {
+        if (!difunto_id || !cliente_id) {
+            resolve([200,  {}]);
+        }
+        else {
+            let data = {
+                _id: difunto_id,
+                cliente_id: cliente_id
+            };
+
+            axios.post('http://localhost:3020/defuncion/difunto/cliente/eliminar', data)
+                .then(response => {
+                    resolve([200, response]);
+                })
+                .catch(err => {
+
+                    reject([404, err]);
+                });
+        }
+    });
 }
 
 module.exports = {

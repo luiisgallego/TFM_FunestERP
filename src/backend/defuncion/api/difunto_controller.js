@@ -143,16 +143,12 @@ async function destroyDifunto(req) {
 async function destroyFamilia(difunto_id, familia_id) {
 
     return new Promise((resolve, reject) => {
-        axios.delete('http://localhost:3040/familia', {
-                params: {
-                    _id: familia_id.toString()
-                }
-            })
+        axios.delete('http://localhost:3040/familia/' + familia_id)
             .then(response => {
                 resolve([response.status, response.data]);
             })
             .catch(error => {
-                reject([404, error.response.data]);
+                resolve([404, error.response.data]);
             });
     });
 }
@@ -160,17 +156,12 @@ async function destroyFamilia(difunto_id, familia_id) {
 async function eliminarDifuntoCliente(difunto_id, cliente_id) {
 
     return new Promise((resolve, reject) => {
-        axios.delete('http://localhost:3030/cliente/destroy_difunto', {
-                params: {
-                    _id: cliente_id.toString(),
-                    difunto_id: difunto_id.toString()
-                }
-            })
+        axios.delete('http://localhost:3030/cliente/destroy_difunto/' + cliente_id + '/' + difunto_id)
             .then(response => {
                 resolve([response.status, response.data]);
             })
             .catch(error => {
-                reject([404, error.response.data]);
+                resolve([404, error.response.data]);
             });
     });
 }

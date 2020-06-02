@@ -26,6 +26,7 @@ router.get('/difunto/factura', difuntoController.getNoFactura);
 router.post('/difunto/cliente', difuntoController.asignarCliente);
 router.post('/difunto/familia', difuntoController.asignarFamilia);
 router.post('/difunto/factura', difuntoController.asignarFactura);
+router.post('/difunto/cliente/eliminar', difuntoController.eliminarCliente);
 
 // /DEFUNCION/SERVICIO
 router.get('/servicio', servicioController.status);

@@ -343,6 +343,30 @@ function asignarFactura(req, res) {
     });
 }
 
+function eliminarCliente(req, res) {
+
+    return new Promise(resolve => {
+        const params = req.body;
+
+        if (!params._id) {
+            const message = {'error': 'Faltan parametros'};
+            if (res) return enviarResponse(req, res, req.body, message, 404).then();
+            else resolve([404, message]);
+        }
+
+        difuntoModel.updateOne({_id: params._id}, {cliente: null})
+            .then(() => {
+                if (res) return enviarResponse(req, res, req.body, {}, 200).then();
+                resolve([200, {}])
+            })
+            .catch(err => {
+                let message = {'error': err.message};
+                if (res) return enviarResponse(req, res, req.body, message, 404).then();
+                resolve([404, message]);
+            });
+    });
+}
+
 async function enviarResponse(req, res, input, output, status) {
 
     let log = {
@@ -370,5 +394,6 @@ module.exports = {
     getNoFactura,
     asignarCliente,
     asignarFamilia,
-    asignarFactura
+    asignarFactura,
+    eliminarCliente
 };

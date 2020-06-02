@@ -729,5 +729,47 @@ describe('Difunto API:', () => {
 
             });
         });
+
+        describe('POST /defuncion/difunto/cliente', () => {
+
+            it('Debe eliminar el cliente en una defuncion', done => {
+                request(app)
+                    .post('/defuncion/difunto/cliente/eliminar')
+                    .send({
+                        _id: difuntoExtra._id
+                    })
+                    .expect('Content-Type', /json/)
+                    .expect(200, done)
+            });
+
+            it('Debe verificar que el cliente se ha eliminado', done => {
+                request(app)
+                    .get('/defuncion/difunto/' + difuntoExtra._id)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        if(err) done(err);
+                        else {
+                            expect(res.body.cliente).to.equal(null);
+                            done();
+                        }
+                    });
+            });
+
+            it('Debe devolver una defuncion sin cliente', done => {
+                request(app)
+                    .get('/defuncion/difunto/cliente')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        if(err) return done(err);
+                        else {
+                            expect(res.body.length).to.equal(1);
+                            done();
+                        }
+                    });
+
+            });
+        });
     });
 });

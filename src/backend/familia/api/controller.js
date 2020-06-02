@@ -48,18 +48,26 @@ function list(req, res) {
     });
 }
 
-function create(req, res) {
+async function create_familia(req) {
 
     return new Promise(resolve => {
         familiaModel.create(req.body)
             .then(familia => {
-                return enviarResponse(req, res, req.body, familia, 200).then();
+                resolve([200, familia]);
             })
             .catch(err => {
                 const message = {'error': err.message};
-                return enviarResponse(req, res, req.body, message, 404).then();
+                resolve([404, message]);
             });
     });
+}
+
+async function create(req, res) {
+
+    const [status_familia, familia] = await create_familia(req);
+    // Si se ha creado bien la familia enviamos la info al difunto
+    if (status_familia === 200) enlazarFamiliaDifunto(familia.difunto, familia._id);
+    return enviarResponse(req, res, req.body, familia, status_familia).then();
 }
 
 function update(req, res) {
@@ -146,6 +154,29 @@ async function enviarResponse(req, res, input, output, status) {
 
     axios.post('http://localhost:3050/log', log).then().catch(err => {});
     res.status(status).type('json').send(output);
+}
+
+async function enlazarFamiliaDifunto(difunto_id, familia_id) {
+
+    return new Promise((resolve, reject) => {
+        if (!difunto_id || !familia_id) {
+            resolve([404,  {}]);
+        }
+        else {
+            let data = {
+                _id: difunto_id,
+                familia_id: familia_id
+            };
+
+            axios.post('http://localhost:3020/defuncion/difunto/familia', data)
+                .then(response => {
+                    resolve([200, response]);
+                })
+                .catch(err => {
+                    reject([404, err]);
+                });
+        }
+    });
 }
 
 module.exports = {

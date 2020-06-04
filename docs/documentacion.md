@@ -1,5 +1,7 @@
 # Documentación
 
+¡¡La documentación provisional que se está preparando para ser entregada junto con el proyecto se puede encontrar [aquí](indice.md)!!
+
 En el presente documento se pretende introducir los diferentes aspectos de documentación que se vayan creando. De esta forma podremos encontrar una pequeña introducción al apartado que nos ocupe y un enlace al trabajo completo sobre este.
 
 ## Índice

@@ -5,4 +5,4 @@
 - [Diseño](diseño/diseño.md)
 - [Implementación](implementacion/implementacion.md)
 - [Pruebas](pruebas/pruebas.md)
-- [Conclusiones](conclusiones/conclusiones.md)
+- [Conclusión](conclusion/conclusion.md)

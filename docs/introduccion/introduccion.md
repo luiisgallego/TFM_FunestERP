@@ -36,6 +36,24 @@ Otra cuestión a la hora de lanzarnos a este proyecto ha sido debido a nuestra c
 
 ## Estado del arte
 
+En este apartado realizaremos un estudio de mercado sobre otras aplicaciones que realicen funcionalidades lo más similares posibles a las que nos gustaría ofrecer en nuestro sistema. Además, comprobaremos si son sistemas actuales y competitivos o si simplemente utilizan tecnologías antiguas y desfasadas. Comenzamos:
+
+1. [Zancuda Funerarias](https://www.spextrem.com/zancuda-funerarias): Software destinado a las pequeñas y medianas empresas funerarias. En él se puede administrar y realizar el seguimiento de toda la información correspondiente a un servicio. Este servicio puede ser defunción, recogida, traslado, etc. Además, nos permite conocer el estado de las cuentas de los clientes o proveedores, controlar stock y coste de los artículos, además de los diversos gastos. Si bien el listado de funcionalidades parece bastante completo la única imagen que encontramos sobre la aplicación nos indica que la experiencia de usuario será pobre y de baja calidad.
+![introduccion_1](imagenes/introduccion/zancuda_funerarias.png)
+
+2. [Gularissoft](https://www.gularissoft.com/gestion-funerarias): Software bastante completo pero que como muchos otros, intentan cubrir el mayor número de sectores posibles. Nos ofrece gestor de documentos, defunciones e informes entre otros. La aplicación parece ser ofrecida en versión de escritorio aunque hablan de *Cloud* sin especificar mayor detalle. El precio rondaría sobre unos 1200€ anuales.
+![introduccion_2](imagenes/introduccion/gularissoft.png)
+
+3. [Fungestión](http://fungestion.com/index.html): Poca es la información que nos proporciona su web, siendo la única posibilidad de indagar en el sistema solicitando una demo. Dentro de las características que ofrecen encontramos las siguientes:
+- Accesible a través de internet y red local.
+- Adaptada a ordenadores y tablets.
+- Catálogo de servicios.
+- Gestión de expedientes, presupuestos, facturas, cobros y pedidos.
+- Impresión de documentos oficiales.
+![introduccion_3](imagenes/introduccion/fungestion.png)
+
+4. [The Team Pyme](https://www.teampyme.com/software-funerarias): De nuevo una aplicación que abarca diversos sectores aunque quizás sea la más orientada al *Cloud*, o al menos así la venden (100% *Cloud*) ya que en las características podemos encontrar referencias a las versiones de escritorio. Dentro de las funcionalidades que oferta podemos encontrar gestión de cliente y defunciones, facturación, correo, copias de seguridad y exportaciones entre otros. Sin duda una solución bastante completa con un rango de precios desde los 0€ mensuales con el número de posibilidades bastante reducido, hasta la versión profesional por 64,95€ al mes.
+![introduccion_4](imagenes/introduccion/the_team_pyme.png)
 
 ## Objetivos del TFM
 

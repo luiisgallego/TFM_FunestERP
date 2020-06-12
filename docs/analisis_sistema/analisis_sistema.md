@@ -231,9 +231,9 @@ Esta forma de representar a los requisitos está directamente ligada a los casos
 Finalmente están especialmente relacionadas con el desarrollo ágil. Las historias de usuarios están vivas. Cuando se realizan las planificaciones para los sprint son fácilmente desglosables, priorizadas y organizadas en diferentes tareas, listas para ser repartidas a los diferentes equipos. Ideal para metodologías como *Scrum*.
 
 - La estructura que siguen es la siguiente:
-	- Yo como <usuario>
-	- necesito / deseo / quiero <funcionalidad>
-	- para <beneficio de negocio>
+	- Yo como "usuario"
+	- necesito / deseo / quiero "funcionalidad"
+	- para "beneficio de negocio"
 
 - HU. 1 - Sistema
 	- Usuario: Jefe / Empleado
@@ -549,7 +549,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 		- Los diferentes estudios comprenderán desde el momento en el que el sistema comienza el despliegue en el proveedor *Cloud* hasta la interacción con este. Para esta última parte se necesitará también alguna forma de automatizar y masificar esa interacción con la plataforma de una forma rápida.
 		- Podremos valorar y documentar cuales son las mejores opciones.
 
-HU. 25
+- HU. 25
 	- Usuario: Administrador
 	- Funcionalidad: Como administrador debo ser capaz de almacenar información en bases de datos.
 	- Resultado: La información obtenida en los diferentes microservicios será almacenada.

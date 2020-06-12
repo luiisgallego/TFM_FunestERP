@@ -20,7 +20,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 - HU. 1 - Sistema
 	- Usuario: Jefe / Empleado
 	- Funcionalidad: *Login* en el sistema.
-	- Resultado: Nos permitirá verificar que los datos del usuario introducidos son correctos. También nos permitirá manejar la información de los usuarios (creación - lectura, actualización - borrado).
+	- Resultado: Nos permitirá verificar que los datos del usuario introducidos son correctos. También nos permitirá manejar la información de los usuarios (creación - lectura - actualización - borrado).
 	- Criterios de aceptación:
 		- Se aceptará como nombre de usuario tanto el correo como el nombre.
 		- La contraseña asociada tiene que ser correcta.
@@ -39,7 +39,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 	- Criterios de aceptación:
 		- Se tiene que permitir tanto añadir una nueva defunción como leer, actualizar y borrar este.
 		- La defunción comprenderá los datos tanto de difunto (nombre, DNI, etc) como del servicio en sí (fecha del servicio, lugar, fecha de la misa, etc).
-		- Debemos poder obtener la información de todos las defunciones almacenadas en la base de datos.
+		- Debemos poder obtener la información de todas las defunciones almacenadas en la base de datos.
 		- Debemos poder tener referencias a su cliente, familiares y facturas asociados.
 		- Debemos poder tener información de historial de cambios, como fecha de creación, fecha de edición, usuario creador y actualizador en principio.
 		- Solo un usuario con rol de administrador podrá borrar una defunción.
@@ -72,7 +72,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 - HU. 5 - Sistema
 	- Usuario: Jefe / Empleado
 	- Funcionalidad: Crear, leer, actualizar y borrar los distintos conceptos de una factura.
-	- *Los aspectos relativos a contabilidad dan cabida a un gran número de posibilidades, desde controlar el stock de material actual en la empresa hasta tener un control de gastos total, pero de cara el proyecto que nos ocupa esta parte de simplificará a tan solo generar una factura final. Esta parte se ampliará si el tiempo lo permite.*
+	- *Los aspectos relativos a contabilidad dan cabida a un gran número de posibilidades, desde controlar el stock de material actual en la empresa hasta tener un control de gastos total, pero de cara el proyecto que nos ocupa esta parte se simplificará a tan solo generar una factura final. Esta parte se ampliará si el tiempo lo permite.*
 	- Resultado: El sistema añadirá, leerá, actualizará o borrará los datos para la factura. Además nos permitirá realizar operaciones para calcular los costes finales en dicha factura. 
 	- Criterios de aceptación:
 		- Se tiene que permitir tanto añadir los conceptos que aparecerán en la factura, además de leerlos, editarlos o borrarlos.
@@ -256,7 +256,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 - HU. 19
 	- Usuario: Administrador
 	- Funcionalidad: Como administrador debo ser capaz de testear los cambios añadidos a *Git* y, si fuera necesario, desplegar el proyecto si dichos tests finalizan positivamente.
-	- Resultado: El sistema se testeará y verificará que los nuevos cambios son válidos. (Integración continua)
+	- Resultado: El sistema se testeará y verificará que los nuevos cambios son válidos. Integración continua de los cambios.
 	- Criterios de aceptación:
 		- Integración con *Github*.
 		- La herramienta de integración podrá lanzar y verificar que los tests se pasan correctamente.
@@ -271,7 +271,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 
 - HU. 20 
 	- Usuario: Administrador
-	- Funcionalidad: Como administrador quiero ser capaz de almacenar un historial de todo lo que ocurra en mi sistema. (LOG)
+	- Funcionalidad: Como administrador quiero ser capaz de almacenar un historial de todo lo que ocurra en mi sistema. 
 	- Resultado: Cada acción realizada en el sistema tendrá una entrada en el historial de cambios.
 	- Criterios de aceptación:
 		- No debe interferir de forma notable en los tiempos de respuesta.
@@ -279,10 +279,11 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 		- Debe poder almacenarse la información tanto en la base de datos como en ficheros.
 		- La información también podrá mostrarse por consola.
 		- Se debe de poder almacenar distintos niveles de alertas.
+		- Quiero que el sistema de log funcione independiente al resto de microservicios.
 
 - HU. 21
 	- Usuario: Administrador
-	- Funcionalidad: Como administrador, quiero ser capaz de desplegar mi infraestructura de forma escalable. (Api Gateway)
+	- Funcionalidad: Como administrador, quiero ser capaz de desplegar mi infraestructura de forma escalable. 
 	- Resultado: El sistema responderá en un tiempo óptimo sin necesidad de máquinas adicionales.
 	- Criterios de aceptación:
 		- Múltiples usuarios podrán trabajar simultáneamente de forma que el sistema no se vuelva más lento.
@@ -290,7 +291,7 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 		- La experiencia de usuario no se verá ralentizada cuando múltiples usuarios estén trabajando en el sistema.
 		- Debe poder comunicarse con microservicios creados en cualquier lenguaje o *framework*.
 		- Debe poder usarse en cualquier servicio *cloud*.
-		- Debe poder usarse con Docker, ya que esto facilitaría su uso tanto en una plataforma local para desarrollo, como en el servicio *cloud*.
+		- Debe poder usarse con *Docker*, ya que esto facilitaría su uso tanto en una plataforma local para desarrollo, como en el servicio *cloud*.
 		- Debe poder ser usable por diferentes orquestadores, ya que en una versión más amplia del proyecto serán interesante usarlos.
 		- Debe permitir el uso de diferentes políticas de seguridad, como OAuth, JWT o SSL entre otras
 		- Debe ser capaz tanto de verificar la entrada de datos, como de preparar correctamente la salida de estos.
@@ -303,19 +304,22 @@ Finalmente están especialmente relacionadas con el desarrollo ágil. Las histor
 	- Criterios de aceptación:
 		- Se elegirá un sistema operativo sobre el que correrá el proyecto.
 		- Este sistema operativo será común para cada microservicio. Aunque se valorará la posibilidad de que algún microservicio funciones mejor en cualquier otro sistema operativo.
-		- Cada microservicio tendrá su propia provisión.
-		- Cada microservicio tendrá su propia orquestación.
+		- Cada microservicio dispondrá de los recursos necesarios para que su funcinamiento sea óptimo.
+		- Cada microservicio dispondrá de la configuración óptima tanto de SO como librerías, por lo que tendrá su entorno completamente personalizado.
 		- Debemos poder desplegar nuestros sistema en contenedores Docker.
 		- Nuestro sistema será fácilmente desplegable en proveedores *Cloud*.
-		- (Investigar criterios para elegir orquestador y provisionador).
+		- Tanto la herramienta de orquestación como la de provisión nos deben permitir configurar entornos complejos de una forma cómoda y sencilla.
 
 - HU. 23
 	- Usuario: Administrador
 	- Funcionalidad: Como administrador, debo ser capaz de desplegar el proyecto en un sistema *Cloud*.
-	- Resultado:
+	- Resultado: Dispondremos de nuestros microservicios perfectamente operativos e interconectados en la nube. Además la accesibilidad será total.
 	- Criterios de aceptación:
 		- Deberá tener tarifas gratuitas para las diferentes pruebas durante el desarrollo.
-		- (Investigar requisitos)
+		- El proveedor debe permitirnos usar su hardware mediante IaaS.
+		- La interfaz de uso debe ser sencilla y amigable.
+		- La integración con las herramientas de provisión y orquestación debe ser total.
+		- Nos debe permitir disponer de todos los microservicios dentro de un mismo grupo de recursos.
 
 - HU. 24
 	- Usuario: Administrador
@@ -338,13 +342,3 @@ HU. 25
 		- No debe generar cuellos de botella.
 		- Nos debe proporcionar buena escalabilidad.
 		- Debemos de poder usar tanto una versión para los tests como otra independiente para los datos reales.
-
-HU. X
-	- Usuario: Administrador
-	- Funcionalidad: 
-	- Resultado:
-	- Criterios de aceptación:
-		-
-		-
-
-*Algunas de estas historias de usuario dependerán del tiempo disponible final para su implementación, especialmente algunos de sus criterios de aceptación.*

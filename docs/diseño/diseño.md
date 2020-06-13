@@ -1,6 +1,6 @@
 # Diseño
 
-Tras el análisis del sistema realizado, en este tercer capítulo que nos ocupa ya estamos en posición de elaborar la arquitectura de nuestro proyecto. Dicha arquitectura estará apoyada por una introducción a las peculiaridades de esta, un diagrama a modo de resumen del estado actual, posteriormente una explicación de los detalles de cada microservicio construido y finalmente una  comparativa entre las arquitecturas monolíticas y la de microservicios.
+Tras el análisis del sistema realizado, en este tercer capítulo que nos ocupa ya estamos en posición de elaborar la arquitectura de nuestro proyecto. Dicha arquitectura estará apoyada por una introducción a las peculiaridades de esta, un diagrama a modo de resumen del estado actual, posteriormente una explicación de los detalles de cada microservicio construido y finalmente una comparativa entre las arquitecturas monolíticas y la de microservicios.
 
 ## Arquitectura de microservicios
 
@@ -38,14 +38,14 @@ En las arquitecturas de microservicios, a diferencia del enfoque tradicional, lo
 
 Algunos diagramas de ejemplo de como sería una arquitectura basada en microservicios pueden ser los siguientes:
 
-![microservicios_1](imagenes/microservicios/microservicios_1.png)
-![microservicios_2](imagenes/microservicios/microservicios_2.png)
+![microservicios_1](../imagenes/microservicios/microservicios_1.png)
+![microservicios_2](../imagenes/microservicios/microservicios_2.png)
 
 ### Componentes:
 
 Tomando como base la siguiente imagen, podemos desgranar la arquitectura basada en microservicios en los siguientes componentes: [Fuente](https://dzone.com/articles/microservice-architecture-learn-build-and-deploy-a)
 
-![microservicios_3](imagenes/microservicios/microservicios_3.png)
+![microservicios_3](../imagenes/microservicios/microservicios_3.png)
 
 - *Clients*: La arquitectura comienza con diferentes tipos de clientes, siendo estos dispositivos que intentan realizar diferentes usos de la aplicación.
 
@@ -60,11 +60,11 @@ Tomando como base la siguiente imagen, podemos desgranar la arquitectura basada 
 	- Mensajes síncronos: en este los clientes esperan las respuestas del servicio. Los servicios suelen usar REST.
 	- Mensajes asíncronos: en este caso los clientes no esperan las respuestas de los servicios, para ello se utilizan protocolos como AMQP, STOMP o MQTT.
 
+- *Static Content*: Después de que los microservicios se comuniquen entre si, implementan el contenido estático en un servicio de almacenamiento basado en la nube que puede entregarlos directamente a los clientes a través de *Content Delivery Networks* (CDN).
+
 - *Data Handling*: Cada microservicio posee una base de datos privada para capturar sus datos. Además, la base de datos de cada microservicio solo se actualiza a través de su API de servicio.
 
-![microservicios_4](imagenes/microservicios/microservicios_4.png)
-
-- *Static Content*: Después de que los microservicios se comuniquen entre si, implementan el contenido estático en un servicio de almacenamiento basado en la nube que puede entregarlos directamente a los clientes a través de *Content Delivery Networks* (CDN).
+![microservicios_4](../imagenes/microservicios/microservicios_4.png)
 
 Además de estos componentes podemos encontrar otros dos que pueden aparecer en las arquitecturas típicas de microservicios.
 
@@ -118,19 +118,106 @@ Es por todos estos puntos por lo que en el presente proyecto hemos decidido lanz
 
 - Fuente: [microservices](https://microservices.io/)
 
-
 ## Especificación de los microservicios
+
+Una vez planteada la arquitectura que nos ocupa, en la sección actual presentaremos el diagrama que hemos elaborado el cual nos permitirá identificar los diferentes microservicios construidos y como se conectan entre si. Además, en la segunda parte hablaremos particularmente de cada uno, haciendo hincapié en los detalles y peculiaridades de cada uno.
 
 ### Diagrama de la arquitectura
 
+El diagrama que ejemplifica el sistema construido hasta el momento es el siguiente:
+
+---- Diagrama ----
+
+Sin entrar en detalle aún, podemos identificar a simple vista como cada microservicio hace uso de una base de datos independiente, albergando en algunos casos varios modelos de datos distintos. Es destacable las oportunidades que nos otorga esta arquitectura, pues es muy interesante el hecho de poder definir cada detalle de tanto la infraestructura como el código o el diseño de un microservicio de forma única, optimizando este a sus requisitos particulares. Continuaremos trabajando en este aspecto.
+
 ### Microservicios desarrollados
 
-- (Explicación de cada uno de los microservicios construidos.)
+Como segunda parte de la especificación de los microservicios nos sumergiremos en los detalles de estos. Comentaremos la idea que nos llevaron a construirlos, detalles de su implementación, o mejor dicho, su diseño, y algunos aspectos que consideramos relevantes comentar sobre el proceso de su elaboración.
+
+#### Login
+
+Primer microservicio creado en el proyecto y es que las razones parecen obvias, necesitamos poder tener usuarios en el sistema, registrarlos, y que estos puedan usarlo, por tanto, loguearse en él. Es relevante además ya que el resto de microservicio utilizan la información del usuario para guardar en sus modelos información como quién fue el usuario que creó el servicio, familiar o cliente, o quien fue quién lo modificó entre otras funciones.
+
+Relativo a la implementación es interesante comentar que hemos hecho uso de [passport.js](http://www.passportjs.org/), un *middleware open source* para gestionar la autenticación, el cual trabaja en combinación con [Express.js](https://expressjs.com/), siendo este último el *framework* usado junto a *Node.js* para construir tanto este como el resto de microservicios.
+
+La ventaja principal de usar *passport.js* es que nos permitirá la autenticación de nuestra aplicación haciendo uso de su abanico de más de 30 *plugins* disponibles creados bajo diversas estrategias. Ejemplos de estas estrategias serían mediante usuario y contraseña, Facebook, Google, Twitter... Resumiendo, nos permiten de una forma cómoda configurar nuestra aplicación para poder realizar el *login* del usuario de diversas maneras. En nuestro caso no hemos configurado aún nuestra aplicación para hacer uso de todo este abanico aunque está todo listo para completar el proceso. Finalmente comentar que presenta otras características como las siguientes:
+
+- Single sign-on utilizando OpenID y OAuth.
+- Manejo de la autenticación para controlar el éxito o el fallo del proceso
+- Soporte de sesiones persistentes.
+- Scope dinámico y distintos permisos de aplicación.
+- Podemos implementar nuestras propias estrategias de autenticación.
+
+En la siguiente imagen podemos ver como se configuraría *passport.js* para hacer uso en el proceso de login del usuario o del email junto con la contraseña: 
+![diseño_1](../imagenes/diseño/passport.png)
+
+Añadir también que hemos preparado el microservicio para trabajar con las contraseñas de forma encriptada, y por tanto, almacenarlas de forma segura. En el código de más abajo podemos ver como desde el modelo creado podemos validar la contraseña y establecerla encriptada. Por último y pensando de cara al futuro, además de configurar la autenticación bajo nuevos servicios, sería interesante trabajar en hacer uso de *Json Web Token (JWT)*.
+![diseño_2](../imagenes/diseño/encriptacion.png)
+
+#### Defunción
+
+Microservicio mas importante del proyecto, es el eje central de la idea diseñada. Pensando sobre un servicio funerario, toda la información inicial necesaria recae sobre el difunto, quien es, donde vive, cuando ha fallecido, etc. Por tanto, en el sistema ideado hemos querido tomar como base esa misma idea y construir en torno a este microservicio el punto de unión con el resto de microservicios. 
+
+En definitiva lo que albergamos aquí es tanto los datos del difunto (nombre, DNI, sexo, fechas, etc) además de referencias a los identificadores del modelo de cliente y familiar asociados en este. Todo esto lo podemos encontrar dentro del modelo del difunto. Además dentro de este microservicio tenemos el modelo del servicio, que almacena información respecto a la fecha de la misa, entierro, lugar de realización, si el servicio es de compañía, entre otros datos. La razón de albergar ambos modelos en un mismo microservicio es que el modelo y la funcionalidad de servicio no tiene sentido aislado del difunto, y por esa razón se han construido juntos.
+
+Si bien se han preparado *endpoints* para poder consultar, añadir y modificar la información de ambos por separado. Posibilitando incluso la creación y lectura de ambos en una mismo consulta. Como cabe de esperar el listado de *endpoints* disponibles es extenso ya que además de añadir, modificar o borrar la información, el microservicio nos tiene que permitir modificar tanto los clientes como los familiares asociados a cada difunto. Por tanto, siendo relevante en este aspecto, en la imagen siguiente podemos ver como quedaría el *router* creado para este microservicio: 
+![diseño_3](../imagenes/diseño/router_defuncion.png)
+
+Otro punto interesante a comentar es que en el desarrollo del proyecto hemos intentado hacer uso de la funcionalidad asíncrona, promesas y demás ventajas de *Node.js* como puede verse en la imagen de más bajo. Este ejemplo es característico ya que sería para el caso de eliminar una defunción, y que por tanto, debe eliminar los familiares asociados y eliminar la asociación con el cliente (que no borrarlo en este caso). Por tanto, en las imágenes con las que concluimos este punto vamos a mostrar como hemos construido una función asíncrona que a su vez llama a otras funciones que realizan peticiones a microservicios externos, como podemos ver en la segunda imagen. 
+
+![diseño_4](../imagenes/diseño/asincrono_1.png)
+![diseño_5](../imagenes/diseño/asincrono_2.png)
+
+#### Cliente
+
+- Idea base de este microservicio.
+- ¿Porque podemos tener varios clientes para un mismo difunto?
+- Captura de eliminar difunto
+
+La idea bajo el presente microservicio es mas sencilla que en el resto aunque hay varios puntos a tener en cuenta. Principalmente los datos que almacenamos aquí son relevantes de cara a la realización de la factura final, ya que serán los datos del cliente los que se usarán en la facturación del servicio.
+
+El otro punto en cuestión es el hecho de que podemos asociar un cliente a varios difuntos, lo que equivaldría a varios servicios facturados a un mismo cliente. Esto conlleva que cuando una defunción sea eliminada, como hemos comentado antes, se tenga que eliminar la asociación que los une. Aunque además tenemos la posibilidad por parte del microservicio del cliente de eliminar dicho enlace, siendo la lógica realizada en el controlador para esta funcionalidad la siguiente:
+
+![diseño_6](../imagenes/diseño/cliente_difunto.png)
+
+#### Log.
+
+- Comentar que primero se comenzó usando winston, pero que este presentaba problemas 
+	al guardar en la db, lo que lo convertía en inútil para el propósito real de un LOG,
+	poder en el futuro ver que ha pasado, por quien, que cambió, etc etc.
+- Comentar que se buscaba usar alguna librería que nos permitiera usar mongo y tal, y por
+eso elegimos winston, pero que finalmente definimos nuestro propio modelo y funcionalidad
+para así en el futuro poder crear esto a nuestro gusto y además satisface completamente
+nuestros requisitos.
+- Documentar el porqué usarlo en un microservicio independiente.	(!!!!!)
+
+Nuestra prioridad en el presente microservicio fue hacer uso de alguna librería que cumpliera con los requisitos necesarios, y de ese modo, nos simplificara la construcción de este. En líneas generales, la idea que nos ocupa es poder recibir mediante los diferentes *endpoints* la información de cada microservicio, procesarla en el sistema de log, y poder tanto mostrar el resultado creado en consola como almacenarlo en la colección de la base de datos que corresponda. 
+
+Es por ello que tras una búsqueda, y análisis, de diversas opciones nos decantamos por [winstons.js](https://www.npmjs.com/package/winston). Tras configurarlo y realizar diversas pruebas nos encontramos con un problema inesperado. Y es que cuando se almacenaba la información en la base de datos, los datos importantes se formateaban de una forma especial, y posteriormente la recuperación de estos era imposible realizarla correctamente, y por tanto, no podíamos trabajar con ellos. 
+
+Esto rompía con uno de los planes de futuro más interesantes de este microservicio, poder recuperar logs antiguos, y en consecuencia, analizar las diferentes acciones que los usuarios realizaron, o en definitiva, trabajar con ellos. Buscando nuevas alternativas y soluciones finalmente nos decantamos por implementar nuestro propio modelo que sería almacenado en la base de datos. De esta forma obtenemos total libertad a la hora de almacenar la información como deseamos y además, podemos continuar trabajando en el microservicio para realizar análisis, informes o cualquier otra funcionalidad que deseemos con los datos almacenados.
+
+Antes de terminar con el microservicio de log sería interesante comentar la razón de disponer de este como un microservicio independiente y no como una colección más en cada uno de los microservicios implementados. Podríamos pensar que esta última opción es lógica pero deberíamos plantearnos una situación en la que por ejemplo necesitamos recuperar la información de varios microservicios a la vez de forma continuada. Esto conllevaría llamadas continuas a los *endpoints* de estos microservicios, en cambio, si lo creamos de forma independiente toda la información estaría centralizada y la carga de trabajo concentrada tan solo en el microservicio de log. Esta forma de trabajar se está convirtiendo en una norma especialmente en los sistemas *Cloud* o de contenedores y fue una de las principales razones para decidir este diseño.
+
+#### Familia.
+
+Microservicio similar al de cliente, aunque este presenta una particularidad diferenciadora, y además, la razón de peso para la elección de *MongoDB*. Entrando en detalle, la situación que se nos presentaba es que tenemos que por ejemplo poder añadir el rol "hijos" y dentro de este necesitamos almacenar una lista de nombres, por tanto, la estructura para los familiares sería algo como lo siguiente:
+
+```yaml
+{
+	"rol1": ["nombre_1", "nombre_2", "nombre_3"],
+	"rol2": ["nombre_4", "nombre_5"],
+	"rol3": ["nombre_6", "nombre_7", "nombre_8", "nombre_9"],
+	...........
+}
+```
+
+Viendo un ejemplo como el anterior fácilmente se nos viene a la cabeza la estructura de documentos o *Json* típicas de las bases de datos *NoSQL*. Por tanto, por razones como la que exponemos y algunas más que presentaremos más adelante nos decantamos por el uso de *MongoDB*. 
+
+Por último y como curiosidad en el presente microservicio adjuntamos en la siguiente imagen la implementación del modelo de este:
+
+![diseño_7](../imagenes/diseño/modelo_familia.png)
 
 ## Arquitecturas monolíticas vs arquitecturas de microservicios
 
-- Buscar diferencias
-- Plantear porqué hacemos este avance.
-
-![microservicios_5](imagenes/microservicios/microservicios_5.png)
 

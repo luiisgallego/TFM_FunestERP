@@ -210,17 +210,73 @@ En resumen, el coste del proyecto asciende hasta los 7967€.
 
 ## Análisis. Especificación de requisitos.
 
+Al igual que anteriormente comentábamos que una buena planificación es clave para cumplir con los plazos de entrega marcados y con una correcta distribución del trabajo. El análisis de requisitos es vital para conocer a fondo lo que un cliente desea. Punto clave en el que todo desarrollador tiene que indagar a fondo en cada una de las necesidades y objetivos que el sistema operativo requiere.
+
+En esta sección desgranaremos cada uno de los requisitos que componen nuestro proyecto. Para ello seguiremos uno de los estándares más utilizados, el IEEE 830 (IEE Std. 830-1998. (2018). Especificación de Requisitos según el estándar.). Comenzamos:
+
 ### Propósito
+
+El objetivo de este capítulo será definir todos los requisitos, especialmente enfocados en las historias de usuario, y funcionalidades que nuestro sistema debe tener para su posterior diseño, implementación, testeo y despliegue. Además, permitirá a cualquier persona que examine el proyecto entender las diferentes funciones que busca satisfacer.
 
 ### Ámbito del sistema
 
+Pensando en un nombre que ejemplifique lo más rápido posible lo que nuestro sistema ofrece, hemos ideado el siguiente, FunestERP. Haciendo gala de a quién va dirigido, en este caso a cualquier empresa del sector funerario, *Funest*, y haciendo referencia a la tecnología en la que se basa, en los sistemas actuales de planificación de recursos empresariales en la nube, *ERP*.
+
+Dentro de las funcionalidades que el sistema ofrecerá podemos destacar la posibilidad de gestionar un servicio funerario al completo. Para ello, partiendo de distintos datos como serían los del difunto o los de los familiares, poder generar toda una serie de documentos necesarios para la realización del servicio. Comprendiendo estos documentos como las esquelas, diversas recordatorias, misas funerales y facturas entre otros. Además, se podrá tener una visión global del estado de la empresa mediante gráficos que serán actualizados según la información recogida con los nuevos servicios. Finalmente, buscaremos poder ofrecer funcionalidades complementarias como podrían ser un calendario propio para la organización de nuestras tareas además de poder gestionar nuestro propio sistema de correo dentro de la misma plataforma.
+
+Como beneficios que nos ofrece el sistema podríamos generalizarlo en tan solo uno y este sería, la capacidad de gestionar todos los recursos en cuanto a documentación y organización se refiere de la empresa en un solo sistema, sistema que será web y por tanto accesible desde cualquier lugar. 
+
+Por último, como meta principal de este proyecto podríamos recalcar la idea de que la empresa no tenga que salir del sistema para la realización de cualquier tipo de documentación. Añadiendo el aliciente de que los datos necesarios para la realización de dichos documentos sean los mínimos posibles.
+
 ### Descripción general
+
+En esta sección mostraremos aquellos factores que afectan a nuestro sistema, centrándonos en el contexto de manera que posteriormente se comprendan mejor las historias de usuario.
 
 #### Perspectiva del producto
 
-#### Funciones del producto (módulos)
+El sistema que vamos a construir es totalmente independiente de otros productos, por lo que no tiene relación alguna con algún otro sistema anteriormente creado. Por lo tanto, no formará parte de ningún otro sistema y no tenemos que tener en cuenta los requisitos de ningún otro subsistema.
+
+#### Funciones del producto 
+
+En líneas aún generales, en el sistema que buscamos construir podremos encontrar las siguientes funciones, las cuales agrupamos en grandes módulos:
+
+1. Gestión de defunciones.
+
+Primer módulo y punto inicial del proceso funcional del sistema. En él se desarrollarán todos los datos asociados a un difunto en forma de ficha personal, como nombres, fechas, datos concretos, direcciones, etc. Directamente relacionado con dicho difunto encontraríamos los datos del servicio en si, que abarcaría datos como la fecha de defunción o fecha de la misa por mencionar alguno.
+
+También dentro de los datos del difunto encontraremos la información necesaria para poder relacionar los datos de otros módulos con dicho difunto, como pueden ser los del cliente y los familiares. Por lo tanto debemos proporcionar puntos de consulta y modificación para manejar los datos que comentamos.
+
+2. Gestión de clientes y familiares.
+
+Módulos dedicados a la recolección de datos enfocados en los requisitos de cada uno. En el caso de los clientes será especialmente relevante poder añadir datos que estén ligados a la facturación y además, debemos posibilitar que un cliente esté asociado a varios difuntos. En el caso de los familiares debemos poder almacenar de una forma óptima diferentes nombres junto con su rol dentro de la familia, siendo este el punto más complejo de su implementación (el diseño de una estructura correcta para tal requisito).
+
+Ambos módulos junto con el primero son especialmente relevantes para el siguiente. Además, el sistema para los módulos mencionados nos permitirá tanto listar las opciones disponibles, como eliminar o editar el cliente, familiar y difunto que deseemos.
+
+3. Gestor documental.
+
+En este punto encontraríamos toda la funcionalidad relacionada con la gestión de los documentos que el sistema puede proporcionar. Será especialmente relevante respecto a las cuestiones de visionado de los documentos, de esta forma podríamos obtener una vista preliminar de como quedaría el documento final, además de la opción de guardarlo directamente en PDF en nuestro ordenador personal. Será interesante construirlo de forma que la inclusión de nuevos tipos de documentos sea una tarea liviana.
+
+4. Gestión de contabilidad.
+
+Módulo encargado del control de la facturación para cada servicio. En un caso inicial tan solo buscamos poder generar la factura final que se entregará al cliente por los servicios prestados. Como en los casos anteriores, podremos disponer de opciones para el manejo de los datos, visualizado y descarga en PDF. Sería interesante en esta sección tener la posibilidad de controlar el estado de la factura, ya que de esta forma alimentaríamos los siguientes módulos que proponemos.
+
+5. Agenda, correo, informes y gráficos.
+
+Comentar diferentes puntos opcionales y difícilmente abarcables pero que serán interesantes tenerlos en cuenta. En cuanto a la agenda añadir que los distintos usuarios del sistema podrían crear eventos que estén por realizar, y así, de una forma sencilla y rápida, dentro del sistema se podrán visualizar las tareas pendientes de realizar dentro del negocio.
+
+En cuanto al correo sería posible el envío de *emails*, y como cuestión destacable, la posibilidad de obtener la bandeja de entrada dentro del mismo sistema. Finalmente, informes o notificaciones y gráficos que nos servirían para estar actualizados sobre cada suceso de interés que ocurra en nuestro sistema. Además nos permitirían tener una visión global e histórica de como evoluciona nuestro negocio.
+
+6. Gestión de la infraestructura.
+
+Módulo final que proponemos para una primera versión completa y que está dirigido a la infraestructura como código. Tan importante como proporcionar al cliente nuevos cambios de forma continua, es poder disponer como desarrollador o administrador de una óptima configuración de la infraestructura y de todos los elementos necesarios para manejar esta de la forma más cómoda. Tareas como provisionar las máquinas virtuales con las especificaciones de cada microservicios o desplegar estos en diferentes sistemas *CLoud* son aspectos de vital importancia que trataremos de solventar. 
 
 #### Requisitos futuros
+
+Pensar en requisitos futuros suena bastante ambicioso pues las pautas marcadas para el comienzo del proyecto ya lo son, y el trabajo por realizar es abundante. Pero podríamos proponer el hecho de continuar el proyecto con una segunda versión, por ejemplo, habilitando la posibilidad al usuario de definir sus propios documentos, es decir, permitir la opción de que los documentos de cada tipo generados no sean únicos, si no un diseño propio de cada cliente. Por tanto, ligado a esto tendríamos que continuar el desarrollo además de añadir nuevos datos en cada módulo si fuera necesario.
+
+Luego además, las posibilidades de ampliación con nuevos módulos son muy grandes, por proponer alguno podríamos mencionar el de *inventario*, en el que controlar todo el stock de material tanto entrante como saliente, sus precios, etc. Y continuando en esta línea, la *gestión del personal de empresa*. Tanto para el pago de nóminas por ejemplo, como la gestión de horarios de trabajo.
+
+Como podemos ver, la oportunidad de negocio es clara, y la posibilidad de construir un proyecto competitivo y con gran cantidad de recursos, también. Es por ello que en este TFM buscamos establecer una base sólida con la que conseguir nuestros objetivos.
 
 ### Historias de usuario
 

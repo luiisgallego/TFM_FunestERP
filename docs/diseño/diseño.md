@@ -170,10 +170,6 @@ Otro punto interesante a comentar es que en el desarrollo del proyecto hemos int
 
 #### Cliente
 
-- Idea base de este microservicio.
-- ¿Porque podemos tener varios clientes para un mismo difunto?
-- Captura de eliminar difunto
-
 La idea bajo el presente microservicio es mas sencilla que en el resto aunque hay varios puntos a tener en cuenta. Principalmente los datos que almacenamos aquí son relevantes de cara a la realización de la factura final, ya que serán los datos del cliente los que se usarán en la facturación del servicio.
 
 El otro punto en cuestión es el hecho de que podemos asociar un cliente a varios difuntos, lo que equivaldría a varios servicios facturados a un mismo cliente. Esto conlleva que cuando una defunción sea eliminada, como hemos comentado antes, se tenga que eliminar la asociación que los une. Aunque además tenemos la posibilidad por parte del microservicio del cliente de eliminar dicho enlace, siendo la lógica realizada en el controlador para esta funcionalidad la siguiente:
@@ -181,15 +177,6 @@ El otro punto en cuestión es el hecho de que podemos asociar un cliente a vario
 ![diseño_6](../imagenes/diseño/cliente_difunto.png)
 
 #### Log.
-
-- Comentar que primero se comenzó usando winston, pero que este presentaba problemas 
-	al guardar en la db, lo que lo convertía en inútil para el propósito real de un LOG,
-	poder en el futuro ver que ha pasado, por quien, que cambió, etc etc.
-- Comentar que se buscaba usar alguna librería que nos permitiera usar mongo y tal, y por
-eso elegimos winston, pero que finalmente definimos nuestro propio modelo y funcionalidad
-para así en el futuro poder crear esto a nuestro gusto y además satisface completamente
-nuestros requisitos.
-- Documentar el porqué usarlo en un microservicio independiente.	(!!!!!)
 
 Nuestra prioridad en el presente microservicio fue hacer uso de alguna librería que cumpliera con los requisitos necesarios, y de ese modo, nos simplificara la construcción de este. En líneas generales, la idea que nos ocupa es poder recibir mediante los diferentes *endpoints* la información de cada microservicio, procesarla en el sistema de log, y poder tanto mostrar el resultado creado en consola como almacenarlo en la colección de la base de datos que corresponda. 
 
@@ -203,12 +190,11 @@ Antes de terminar con el microservicio de log sería interesante comentar la raz
 
 Microservicio similar al de cliente, aunque este presenta una particularidad diferenciadora, y además, la razón de peso para la elección de *MongoDB*. Entrando en detalle, la situación que se nos presentaba es que tenemos que por ejemplo poder añadir el rol "hijos" y dentro de este necesitamos almacenar una lista de nombres, por tanto, la estructura para los familiares sería algo como lo siguiente:
 
-```yaml
+```json
 {
 	"rol1": ["nombre_1", "nombre_2", "nombre_3"],
 	"rol2": ["nombre_4", "nombre_5"],
-	"rol3": ["nombre_6", "nombre_7", "nombre_8", "nombre_9"],
-	...........
+	"rol3": ["nombre_6", "nombre_7", "nombre_8", "nombre_9"]
 }
 ```
 

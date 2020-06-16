@@ -176,7 +176,7 @@ El otro punto en cuestión es el hecho de que podemos asociar un cliente a vario
 
 ![diseño_6](../imagenes/diseño/cliente_difunto.png)
 
-#### Log.
+#### Log
 
 Nuestra prioridad en el presente microservicio fue hacer uso de alguna librería que cumpliera con los requisitos necesarios, y de ese modo, nos simplificara la construcción de este. En líneas generales, la idea que nos ocupa es poder recibir mediante los diferentes *endpoints* la información de cada microservicio, procesarla en el sistema de log, y poder tanto mostrar el resultado creado en consola como almacenarlo en la colección de la base de datos que corresponda. 
 
@@ -186,7 +186,7 @@ Esto rompía con uno de los planes de futuro más interesantes de este microserv
 
 Antes de terminar con el microservicio de log sería interesante comentar la razón de disponer de este como un microservicio independiente y no como una colección más en cada uno de los microservicios implementados. Podríamos pensar que esta última opción es lógica pero deberíamos plantearnos una situación en la que por ejemplo necesitamos recuperar la información de varios microservicios a la vez de forma continuada. Esto conllevaría llamadas continuas a los *endpoints* de estos microservicios, en cambio, si lo creamos de forma independiente toda la información estaría centralizada y la carga de trabajo concentrada tan solo en el microservicio de log. Esta forma de trabajar se está convirtiendo en una norma especialmente en los sistemas *Cloud* o de contenedores y fue una de las principales razones para decidir este diseño.
 
-#### Familia.
+#### Familia
 
 Microservicio similar al de cliente, aunque este presenta una particularidad diferenciadora, y además, la razón de peso para la elección de *MongoDB*. Entrando en detalle, la situación que se nos presentaba es que tenemos que por ejemplo poder añadir el rol "hijos" y dentro de este necesitamos almacenar una lista de nombres, por tanto, la estructura para los familiares sería algo como lo siguiente:
 
@@ -206,4 +206,22 @@ Por último y como curiosidad en el presente microservicio adjuntamos en la sigu
 
 ## Arquitecturas monolíticas vs arquitecturas de microservicios
 
+No podemos terminar este capítulo sin comentar y comparar una de las razones de mayor peso que nos llevó a la realización de este TFM.
 
+Como ya se ha comentado en alguna ocasión, la realización del TFM estuvo basada en un proyecto similar al actual pero bajo un arquitectura monolítica. A modo de resumen, a la culminación de este nos dimos cuenta que la dificultad de continuar su desarrollo era alta, principalmente por una estructura demasiado rígida. Quizás por un mal diseño, quizás por una mala arquitectura. Pero vimos que para un proyecto como un ERP, con gran cantidad de módulos, enfocar toda la funcionalidad bajo un mismo controlador nos estaba llevando a un desarrollo complejo y muy dependiente cada módulo del resto.
+
+Es por ello que, inspirados por los nuevos conocimientos adquiridos durante el máster, surgió la idea de presentar una idea similar bajo una nueva arquitectura, la de microservicios. La cual nos otorgaría la posibilidad de construir cada módulo de forma independiente y además, poder modificar cada uno de estos sin comprometer el resto, o incluso, añadiendo nuevos sin mayores complicaciones.
+
+Una vez introducida la idea que nos llevó al uso de esta arquitectura queremos mencionar algunas diferencias teóricas entre ambos. Y es que queda claro que la arquitectura monolítica es la menos novedosa de ambas soluciones aunque durante mucho tiempo ha sido la solución perfecta para muchos proyectos.
+
+Dicha arquitectura monolítica se estructura de forma que todos los aspectos funcionales quedan acoplados en un mismo programa. Por tanto, la información necesaria para el trabajo de este tipo de sistemas queda alojada dentro de un único servidor, y como consecuencia, no hay separación entre módulos.
+
+Como solución novedosa sería la arquitectura de microservicios, presentando el paquete software en este caso no como un producto individual. Sino que, al contrario que el caso anterior, este presenta cada una se sus funciones de forma autónoma, lo que hace que sea mucho más sencillo de mantener y que responda con distintos niveles de eficacia dependiendo de la actividad que se genere.
+
+En este punto estará claro que cada proceso o microservicio es un elemento independiente, significando que los cambios en uno de los elementos no afecta en absoluto al resto. Característica que ha demostrado ser muy efectiva.
+
+Comentar también que una de las principales ventajas del sistema monolítico es su eficiencia, ya que el entorno suele estar muy bien definido. En contra posición, crea entornos muy rígidos, por lo que su mayor ventaja se convierte también en un aspecto negativo.
+
+Pensando en resolver la situación anterior se dio forma a los microservicios. Además, la eficiencia en la gestión de los equipos de desarrollo también es una seña de identidad de estos. Ya que se pueden formar equipos multifuncionales sin demasiado esfuerzo. [Fuente](https://www.viewnext.com/arquitectura-de-microservicios-vs-arquitectura-monolitica/) 
+
+Concluimos que la decisión final depende de las prioridades de cada proyecto, aunque la arquitectura de microservicios está aportando una alternativa de peso y cada vez más aceptada en los diferentes equipos de desarrollo. La posibilidad de crear, y sobre todo manejar, cada módulo de forma independiente es una gran ventaja, pero que implica la necesidad de un buen diseño y un control total de cada entorno desarrollado y la tecnología de este.

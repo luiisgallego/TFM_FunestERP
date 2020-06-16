@@ -126,7 +126,7 @@ Una vez planteada la arquitectura que nos ocupa, en la sección actual presentar
 
 El diagrama que ejemplifica el sistema construido hasta el momento es el siguiente:
 
----- Diagrama ----
+![arquitectura](../imagenes/diseño/arquitectura.png)
 
 Sin entrar en detalle aún, podemos identificar a simple vista como cada microservicio hace uso de una base de datos independiente, albergando en algunos casos varios modelos de datos distintos. Es destacable las oportunidades que nos otorga esta arquitectura, pues es muy interesante el hecho de poder definir cada detalle de tanto la infraestructura como el código o el diseño de un microservicio de forma única, optimizando este a sus requisitos particulares. Continuaremos trabajando en este aspecto.
 

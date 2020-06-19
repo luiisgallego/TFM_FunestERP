@@ -177,7 +177,7 @@ Pero sí hay un punto donde queremos entrar en detalle, y es referente al uso qu
 
 Como punto extra, y de interés para realizar dichos *milestones-issues*, es que esto nos posibilita enlazar cada *commit* con la tarea a la que esté asociado. De esta forma es realmente sencillo tener claro y bien distribuido el trabajo referente a cada tarea, y así, saber en todo momento el estado de cada una de estas. Podemos ver un ejemplo de una tarea cualquiera más abajo.
 
-![implementacion_3](../imagenes/implementacion/git_1.3png)
+![implementacion_3](../imagenes/implementacion/git_3.png)
 
 ## Provisión
 

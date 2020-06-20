@@ -17,10 +17,10 @@ Esta es la base de los tests creados para cada microservicio, y que como puede v
 
 Antes de finalizar este apartado queremos presentar de forma resumida las librerías que nos han acompañado en el desarrollo de cada microservicio:
 
-- [Supertest](): Encargado de crear una abstracción a alto nivel para probar las diferentes peticiones HTTP. Por tanto nos permite enviar peticiones HTTP como GET, POST, PUT y DELETE a los servidores y obtener los resultados para verificar el funcionamiento.
-- [Mocha](): Nos da la posibilidad de crear tanto tests síncronos como asíncronos de una forma sencilla, además nos proporciona muchas utilidades para la ejecución y el reporte de los tests. 
-- [Chai](): Librería de aserciones, nos proporciona varias interfaces para trabajar con la que te sientas más cómodo. En nuestro caso hemos hecho uso de *expect*.
-- [Nock](): Biblioteca para *mockear* las peticiones HTTP de los tests. Lo hemos enfocado para aquellas que se realizaban entre microservicios.
+- [Supertest](https://www.npmjs.com/package/supertest): Encargado de crear una abstracción a alto nivel para probar las diferentes peticiones HTTP. Por tanto nos permite enviar peticiones HTTP como GET, POST, PUT y DELETE a los servidores y obtener los resultados para verificar el funcionamiento.
+- [Mocha](https://www.npmjs.com/package/mocha): Nos da la posibilidad de crear tanto tests síncronos como asíncronos de una forma sencilla, además nos proporciona muchas utilidades para la ejecución y el reporte de los tests. 
+- [Chai](https://www.npmjs.com/package/chai): Librería de aserciones, nos proporciona varias interfaces para trabajar con la que te sientas más cómodo. En nuestro caso hemos hecho uso de *expect*.
+- [Nock](https://www.npmjs.com/package/nock): Biblioteca para *mockear* las peticiones HTTP de los tests. Lo hemos enfocado para aquellas que se realizaban entre microservicios.
 
 Por último y a modo de conclusión del apartado que nos ocupa, adjuntamos una captura de la ejecución de los tests para el microservicio defunción. Aunque estos son tan extensos que no he podido capturarlos al completo.
 

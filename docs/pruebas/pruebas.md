@@ -22,18 +22,18 @@ Antes de finalizar este apartado queremos presentar de forma resumida las librer
 - [Chai](https://www.npmjs.com/package/chai): Librería de aserciones, nos proporciona varias interfaces para trabajar con la que te sientas más cómodo. En nuestro caso hemos hecho uso de *expect*.
 - [Nock](https://www.npmjs.com/package/nock): Biblioteca para *mockear* las peticiones HTTP de los tests. Lo hemos enfocado para aquellas que se realizaban entre microservicios.
 
-Por último y a modo de conclusión del apartado que nos ocupa, adjuntamos una captura de la ejecución de los tests para el microservicio defunción. Aunque estos son tan extensos que no he podido capturarlos al completo.
+Por último y a modo de conclusión del apartado que nos ocupa, adjuntamos una captura de la ejecución de los tests para el microservicio defunción. Aunque estos son tan extensos que no hemos podido capturarlos al completo.
 
 ![pruebas_3](../imagenes/pruebas/pruebas_3.png)
 
 ## Tests de la API
 
-El motivo de la realización de este tipo de test ha venido propiciado principalmente por el hecho de no disponer de *frontend* todavía. En los últimos compases del desarrollo de este proyecto hemos tenido el miedo a que los diferentes microservicios no funcionaran correctamente entre sí una vez que desplegáramos estos en el *Cloud*. Quizás fuera un temor infundado pues los abundantes, detallados y completos tests unitario confirmaban que todo funcionaba según lo previsto.
+El motivo de la realización de este tipo de test ha venido propiciado principalmente por el hecho de no disponer de *frontend* todavía. En los últimos compases del desarrollo de este proyecto hemos tenido el miedo a que los diferentes microservicios no funcionaran correctamente entre sí una vez que desplegáramos estos en el *Cloud*. Quizás fuera un temor infundado pues los abundantes, detallados y completos tests unitarios confirmaban que todo funcionaba según lo previsto.
 
-Por tal razón nos adentramos en el desarrollo de estos tests de integración entre todos los microservicios. Estos no han sido tan exhaustivos y se han centrado en los principales casos de uso que un usuario haría de nuestro sistema. Añadir también que estos han sido hecho bajo las mismas librerías que en el caso anterior basándonos principalmente en la idea de que estos se ejecutaran también bajo *Travis*. De esta forma nos asegurábamos que nuestro sistema de integración continua cubría también los aspectos relativos a la integración completa de cada uno de los microservicios. Podemos ver un ejemplo de la ejecución de dichos tests desde la terminal más abajo.
+Por tal razón nos adentramos en el desarrollo de estos tests de integración entre todos los microservicios. Estos no han sido tan exhaustivos y se han centrado en los principales casos de uso que un usuario haría de nuestro sistema. Añadir también que estos han sido implementados bajo las mismas librerías que en el caso anterior basándonos principalmente en la idea de que a la hora de ejecutar los tests dentro de *Travis* estos formaran parte como un módulo más. De esta forma nos asegurábamos que nuestro sistema de integración continua cubría también los aspectos relativos a la integración completa de cada uno de los microservicios. Podemos ver un ejemplo de la ejecución de dichos tests desde la terminal más abajo.
 
 ![pruebas_4](../imagenes/pruebas/pruebas_4.png)
 
-Para concluir, comentar algunas curiosidades sobre la imagen anterior. Si nos fijamos en la primera parte de esta podemos ver como cada uno de los microservicios están siendo ejecutados además de cada una de las bases de datos conectadas. Posteriormente comienza el test y en este caso vemos en la terminal para cada tests realizado el *log* que se corresponde con dicha funcionalidad, ya que cada vez que se genera una nueva petición en cada uno de los microservicios, el log almacena la información pertinente.
+Para concluir, comentar algunas curiosidades sobre la imagen anterior. Si nos fijamos en la primera parte de esta podemos ver como cada uno de los microservicios están siendo ejecutados y junto a estos cada una de las bases de datos conectadas. Posteriormente comienza el test y en este caso vemos en la terminal para cada tests realizado el *log* que se corresponde con dicha funcionalidad, ya que cada vez que se genera una nueva petición en cada uno de los microservicios, el log almacena la información pertinente.
 
 

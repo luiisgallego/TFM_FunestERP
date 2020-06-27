@@ -178,7 +178,7 @@ function login(req, res, next) {
 async function enviarResponse(req, res, input, output, status) {
 
     let log = {
-        service: 0,
+        service: 3,
         method: req.method,
         route: req.baseUrl + req.url,
         status: status,

@@ -19,12 +19,17 @@ Vagrant.configure("2") do |config|
 
     # Datos para la MV
     az.vm_image_urn = 'Canonical:UbuntuServer:16.04-LTS:latest'     # Imagen MV
-    az.vm_name = 'login'                                            # Nombre MV
     az.vm_size = 'Standard_B1s'                                     # Tamaño MV
     az.resource_group_name = 'TFM'                                  # Grupo de recursos
-    az.location = 'uksouth'                                         # Azure location to build the VM
+    az.location = 'westeurope'                                         # Azure location to build the VM
     az.tcp_endpoints = [3010]                                       # Abrimos el puerto 80 (HTTP) y 27017 (MongoDB)
-    az.virtual_network_name = "privateNetwork"                      # Nombre del recurso de red virtual
+  end
+
+  config.vm.provision "ansible" do |ansible|  # Parametros para Ansible
+    ansible.playbook = "playbook.yml"
+  end
+  config.vm.provision "shell" do |s|    # Lanzar microservicio
+    s.inline = "sudo pm2 start ./TFM_FunestERP/src/backend/login/app.js"
   end
 
 end

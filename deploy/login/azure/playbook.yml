@@ -28,10 +28,8 @@
       apt:
         pkg: nodejs
         state: present
-    - name: Cambiamos directorio.
-      raw: cd TFM_FunestERP/src/backend/login
     - name: Instalar dependencias proyecto.
-      raw: npm install
+      raw: cd TFM_FunestERP/src/backend/login; sudo npm install
     - name: Instalar process manager.
       npm:
         name: pm2

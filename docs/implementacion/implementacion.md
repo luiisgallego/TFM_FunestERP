@@ -33,6 +33,10 @@ Dentro de las bibliotecas externas usadas podemos encontrar:
 - [Mongoose](https://www.npmjs.com/package/mongoose): Herramienta de modelado de objetos *MongoDB*, esta diseñado para trabajar en un entorno asíncrono. Además admite promesas y devoluciones de llamadas. En definitiva nos permite manejar nuestra conexión con las diferentes bases de datos.
 - [Axios](https://www.npmjs.com/package/axios): Cliente HTTP basado en promesas para *JavaScript*. Utilizando esta herramienta es muy sencillo enviar peticiones a *endpoints* REST y realizar operaciones CRUD. Esta ha sido la razón de su uso en el proyecto, ya que en ocasiones hemos tenido que realizar peticiones entre microservicios.
 
+### Manual de usuario
+
+- Presentar las diferentes acciones que pueden hacerse.
+
 ## Base de datos
 
 Nos adentramos en el análisis de ese "almacén" que nos permitirá guardar la diferente información que se usará en cada microservicio. Pieza importante de muchas aplicaciones web, en nuestro caso se vuelve esencial.
@@ -205,6 +209,11 @@ comentar porque intenta acercarse a la idea de un script como tal.
 hecho uso de Azure-Vagrant (azure-dummy)
 - Mostrar alguna captura.
 
+### Manual de usuario
+
+- Presentar las diferentes acciones que pueden hacerse.
+- Mostrar como podemos entrar en cada máquina por ejemplo.
+
 ## Despliegue
 
 - Defender elección de Azure. En este caso presentaremos características,
@@ -214,3 +223,9 @@ alguna comparativa con AWS y/o Google Cloud.
 - Mostrar capturas de pantalla de: 
 	- El grupo de recursos con cada máquina virtual independiente.
 	- Acceso desde vagrant y captura de los tests de algún microservicio
+
+### Manual de usuario
+
+- Presentar las diferentes acciones que pueden hacerse.
+- Mostrar cuestiones que sean relevantes.
+

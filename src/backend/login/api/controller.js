@@ -186,7 +186,7 @@ async function enviarResponse(req, res, input, output, status) {
         output: output
     };
 
-    axios.post('http://localhost:3050/log', log).then().catch(err => {});
+    axios.post('http://10.0.0.5:3050/log', log).then().catch(err => {});
     res.status(status).type('json').send(output);
 }
 

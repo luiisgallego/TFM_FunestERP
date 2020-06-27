@@ -1,0 +1,33 @@
+[
+  {
+    "cloudName": "AzureCloud",
+    "id": "d0d46b7b-da8c-4292-9289-b162740f876c",
+    "isDefault": true,
+    "name": "\u00dccretsiz Deneme",
+    "state": "Enabled",
+    "tenantId": "475285d1-5c11-494f-b12a-0d2080362e15",
+    "user": {
+      "name": "lgaq94@gmail.com",
+      "type": "user"
+    }
+  }
+]
+
+
+
+{
+  "appId": "7488779c-f392-4757-b471-bc57c4a63f75",
+  "displayName": "azure-cli-2020-06-25-17-39-05",
+  "name": "http://azure-cli-2020-06-25-17-39-05",
+  "password": "164ccaaa-aa58-4b17-8492-406b89ed288f",
+  "tenant": "475285d1-5c11-494f-b12a-0d2080362e15"
+}
+
+export AZURE_TENANT_ID="475285d1-5c11-494f-b12a-0d2080362e15"
+export AZURE_CLIENT_ID="7488779c-f392-4757-b471-bc57c4a63f75"
+export AZURE_CLIENT_SECRET="164ccaaa-aa58-4b17-8492-406b89ed288f"
+export AZURE_SUBSCRIPTION_ID="d0d46b7b-da8c-4292-9289-b162740f876c"
+
+
+
+AzureUser ansible_ssh_host=51.11.137.181 ansible_ssh_port=22 ansible_ssh_user=AzureUser ansible_ssh_private_key_file=./test1_key.pem

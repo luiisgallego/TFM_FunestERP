@@ -14,10 +14,7 @@ src/backend/familia/package-lock.json
 src/backend/test_api/package-lock.json
 
 # Deploy
-deploy/login/local/.vagrant/*
-deploy/login/local/playbook.retry
-deploy/login/azure/.vagrant/*
-deploy/login/azure/playbook.retry
+deploy_old/*
 
 # General
 .idea

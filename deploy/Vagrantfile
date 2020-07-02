@@ -1,0 +1,51 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Plugin Vagrant - Azure
+require 'vagrant-azure'
+
+$script = <<SCRIPT
+cd TFM_FunestERP/src/backend/test_api
+sudo npm test
+cd ../
+sudo pm2 start ./login/app.js
+sudo pm2 start ./defuncion/app.js
+sudo pm2 start ./cliente/app.js
+sudo pm2 start ./familia/app.js
+sudo pm2 start ./log/app.js
+SCRIPT
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "azure-dummy"                                         # Azure box dummy
+  config.ssh.private_key_path = '~/.ssh/id_rsa'                         # Indicamos ruta ssh clave privada
+  config.vm.synced_folder ".", "/vagrant", disabled: true               # Elimino carpeta compartida
+
+  config.vm.define "maquina1" do |maquina1|
+
+    maquina1.vm.provider "azure" do |az, override|                          # Parámetros para (LOGIN)
+        az.tenant_id = ENV['AZURE_TENANT_ID']
+        az.client_id = ENV['AZURE_CLIENT_ID']
+        az.client_secret = ENV['AZURE_CLIENT_SECRET']
+        az.subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
+
+        # Datos para la MV
+        az.vm_image_urn = 'Canonical:UbuntuServer:16.04-LTS:latest'     # Imagen MV
+        # az.vm_name = 'loginapp'                                            # Nombre MV
+        az.vm_size = 'Standard_B1s'                                     # Tamaño MV
+        az.resource_group_name = 'TFM'                                  # Grupo de recursos
+        az.location = 'westeurope'                                         # Azure location to build the VM
+        az.tcp_endpoints = [3010, 3020, 3030, 3040, 3050]               # Abrimos el puerto 80 (HTTP) y 27017 (MongoDB)
+        az.virtual_network_name = "privateNetwork"                      # Nombre del recurso de red virtual
+    end
+
+    maquina1.vm.provision "ansible" do |ansible|  # Parametros para Ansible
+        ansible.playbook = "./playbook.yml"
+    end
+
+    # Ejecutamos los comandos iniciales para levantar los microservicios
+    maquina1.vm.provision "shell", inline: $script
+
+  end
+
+end

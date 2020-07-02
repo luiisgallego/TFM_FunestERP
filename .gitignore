@@ -14,7 +14,8 @@ src/backend/familia/package-lock.json
 src/backend/test_api/package-lock.json
 
 # Deploy
-deploy_old/*
+deploy/.vagrant
+deploy/test1_key.pem
 
 # General
 .idea

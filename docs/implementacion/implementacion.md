@@ -181,38 +181,66 @@ Pero sí hay un punto donde queremos entrar en detalle, y es referente al uso qu
 
 Como punto extra, y de interés para realizar dichos *milestones-issues*, es que esto nos posibilita enlazar cada *commit* con la tarea a la que esté asociado. De esta forma es realmente sencillo tener claro y bien distribuido el trabajo referente a cada tarea, y así, saber en todo momento el estado de cada una de estas. Podemos ver un ejemplo de una tarea cualquiera más abajo.
 
-![implementacion_3](../imagenes/implementacion/git_3.png)
+![implementacion_5](../imagenes/implementacion/git_3.png)
 
 ## Provisión
 
-- Presentar las ofertas del mercado.
-- Defender una de ellas (Ansible).
-- Exponer porque esto es importante en un proyecto y arquitectura
-moderna, que ventajas nos presentan este tipo de herramientas.
-	- Beneficios especiales en microservicios ???
+Las herramientas de aprovisionamiento nos permiten crear distintas configuraciones para cada uno de nuestros servidores por medio de código, e incluso algunas de ellas permiten automatizar procesos de despliegue y administración tanto de maquinas individuales como granjas de servidores. 
 
-- Hablar sobre como funcionan los diferentes scripts.
-- Comentar la idea bajo cada archivo que necesitamos crear.
-- Mostrar algunas capturas.
+Como veremos existe una delgada línea que separa las posibilidades de estas herramientas de las encargadas de la orquestación ya que en algunos casos las herramientas de aprovisionamiento pueden llegar a cubrir ambas tareas. En nuestro caso nos hemos decantado por dos herramientas que están enfocadas cada una en una parte concreta de este proceso y por tanto claramente delimitadas sus funciones.
+
+Podríamos preguntarnos porqué es útil para cualquier proyecto realizar el aprovisionamiento por medio de código, y con tan solo la definición anteriormente planteada podría ser más que suficiente. Además vamos a exponer una serie de ventajas que nos confirmarán nuestra apuesta por estas herramientas:
+
+- El aprovisionamiento se puede configurar una vez y ejecutarlo varias veces en uno, decenas o cientos de servidores, y por tanto, evitar mucho trabajo repetitivo.
+- El código nos ilustra los pasos para la creación de la configuración del servidor, además suele ser bastante fácil de entender este.
+- Si nos encontramos cualquier problema de configuración tan solo tenemos que modificarlo en este archivo y volver a lanzar la herramienta de aprovisionamiento para tener nuestras máquinas con las correctas configuraciones y actualizadas.
+
+Cabe destacar que además de estas ventajas, las herramientas de aprovisionamiento se combinan a la perfección con la tendencia actual de virtualización. Gracias a esta, resulta muy sencillo crear servidores casi al instante aprovechando otras herramientas complementarias como la de aprovisionamiento.
+
+Antes de mostrar la configuración establecida comentar que en nuestro caso nos hemos decantado por *Ansible* como herramienta de aprovisionamiento. Está construido en python y tan solo requiere las credenciales de acceso *SSH* al servidor para poder operar, ejecutando en este *playbooks* donde se especifican los pasos de forma secuencial. 
+
+Podemos encontrar otras opciones en el mercado como puede ser *Terraform*, muy similar a *Ansible* pero con algunas funcionalidades distintas enfocadas al *gitflow*. *Puppet* es otra herramienta aunque enfocada a los administradores de sistemas y pensada para orquestar grandes cantidades de servidores. La última opción interesante es *Chef*, escrito en Ruby está orientado a los desarrolladores, ya que la configuración de los servidores se realiza por medio de procedimientos.
+
+Añadir que no hay un claro ganador, todos ofrecen cosas similares pero varían los caminos y mecanismos. En nuestro caso hemos encontrado *Ansible* muy sencillo de usar y con un gran potencial, ideal para nuestros primeros pasos. Presentamos ahora el *playbook* que hemos definido para el aprovisionamiento de nuestra máquina virtual:
+
+![implementacion_6](../imagenes/implementacion/ansible.png)
+
+Como podéis ver, inicialmente establecemos una serie de parámetros de configuración para la ejecución de Ansible en el servidor y posteriormente dentro del apartado *tasks*, de forma secuencial, definimos la configuración que estableceremos dentro de este. De forma resumida comentar que instalamos *Python* como requisito para poder instalar *git*. Después descargamos nuestro repositorio e instalamos algunas dependencias extras necesarias para poder trabajar en el servidor, además de *Node.js*. Por último, nos situamos en la localización de cada microservicio e instalamos sus dependencias, para terminar instalando *pm2*, el cual se encarga de ejecutar en segundo plano cada microservicio. Aunque cabe indicar que la ejecución de este la realiza el orquestador, en el aprovisionamiento tan solo instalamos el paquete. A modo de ejemplo de su funcionamiento, en la siguiente imagen podemos ver como sería la ejecución del aprovisionamiento dentro del proceso de despliegue:
+
+![implementacion_7](../imagenes/implementacion/ansible_2.png)
+
+A grandes rasgos estas serían las características de este tipo de herramientas y el uso que en nuestro proyecto hacemos de ellas, por tanto ahora es el momento de presentar las características de nuestro orquestador, *Vagrant*.
+
+- [Fuente](https://www.arsys.es/blog/herramientas-de-aprovisionamiento/)
 
 ## Orquestación
 
-- Presentar las ofertas del mercado.
-- Defender una de ellas (Vagrant).
-- Exponer porque esto es importante en un proyecto y arquitectura
-moderna, que ventajas nos presentan este tipo de herramientas.
-	- Beneficios especiales en microservicios ???
+Instalar el mismo entorno de trabajo una y otra vez es un trabajo repetitivo y agotador, además, pensando en una etapa de desarrollo, incrementa el tiempo de este al no ser una tarea instantánea. Es en este punto donde entran en juego las herramientas de orquestación, ya que nos permiten instalar y configurar (en conjunto con los aprovisionadores) las diferentes máquinas de nuestro proyecto de forma sencilla.
 
-- Comentar como funciona el vagrantfile y la idea bajo este, es decir,
-comentar porque intenta acercarse a la idea de un script como tal.
-- Hablar sobre los paquetes que ofrece Vagrant y que nosotros hemos
-hecho uso de Azure-Vagrant (azure-dummy)
-- Mostrar alguna captura.
+En nuestro caso hemos hecho uso de *Vagrant*, centrándonos con este en la gestión del despliegue de la máquina virtual. Comentar que es difícil encontrar otras herramientas que cubran las posibilidades de *Vagrant* por lo que su elección ha sido obvia, aunque podemos añadir que tanto su uso como su configuración es bastante sencilla de realizar por lo que podemos afirmar que forma un gran equipo junto a *Ansible*.
 
-### Manual de usuario
+Pero aún nos podemos preguntar ¿qué es *Vagrant*?. Es una herramienta que nos ayuda a crear y manejar máquinas virtuales con un mismo entorno de trabajo. Nos permite definir los servicios a instalar así como también sus configuraciones. Cabe destacar que no tiene la capacidad para correr una máquina virtual sino que simplemente se encarga de las características con las que debe crearse esa máquina y los completos a instalar, es decir, necesitamos apoyarnos de aplicaciones como *VirtualBox* o desplegar directamente en sistemas *Cloud* como *Azure*.
 
-- Presentar las diferentes acciones que pueden hacerse.
-- Mostrar como podemos entrar en cada máquina por ejemplo.
+La gran ventaja de *Vagrant* es que posee un archivo de configuración denominado *Vagrantfile* donde se centraliza toda la configuración de la máquina virtual que creamos. Lo genial es que puedes utilizar ese mismo archivo para crear una máquina exactamente igual cuantas veces quieras. Además de poder crear varias máquinas a la vez cada una con una configuración distinta, ejecutando distintos comandos en ellas o incluso haciendo uso de varios aprovisionadores. Todo un sin fin de características que te ayudan enormemente a personalizar cada una de tus máquinas y de poder crearlas y eliminarlas tantas veces como quieras de una forma súper liviana y rápida. 
+
+Tras la introducción a *Vagrant* y los orquestadores, vamos a presentar el *Vagrantfile* que hemos definido para nuestra máquina.
+
+![implementacion_8](../imagenes/implementacion/vagrant.png)
+
+Comentar brevemente lo que podemos ver en la imagen anterior. En nuestro caso hacemos uso de un *box* específico para poder desplegar en *Azure* (*azure-dummy*), encargándose este de los requisitos necesarios para poder conectar con *Azure*. Posteriormente indicamos la localización de nuestras claves *SSH*, pues al igual que *Ansible*, establece la conexión bajo dicho protocolo. 
+
+Posteriormente establecemos la configuración de la máquina, para ello primero asignamos las credenciales de nuestra cuenta en *Azure* mediante variables de entorno. Después podemos ver los detalles de la máquina que crearemos, siendo estos el tipo de sistema operativo que se instalará, el tamaño de la máquina, el grupo de recursos donde se creará (el cual también se crea durante el despliegue), la localización, los puertos que estarán accesibles desde el exterior (uno por cada microservicio) y finalmente la red virtual que se creará también en dicho grupo de recursos. Como podemos ver en la última parte del archivo, tras la configuración de la máquina se asigna los datos (la localización del *playbook*) del aprovisionador para que este ejecute su configuración, para terminar con la ejecución de una serie de ordenes (definidas al principio del archivo) para levantar cada uno de los microservicios.
+
+Como cabe esperar, la ejecución de *Vagrant* nos presenta un largo *log* en la terminal por lo que en las siguientes imágenes podemos ver el comienzo de este y la parte final, obviando la parte intermedia enfocada en el aprovisionamiento, el cual ha sido mostrado en la anterior sección.
+
+![implementacion_9](../imagenes/implementacion/vagrant_1.png)
+![implementacion_10](../imagenes/implementacion/vagrant_2.png)
+
+Para terminar añadir que otra de las características, y bastante útil además, es que *Vagrant* nos permite acceder a las máquinas de forma sencilla, y así poder trabajar dentro de ellas para lo que necesitamos. En la última imagen de este apartado mostramos como sería el simple proceso de acceso.
+
+![implementacion_11](../imagenes/implementacion/vagrant_3.png)
+
+- [Fuente](https://javiermartinalonso.github.io/devops/devops/vagrant/2018/02/07/Vagrant-Introduccion.html)
 
 ## Despliegue
 

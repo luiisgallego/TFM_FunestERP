@@ -33,10 +33,6 @@ Dentro de las bibliotecas externas usadas podemos encontrar:
 - [Mongoose](https://www.npmjs.com/package/mongoose): Herramienta de modelado de objetos *MongoDB*, esta diseñado para trabajar en un entorno asíncrono. Además admite promesas y devoluciones de llamadas. En definitiva nos permite manejar nuestra conexión con las diferentes bases de datos.
 - [Axios](https://www.npmjs.com/package/axios): Cliente HTTP basado en promesas para *JavaScript*. Utilizando esta herramienta es muy sencillo enviar peticiones a *endpoints* REST y realizar operaciones CRUD. Esta ha sido la razón de su uso en el proyecto, ya que en ocasiones hemos tenido que realizar peticiones entre microservicios.
 
-### Manual de usuario
-
-- Presentar las diferentes acciones que pueden hacerse.
-
 ## Base de datos
 
 Nos adentramos en el análisis de ese "almacén" que nos permitirá guardar la diferente información que se usará en cada microservicio. Pieza importante de muchas aplicaciones web, en nuestro caso se vuelve esencial.
@@ -244,16 +240,20 @@ Para terminar añadir que otra de las características, y bastante útil además
 
 ## Despliegue
 
-- Defender elección de Azure. En este caso presentaremos características,
-alguna comparativa con AWS y/o Google Cloud. 
-	- Defender de forma sencilla.
-- Exponer algunos detalles de Azure.
-- Mostrar capturas de pantalla de: 
-	- El grupo de recursos con cada máquina virtual independiente.
-	- Acceso desde vagrant y captura de los tests de algún microservicio
+Nos adentramos en el último apartado de los aspectos relativos a la infraestructura y las herramientas trabajadas junto al desarrollo del proyecto y no podía ser otro que el despliegue, concretamente el proveedor de los servicios *Cloud*. Como ha podido verse a estas alturas hemos hecho uso de *Azure* pero antes de hablar especialmente sobre este presentaremos una breve introducción a dichos servicios de computación en la nube, compararemos los principales proveedores y mostraremos algún ejemplo del uso concreto que hemos hecho de ellos.
 
-### Manual de usuario
+Cuando nos enfrentamos a la elección del proveedor de servicios *Cloud* tenemos por delante una ardua tarea, si bien la oferta principalmente se reduce a tres grandes proveedores, *Amazon*, *Microsoft* y *Google*. Ciertamente por infraestructura como servicio (IaaS) y plataforma como servicio (Paas) es difícil encontrar competidores a dichos colosos, aunque si es cierto que podemos encontrar otros clientes como *Heroku* que nos proporcionan servicios de gran calidad.
 
-- Presentar las diferentes acciones que pueden hacerse.
-- Mostrar cuestiones que sean relevantes.
+Para no extender infinitamente un debate que ha llenado muchas líneas de texto vamos tan solo a presentar algunas características de los tres principales a modo de resumen. Comenzando por *AWS* comentar que la mayor fortaleza de *Amazon* es su domino en el mercado de la nube pública, además, parte de su popularidad es debido al alcance masivo de sus operaciones. También dispone de un gran gama de servicios disponibles, aunque el coste de sus servicios es la otra cara de la moneda.
 
+En cuanto a *Azure*, parte de su éxito ha sido integrar todo el software de *Microsoft* en la nube, lo cual ha sido especialmente atractivo para las empresas. Algunos clientes remarcan que encuentran imperfecciones en su plataforma, aunque nuestra experiencia ha sido bastante positiva. Es verdad que al disponer una oferta de servicios tan grande, alguna veces puede resultar complejo encontrar lo que buscas.
+
+Y por último *Google Cloud Platform*, con una sólida oferta en contendedores, especialmente ligada a *Kubernetes*, se especializa en servicios de *Big Data* e *Inteligencia Artificial*. Como aspecto negativo, posiblemente sea que no dispone de una oferta tan variada como sus dos competidores directos, además de no disponer de tantos centros de datos globales.
+
+- [Fuente](https://www.purocodigo.net/articulo/aws-vs-azure-vs-google-cual-es-el-mejor-servicio-en-la-nube)
+
+Una vez presentadas las principales ofertas añadir que nuestra elección a favor de *Azure* se debe a que ya habíamos tenido una toma de contacto con la plataforma, y vamos a exponer dos razones importantes. Una es que aprender a utilizar los portales que nos proporcionan puede llegar a ser costoso, por el número de opciones de las que disponen. Y la segunda es que a la hora de integrar nuestras herramientas de despliegue con la nube, el proceso suele ser bastante similar, por lo que no nos resultó interesante adentrarnos en otro proveedor. Añadir que nuestra experiencia con *Azure* ha sido positiva y que por tanto no había necesidad de cambio.
+
+Como ya hemos comentado, el portal de dicho proveedor nos ofrece una gran cantidad de servicios. En nuestro caso conseguimos crearnos una cuenta gratuita con la que operar durante un tiempo y poder realizar las pruebas de despliegue pertinentes. Para terminar adjuntamos más abajo una captura del grupo de recursos que se genera cada vez que desplegamos nuestra aplicación, en el que podemos ver elementos como la máquina virtual creada, la red virtual o la dirección *IP* entre otros.
+
+![implementacion_12](../imagenes/implementacion/azure_portal.png)

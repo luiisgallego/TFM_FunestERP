@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "maquina1" do |maquina1|
 
-    maquina1.vm.provider "azure" do |az, override|                          # Parámetros para (LOGIN)
+    maquina1.vm.provider "azure" do |az, override|                      # Parámetros
         az.tenant_id = ENV['AZURE_TENANT_ID']
         az.client_id = ENV['AZURE_CLIENT_ID']
         az.client_secret = ENV['AZURE_CLIENT_SECRET']
@@ -31,11 +31,11 @@ Vagrant.configure("2") do |config|
 
         # Datos para la MV
         az.vm_image_urn = 'Canonical:UbuntuServer:16.04-LTS:latest'     # Imagen MV
-        # az.vm_name = 'loginapp'                                            # Nombre MV
+        az.vm_name = 'funesterp'                                        # Nombre MV
         az.vm_size = 'Standard_B1s'                                     # Tamaño MV
         az.resource_group_name = 'TFM'                                  # Grupo de recursos
-        az.location = 'westeurope'                                         # Azure location to build the VM
-        az.tcp_endpoints = [3010, 3020, 3030, 3040, 3050]               # Abrimos el puerto 80 (HTTP) y 27017 (MongoDB)
+        az.location = 'westeurope'                                      # Azure location to build the VM
+        az.tcp_endpoints = [3010, 3020, 3030, 3040, 3050]               # Abrimos los puertos de cada microservicio
         az.virtual_network_name = "privateNetwork"                      # Nombre del recurso de red virtual
     end
 
@@ -47,5 +47,4 @@ Vagrant.configure("2") do |config|
     maquina1.vm.provision "shell", inline: $script
 
   end
-
 end

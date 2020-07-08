@@ -1,0 +1,47 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: False
+  vars:
+    remote_user: luis
+
+  tasks:
+    - name: Update.
+      shell: sudo apt-get -y update
+    - name: Instalar Python 2.
+      raw: test -e /usr/bin/python || apt install -y python-minimal
+    - name: Instalar Git.
+      apt:
+        pkg: git
+        state: present
+    - name: Clonar repo.
+      git:
+        repo: https://github.com/luiisgallego/TFM_FunestERP.git
+        dest: ./TFM_FunestERP
+    - name: Install build-essential.
+      apt:
+        pkg: build-essential
+        state: present
+    - name: NodeSource.
+      shell: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    - name: Instalar Node.js
+      apt:
+        pkg: nodejs
+        state: present
+    - name: Instalar microservicio LOGIN.
+      raw: cd TFM_FunestERP/src/backend/login; sudo npm install
+    - name: Instalar microservicio DEFUNCION.
+      raw: cd TFM_FunestERP/src/backend/defuncion; sudo npm install
+    - name: Instalar microservicio CLIENTE.
+      raw: cd TFM_FunestERP/src/backend/cliente; sudo npm install
+    - name: Instalar microservicio FAMILIA.
+      raw: cd TFM_FunestERP/src/backend/familia; sudo npm install
+    - name: Instalar microservicio LOG.
+      raw: cd TFM_FunestERP/src/backend/log; sudo npm install
+    - name: Instalar TEST
+      raw: cd TFM_FunestERP/src/backend/test_api; sudo npm install
+    - name: Instalar process manager.
+      npm:
+        name: pm2
+        state: present
+        global: yes

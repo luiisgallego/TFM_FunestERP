@@ -1,0 +1,29 @@
+{
+  "name": "log",
+  "version": "1.0.0",
+  "description": "Microservicio para el log de los datos",
+  "author": "Luis Gallego Quero <lgaq94@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "url": "git@github.com:luiisgallego/TFM_FunestERP.git"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "nyc --reporter=text mocha --exit"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.7"
+  },
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
+    "mocha": "^7.1.1",
+    "moment": "^2.24.0",
+    "nock": "^12.0.3",
+    "nyc": "^15.0.1",
+    "supertest": "^4.0.2"
+  }
+}
